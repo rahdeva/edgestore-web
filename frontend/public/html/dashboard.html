@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <title>EdgeStore - Dashboard</title>
+</head>
+
+<body class="bg-white  font-[Inter] flex">
+    <!-- Sidebar -->
+    <div class="sidebar flex basis-1/12 text-center bg-indigo-900 h-screen duration-1000">
+        <div class="bg-indigo-400 w-full my-10 ml-10 rounded-l-3xl flex-col flex">
+            <div class="text-gray-100 text-xl grow">
+                <!-- Logo dan Akun -->
+                <div class="bg-blue-600 flex p-7 m-7">Logo</div>
+                <div class="m-4 flex items-center ">
+                    <i class="bi bi-app-indicator px-3 py-2 bg-blue-600 rounded-full"></i>
+                    <div class="text-left ml-3 mr-auto text-base text-white">
+                        <h1 class="font-bold">putumicheal</h1>
+                    </div>
+                </div>
+                <hr class="text-white">
+                <!-- Menu -->
+                <ul class="mt-4 text-lg font-semibold">
+                    <li class="p-1 my-1.5"><a href="dashboard.html" class="underline text-teal-200">Dashboard</a></li>
+                    <li class="p-1 my-1.5"><a href="kasir.html">Kasir</a></li>
+                    <li class="p-1 my-1.5"><a href="barang.html" >Barang</a></li>
+                    <li class="p-1 my-1.5"><a href="kategori.html">Kategori</a></li>
+                    <li class="p-1 my-1.5"><a href="transaksi.html">Transaksi</a></li>
+                    <li class="p-1 my-1.5"><a href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+            <button class="bg-white mb-6 p-1.5 mx-4 rounded-full font-semibold text-indigo-800">Logout</button>
+        </div>
+    </div>
+    
+    <div class="content flex basis-11/12 bg-indigo-200 h-screen duration-1000">
+        <div class="bg-white min-w-full my-10 overflow-auto">
+            <h1 class="text-4xl text-slate-700 font-bold ml-12 mt-12">Dashboard</h1>
+            
+        </div>
+    </div>
+</body>
+
+</html>
