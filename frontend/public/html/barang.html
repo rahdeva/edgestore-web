@@ -17,12 +17,11 @@
         <div class="bg-indigo-400 w-full my-10 ml-10 rounded-l-3xl flex-col flex">
             <div class="text-gray-100 text-xl grow">
                 <!-- Logo dan Akun -->
-                <i class="bi bi-x ml-64 cursor-pointer lg:hidden" onclick="Openbar()"></i>
                 <div class="bg-blue-600 flex p-7 m-7">Logo</div>
                 <div class="m-4 flex items-center ">
                     <i class="bi bi-app-indicator px-3 py-2 bg-blue-600 rounded-full"></i>
                     <div class="text-left ml-3 mr-auto text-base text-white">
-                        <h1 class="font-bold">micheal</h1>
+                        <h1 class="font-bold">putumicheal</h1>
                     </div>
                 </div>
                 <hr class="text-white">
@@ -41,70 +40,80 @@
     </div>
     
     <div class="content flex basis-11/12 bg-indigo-200 h-screen duration-1000">
-        <div class="bg-white w-full my-10">
-            <div class="flex-col">
-                <h1 class="text-4xl text-slate-700 font-bold ml-6 my-6">Data Barang</h1>
-                <div class="mr-6 flex justify-end gap-2">
-                    <button class="bg-green-400 rounded-md py-1 px-2 text-white text-sm">Refresh Data</button>
-                    <button class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm">Sortir Stok Kurang</button>
-                    <button class="bg-blue-400 rounded-md py-1 px-2 text-white text-sm">Insert Data</button>
-                </div>
-                <div class="overflow-auto bg-green-400 flex ">
-                    <table class="bg-red-400 w-4/5  border-4 mx-6">
-                        <thead class="border-4">
-                            <tr class="p-1">
-                                <th class="p-4">No</th>
-                                <th class="p-4">ID Barang</th>
-                                <th class="p-4">Kategori</th>
-                                <th class="p-4">Nama Barang</th>
-                                <th class="p-4">Merk</th>
-                                <th class="p-4">Stok</th>
-                                <th class="p-4">Harga Beli</th>
-                                <th class="p-4">Harga Jual</th>
-                                <th class="p-4">Satuan</th>
-                                <th class="p-4">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-4">
-                                <td>1</td>
-                                <td>BR003</td>
-                                <td>ATK</td>
-                                <td>1</td>
-                                <td>BR003</td>
-                                <td>ATK</td>
-                                <td>1</td>
-                                <td>BR003</td>
-                                <td>ATK</td>
-                                <td> </td>
-                            </tr>
-                            <tr class="border-4">
-                                <td>2</td>
-                                <td>BR002</td>
-                                <td>Sabun</td>
-                                <td>2</td>
-                                <td>BR002</td>
-                                <td>Sabun</td>
-                                <td>2</td>
-                                <td>BR002</td>
-                                <td>Sabun</td>
-                                <td></td>
-                            </tr>
-                            <tr class="border-4">
-                                <td>3</td>
-                                <td>BR001</td>
-                                <td>ATK</td>
-                                <td>3</td>
-                                <td>BR001</td>
-                                <td>ATK</td>
-                                <td>3</td>
-                                <td>BR001</td>
-                                <td>ATK</td>
-                                <td> </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="bg-white min-w-full my-10 overflow-auto">
+            <h1 class="text-4xl text-slate-700 font-bold ml-12 mt-12">Data Barang</h1>
+            <div class="mr-6 my-4 flex justify-end gap-4">
+                <button class="bg-green-400 rounded-md py-1 px-2 text-white text-sm">♻ Refresh Data</button>
+                <button class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm"> Sortir Stok Kurang</button>
+                <button class="bg-blue-400 rounded-md py-1 px-2 text-white text-sm">+ Insert Data</button>
+            </div>
+            <div class="px-6 border-collapse">
+                <table class="min-w-full shadow-lg rounded-md overflow-hidden h-full">
+                    <thead class="bg-cyan-400 text-white">
+                        <tr class="">
+                            <th class="p-4">No</th>
+                            <th class="p-4">ID Barang</th>
+                            <th class="p-4">Kategori</th>
+                            <th class="p-4">Nama Barang</th>
+                            <th class="p-4">Merk</th>
+                            <th class="p-4">Stok</th>
+                            <th class="p-4">Harga Beli</th>
+                            <th class="p-4">Harga Jual</th>
+                            <th class="p-4">Satuan</th>
+                            <th class="p-4">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <tr class="">
+                            <td class="p-2">1</td>
+                            <td class="p-2">BR003</td>
+                            <td class="p-2">ATK</td>
+                            <td class="p-2">Pulpen</td>
+                            <td class="p-2">Pilot</td>
+                            <td class="p-2">70</td>
+                            <td class="p-2">Rp 1.500</td>
+                            <td class="p-2">Rp 2.000</td>
+                            <td class="p-2">PCS</td>
+                            <td class="p-2">
+                                <button class="bg-blue-400 rounded-md py-1 px-2 text-white text-sm">Details</button>
+                                <button class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm">Edit</button>
+                                <button class="bg-red-400 rounded-md py-1 px-2 text-white text-sm">Hapus</button>
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td class="p-2">2</td>
+                            <td class="p-2">BR002</td>
+                            <td class="p-2">Sabun</td>
+                            <td class="p-2">Sabun</td>
+                            <td class="p-2">Lifeboy</td>
+                            <td class="p-2">38</td>
+                            <td class="p-2">Rp 1.800</td>
+                            <td class="p-2">Rp 3.000</td>
+                            <td class="p-2">PCS</td>
+                            <td class="p-2">
+                                <button class="bg-blue-400 rounded-md py-1 px-2 text-white text-sm">Details</button>
+                                <button class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm">Edit</button>
+                                <button class="bg-red-400 rounded-md py-1 px-2 text-white text-sm">Hapus</button>
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td class="p-2">3</td>
+                            <td class="p-2">BR001</td>
+                            <td class="p-2">ATK</td>
+                            <td class="p-2">Pensil</td>
+                            <td class="p-2">Fabel Castel</td>
+                            <td class="p-2">103</td>
+                            <td class="p-2">Rp 1.500</td>
+                            <td class="p-2">Rp 3.000</td>
+                            <td class="p-2">PCS</td>
+                            <td class="p-2">
+                                <button class="bg-blue-400 rounded-md py-1 px-2 text-white text-sm">Details</button>
+                                <button class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm">Edit</button>
+                                <button class="bg-red-400 rounded-md py-1 px-2 text-white text-sm">Hapus</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
