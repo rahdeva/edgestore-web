@@ -17,7 +17,7 @@ Tailwind CSS
 JavaScript  
   
 Backend:  
-Python  
+PHP
   
 Data:  
 MySQL  
