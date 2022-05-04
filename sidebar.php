@@ -4,13 +4,13 @@
             <!-- Logo-->
             <img src="assets/images/logo.png" alt="Logo" class="mt-6 mb-2">
             <!-- Menu -->
-            <ul class="mt-4 text-lg font-semibold">
-                <li class="p-1 my-1.5"><a href="dashboard.php" class="underline text-teal-200">Dashboard</a></li>
-                <li class="p-1 my-1.5"><a href="kasir.php">Kasir</a></li>
-                <li class="p-1 my-1.5"><a href="barang.php" >Barang</a></li>
-                <li class="p-1 my-1.5"><a href="kategori.php">Kategori</a></li>
-                <li class="p-1 my-1.5"><a href="transaksi.php">Transaksi</a></li>
-                <li class="p-1 my-1.5"><a href="profile.php">Profile</a></li>
+            <ul class="mt-4 text-lg font-semibold" id="list-navbar">
+                <li class="custom-nav p-1 my-1.5"><a href="dashboard.php">Dashboard</a></li>
+                <li class="custom-nav p-1 my-1.5"><a href="kasir.php">Kasir</a></li>
+                <li class="custom-nav p-1 my-1.5"><a href="barang.php" >Barang</a></li>
+                <li class="custom-nav p-1 my-1.5"><a href="kategori.php">Kategori</a></li>
+                <li class="custom-nav p-1 my-1.5"><a href="transaksi.php">Transaksi</a></li>
+                <li class="custom-nav p-1 my-1.5"><a href="profile.php">Profile</a></li>
             </ul>
         </div>
         <button class="bg-white mb-6 p-1.5 mx-4 rounded-full font-semibold text-indigo-800">Logout</button>
