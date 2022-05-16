@@ -7,7 +7,7 @@
     <body class="bg-white  font-[Inter] flex">
         <!-- Sidebar -->
         <?php include 'sidebar.php'; ?>
-        <div class="content flex basis-11/12 bg-indigo-200 h-screen duration-1000">
+        <div class="main-title flex basis-11/12 bg-indigo-200 h-screen duration-1000">
             <div class="bg-white min-w-full my-10 overflow-auto">
                 <div class="flex mx-12 mt-12">
                     <h1 class="grow text-4xl text-slate-700 font-bold ">Dashboard</h1>
@@ -16,6 +16,20 @@
                         <span class="ml-4 font-bold">Wayan Micheal Jonathan Suarno</span>
                     </a>
                 </div>
+            </div>
+        </div>
+        <div class="main-content flex ">
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                
             </div>
         </div>
         <?php include 'footer.php'; ?>
