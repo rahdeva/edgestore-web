@@ -4,32 +4,67 @@
         <?php include 'header.php'; ?>
         <title>EdgeStore - Dashboard</title>
     </head>
-    <body class="bg-white  font-[Inter] flex">
+    <body class="font-[Inter] flex">
         <!-- Sidebar -->
         <?php include 'sidebar.php'; ?>
-        <div class="main-title flex basis-11/12 bg-indigo-200 h-screen duration-1000">
+        <div class="content flex basis-11/12 bg-indigo-200 h-screen duration-1000 ">
             <div class="bg-white min-w-full my-10 overflow-auto">
-                <div class="flex mx-12 mt-12">
+                <div class="head-content flex mx-12 mt-12">
                     <h1 class="grow text-4xl text-slate-700 font-bold ">Dashboard</h1>
-                    <a href="profile.html" class="flex items-center">
-                        <img src="https://source.unsplash.com/1080x1080?profile" alt="Profile" width="36" class="rounded-full">
-                        <span class="ml-4 font-bold">Wayan Micheal Jonathan Suarno</span>
-                    </a>
+                    <?php include 'config/username.php'; ?>
                 </div>
-            </div>
-        </div>
-        <div class="main-content flex ">
-            <div>
-                
-            </div>
-            <div>
-                
-            </div>
-            <div>
-                
-            </div>
-            <div>
-                
+                <div class="body-content">
+                    <div class="tables-content">
+                        <div class="bg-blue-700">
+                            <div class="tables-content-judul">
+                                <p>Jumlah Barang</p>
+                            </div>
+                            <div class="tables-content-jumlah">
+                                <p>10</p>
+                            </div>
+                            <div class="tables-content-redirect">
+                                <a href="barang.php"><p>Selengkapnya >></p></a>
+                            </div>
+                        </div>
+                        <div class="bg-sky-700">
+                            <div class="tables-content-judul">
+                                <p>Jumlah Kategori</p>
+                            </div>
+                            <div class="tables-content-jumlah">
+                                <p>10</p>
+                            </div>
+                            <div class="tables-content-redirect">
+                                <a href="kategori.php"><p>Selengkapnya >></p></a>
+                            </div>
+                        </div>
+                        <div class="bg-cyan-700">
+                            <div class="tables-content-judul">
+                                <p>Jumlah Transaksi</p>
+                            </div>
+                            <div class="tables-content-jumlah">
+                                <p>10</p>
+                            </div>
+                            <div class="tables-content-redirect">
+                                <a href="transaksi.php"><p>Selengkapnya >></p></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calendar">
+                        <div class="row" id="month-and-year">
+                            <p id="printed-date"></p>
+                        </div>
+                        <div class="row" id="days-name">
+                            <div class="column">Sen</div>
+                            <div class="column">Sel</div>
+                            <div class="column">Rab</div>
+                            <div class="column">Kam</div>
+                            <div class="column">Jum</div>
+                            <div class="column">Sab</div>
+                            <div class="column">Min</div>
+                        </div>
+                        <div class="row" id="dates-column"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <?php include 'footer.php'; ?>

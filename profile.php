@@ -4,7 +4,7 @@
         <?php include 'header.php'; ?>
         <title>EdgeStore - Profile</title>
     </head>
-    <body class="bg-white  font-[Inter] flex">
+    <body class="font-[Inter] flex">
         <!-- Sidebar -->
         <?php include 'sidebar.php'; ?>
         
