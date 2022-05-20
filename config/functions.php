@@ -3,7 +3,7 @@
 // koneksi ke database
 $connect = mysqli_connect("localhost", "root", "", "edge-store-db");
 
-
+// fungsi query
 function query($query) {
 	global $connect;
 	$result = mysqli_query($connect, $query);
@@ -14,7 +14,7 @@ function query($query) {
 	return $rows;
 }
 
-
+// fungsi insert
 function insert($data) {
 	global $connect;
 
@@ -35,6 +35,46 @@ function insert($data) {
 	return mysqli_affected_rows($connect);
 }
 
+// fungsi delete
+function delete($data) {
+	global $connect;
+
+    $id = htmlspecialchars($data["id_barang"]);
+	mysqli_query($connect, "DELETE FROM tb_barang WHERE id_barang = $id");
+	return mysqli_affected_rows($connect);
+}
+
+// function edit($data) {
+// 	global $connect;
+
+// 	$id = $data["id"];
+// 	$nrp = htmlspecialchars($data["nrp"]);
+// 	$nama = htmlspecialchars($data["nama"]);
+// 	$email = htmlspecialchars($data["email"]);
+// 	$jurusan = htmlspecialchars($data["jurusan"]);
+// 	$gambarLama = htmlspecialchars($data["gambarLama"]);
+	
+// 	// cek apakah user pilih gambar baru atau tidak
+// 	if( $_FILES['gambar']['error'] === 4 ) {
+// 		$gambar = $gambarLama;
+// 	} else {
+// 		$gambar = upload();
+// 	}
+	
+
+// 	$query = "UPDATE mahasiswa SET
+// 				nrp = '$nrp',
+// 				nama = '$nama',
+// 				email = '$email',
+// 				jurusan = '$jurusan',
+// 				gambar = '$gambar'
+// 			  WHERE id = $id
+// 			";
+
+// 	mysqli_query($connect, $query);
+
+// 	return mysqli_affected_rows($connect);	
+// }
 
 // function upload() {
 
@@ -79,48 +119,6 @@ function insert($data) {
 // 	move_uploaded_file($tmpName, 'img/' . $namaFileBaru);
 
 // 	return $namaFileBaru;
-// }
-
-
-
-
-function delete($id) {
-	global $connect;
-	mysqli_query($connect, "DELETE FROM tb_barang WHERE id_barang = $id");
-	return mysqli_affected_rows($connect);
-}
-
-
-// function ubah($data) {
-// 	global $connect;
-
-// 	$id = $data["id"];
-// 	$nrp = htmlspecialchars($data["nrp"]);
-// 	$nama = htmlspecialchars($data["nama"]);
-// 	$email = htmlspecialchars($data["email"]);
-// 	$jurusan = htmlspecialchars($data["jurusan"]);
-// 	$gambarLama = htmlspecialchars($data["gambarLama"]);
-	
-// 	// cek apakah user pilih gambar baru atau tidak
-// 	if( $_FILES['gambar']['error'] === 4 ) {
-// 		$gambar = $gambarLama;
-// 	} else {
-// 		$gambar = upload();
-// 	}
-	
-
-// 	$query = "UPDATE mahasiswa SET
-// 				nrp = '$nrp',
-// 				nama = '$nama',
-// 				email = '$email',
-// 				jurusan = '$jurusan',
-// 				gambar = '$gambar'
-// 			  WHERE id = $id
-// 			";
-
-// 	mysqli_query($connect, $query);
-
-// 	return mysqli_affected_rows($connect);	
 // }
 
 
@@ -173,9 +171,6 @@ function delete($id) {
 // }
 
 ?>
-
-
-
 
 
 

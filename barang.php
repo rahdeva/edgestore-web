@@ -3,9 +3,8 @@ require 'config/functions.php';
 
 $barang = query("SELECT * FROM tb_barang");
 
+// Insert Data
 if( isset($_POST["submit"]) ) {
-	
-	// cek apakah data berhasil di tambahkan atau tidak
 	if( insert($_POST) > 0 ) {
 		echo "
 			<script>
@@ -21,6 +20,25 @@ if( isset($_POST["submit"]) ) {
 			</script>
 		";
 	}
+}
+
+// Delete Data
+if( isset($_POST["delete"]) ) {
+    if( delete($_POST) > 0 ) {
+        echo "
+            <script>
+                alert('data berhasil dihapus!');
+                document.location.href = 'barang.php';
+            </script>
+        ";
+    } else {
+        echo "
+            <script>
+                alert('data gagal dihapus!');
+                document.location.href = 'barang.php';
+            </script>
+        ";
+    }
 }
 
 ?>
@@ -71,30 +89,33 @@ if( isset($_POST["submit"]) ) {
                             <?php $i = 1; ?>
                             <?php foreach( $barang as $row ) : ?>
                                 <tr>
-                                    <td class="px-4"><?= $i?></td>
-                                    <td class="px-4"><?= $row["id_kategori"]; ?></td>
-                                    <td class="px-4"><?= $row["nama_barang"]; ?></td>
-                                    <td class="px-4"><?= $row["merk"]; ?></td>
-                                    <td class="px-4"><?= $row["stok"]; ?></td>
-                                    <td class="px-4"><?= $row["harga_beli"] + 0; ?></td>
-                                    <td class="px-4"><?= $row["harga_jual"] + 0; ?></td>
-                                    <td class="px-4"><?= $row["kedaluwarsa"]; ?></td>
-                                    <td class="px-4">
-                                        <button class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm">
-                                            Edit
-                                        </button>
-                                        <button class="bg-red-400 rounded-md py-1 px-2 text-white text-sm">
-                                            <a href="config/delete.php?id=<?= $row["id_barang"]; ?>" onclick="return confirm('Sure?');">Delete</a>
-                                        </button>
+                                    <td class="px-2"><?= $i?></td>
+                                    <td class="px-2"><?= $row["id_kategori"]; ?></td>
+                                    <td class="px-2"><?= $row["nama_barang"]; ?></td>
+                                    <td class="px-2"><?= $row["merk"]; ?></td>
+                                    <td class="px-2"><?= $row["stok"]; ?></td>
+                                    <td class="px-2"><?= $row["harga_beli"] + 0; ?></td>
+                                    <td class="px-2"><?= $row["harga_jual"] + 0; ?></td>
+                                    <td class="px-2"><?= $row["kedaluwarsa"]; ?></td>
+                                    <td class="px-2">
+                                        <form action="" method="post">
+                                            <input class="hidden" type="text" name="id_barang" id="id_barang" value="<?= $row["id_barang"]; ?>"><br>
+                                            <button class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm">
+                                                Edit
+                                            </button>
+                                            <button name="delete" class="bg-red-400 rounded-md py-1 px-2 text-white text-sm">
+                                                <a onclick="return confirm('Sure?');">Delete</a>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             <?php $i++; ?>
                             <?php endforeach; ?>
                             <tr class="font-bold">
                                 <td colspan="4">Total</td>
-                                <td class="px-4">211</td>
-                                <td class="px-4">Rp 4.800</td>
-                                <td class="px-4">Rp 8.000</td>
+                                <td class="px-2">211</td>
+                                <td class="px-2">Rp 4.800</td>
+                                <td class="px-2">Rp 8.000</td>
                                 <td colspan="2"></td>
                             </tr>
                         </tbody>
@@ -105,37 +126,54 @@ if( isset($_POST["submit"]) ) {
         </div>
         <!-- Modal Insert Data -->
         <div id="modalInsert" class="hidden fixed pt-20 left-0 top-0 w-full h-full overflow-auto z-[1] " style="background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4);">
-            <div class="m-auto p-5 w-4/5 rounded-2xl" style="background-color: #fefefe; border: 1px solid #888;">
-                <span class="closeModal float-right hover:cursor-pointer font-bold text-3xl">&times;</span>
-                <h1>Insert Data Barang</h1>
+            <div class="m-auto p-5 w-2/5 rounded-2xl " style="background-color: #fefefe; border: 1px solid #888;">
+                <span class="closeModal float-right hover:cursor-pointer font-bold text-3xl ">&times;</span>
+                <h1 class="text-3xl text-slate-700 font-bold py-4">Insert Data Barang</h1>
                 <form action="" method="post" enctype="multipart/form-data">
-                    <label for="id_kategori">Kategori : </label>
-                    <input type="text" name="id_kategori" id="id_kategori" required>
+                    <label for="id_kategori" class="float-left w-2/5 my-2">Kategori</label><span>:</span>
+                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="id_kategori" id="id_kategori" required><br>
                         
-                    <label for="nama_barang">Nama Barang : </label>
-                    <input type="text" name="nama_barang" id="nama_barang">
+                    <label for="nama_barang" class="float-left w-2/5 my-2">Nama Barang</label><span>:</span>
+                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="nama_barang" id="nama_barang" required><br>
                         
-                    <label for="merk">Merk :</label>
-                    <input type="text" name="merk" id="merk">
+                    <label for="merk" class="float-left w-2/5 my-2">Merk</label><span>:</span>
+                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="merk" id="merk" required><br>
                             
-                    <label for="stok">Stok :</label>
-                    <input type="text" name="stok" id="stok">
+                    <label for="stok" class="float-left w-2/5 my-2">Stok</label><span>:</span>
+                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="stok" id="stok" required><br>
 
-                    <label for="harga_beli">Harga Beli :</label>
-                    <input type="text" name="harga_beli" id="harga_beli">
+                    <label for="harga_beli" class="float-left w-2/5 my-2">Harga Beli</label><span>:</span>
+                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="harga_beli" id="harga_beli" required><br>
 
-                    <label for="harga_jual">Harga Jual :</label>
-                    <input type="text" name="harga_jual" id="harga_jual">
+                    <label for="harga_jual" class="float-left w-2/5 my-2">Harga Jual</label><span>:</span>
+                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="harga_jual" id="harga_jual" required><br>
 
-                    <label for="kedaluwarsa">Kedaluwarsa :</label>
-                    <input type="text" name="kedaluwarsa" id="kedaluwarsa">
+                    <label for="kedaluwarsa" class="float-left w-2/5 my-2">Kedaluwarsa</label><span>:</span>
+                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="kedaluwarsa" id="kedaluwarsa"><br>
+
+                    <!-- <div class="form-group"> 
+                        <label>Department / Office</label>
+                        <select name="department">
+                        <option value="">Select your Department/Office</option>
+                        <option>Department of Engineering</option>
+                        <option>Department of Agriculture</option>
+                        <option >Accounting Office</option>
+                        <option >Tresurer's Office</option>
+                        <option >MPDC</option>
+                        <option >MCTC</option>
+                        <option >MCR</option>
+                        <option >Mayor's Office</option>
+                        <option >Tourism Office</option>
+                        </select>
+                    </div> -->
                         
-                    <button type="submit" name="submit"><i class="bi bi-plus-lg"></i> Tambah Data</button>
+                    <button type="submit" name="submit" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl"><i class="bi bi-plus-lg"></i> Tambah Data</button>
                 </form>
             </div>
         </div>
         <?php include 'footer.php'; ?>
     </body>
+
     <script>
         var modal = document.getElementById("modalInsert");
         var btn = document.getElementById("insertBtn");
