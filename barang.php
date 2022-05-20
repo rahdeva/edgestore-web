@@ -14,9 +14,9 @@
                     <?php include 'config/username.php'; ?>
                 </div>
                 <div class="mr-12 mt-12 mb-6 flex justify-end gap-4">
-                    <button class="bg-green-400 rounded-md py-1 px-2 text-white text-sm">♻ Refresh Data</button>
-                    <button class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm">⁙ Sortir Stok Kurang</button>
-                    <button class="bg-blue-400 rounded-md py-1 px-2 text-white text-sm">+ Insert Data</button>
+                    <button class="bg-green-400 rounded-md py-1 px-2 text-white text-sm"><i class="bi bi-arrow-clockwise"></i> Refresh Data</button>
+                    <button class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm"><i class="bi bi-filter"></i> Sortir Stok Kurang</button>
+                    <button class="bg-blue-400 rounded-md py-1 px-2 text-white text-sm"><i class="bi bi-plus-lg"></i> Insert Data</button>
                 </div>
                 <div class="px-12 border-collapse ">
                     <table class="min-w-full shadow-xl rounded-t-md overflow-hidden h-full">
