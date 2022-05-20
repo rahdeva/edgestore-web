@@ -125,7 +125,7 @@ if( isset($_POST["delete"]) ) {
             </div>
         </div>
         <!-- Modal Insert Data -->
-        <div id="modalInsert" class="hidden fixed pt-20 left-0 top-0 w-full h-full overflow-auto z-[1] " style="background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4);">
+        <div id="modal" class="hidden fixed pt-20 left-0 top-0 w-full h-full overflow-auto z-[1] " style="background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4);">
             <div class="m-auto p-5 w-2/5 rounded-2xl " style="background-color: #fefefe; border: 1px solid #888;">
                 <span class="closeModal float-right hover:cursor-pointer font-bold text-3xl ">&times;</span>
                 <h1 class="text-3xl text-slate-700 font-bold py-4">Insert Data Barang</h1>
@@ -171,11 +171,12 @@ if( isset($_POST["delete"]) ) {
                 </form>
             </div>
         </div>
+
         <?php include 'footer.php'; ?>
     </body>
 
     <script>
-        var modal = document.getElementById("modalInsert");
+        var modal = document.getElementById("modal");
         var btn = document.getElementById("insertBtn");
         var closeModal = document.getElementsByClassName("closeModal")[0];
 

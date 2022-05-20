@@ -44,37 +44,34 @@ function delete($data) {
 	return mysqli_affected_rows($connect);
 }
 
-// function edit($data) {
-// 	global $connect;
+function edit($data) {
+	global $connect;
 
-// 	$id = $data["id"];
-// 	$nrp = htmlspecialchars($data["nrp"]);
-// 	$nama = htmlspecialchars($data["nama"]);
-// 	$email = htmlspecialchars($data["email"]);
-// 	$jurusan = htmlspecialchars($data["jurusan"]);
-// 	$gambarLama = htmlspecialchars($data["gambarLama"]);
+    $id = htmlspecialchars($data["id_barang"]);
+	$kategori = htmlspecialchars($data["id_kategori"]);
+	$nama = htmlspecialchars($data["nama_barang"]);
+	$merk = htmlspecialchars($data["merk"]);
+	$stok = htmlspecialchars($data["stok"]);
+	$harga_beli = htmlspecialchars($data["harga_beli"]);
+	$harga_jual = htmlspecialchars($data["harga_jual"]);
+	$kedaluwarsa = htmlspecialchars($data["kedaluwarsa"]);
 	
-// 	// cek apakah user pilih gambar baru atau tidak
-// 	if( $_FILES['gambar']['error'] === 4 ) {
-// 		$gambar = $gambarLama;
-// 	} else {
-// 		$gambar = upload();
-// 	}
-	
+	$query ="   UPDATE tb_barang 
+                SET
+                    kategori = '$kategori',
+                    nama = '$nama',
+                    merk = '$merk',
+                    stok = '$stok',
+                    harga_beli = '$harga_beli',
+                    harga_jual = '$harga_jual',
+                    kedaluwarsa = '$kedaluwarsa'
+                WHERE id = $id
+			";
 
-// 	$query = "UPDATE mahasiswa SET
-// 				nrp = '$nrp',
-// 				nama = '$nama',
-// 				email = '$email',
-// 				jurusan = '$jurusan',
-// 				gambar = '$gambar'
-// 			  WHERE id = $id
-// 			";
+	mysqli_query($connect, $query);
 
-// 	mysqli_query($connect, $query);
-
-// 	return mysqli_affected_rows($connect);	
-// }
+	return mysqli_affected_rows($connect);	
+}
 
 // function upload() {
 
