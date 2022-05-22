@@ -74,7 +74,7 @@ if( isset($_POST["submit"]) ) {
                     <label for="deskripsi" class="float-left w-2/5 my-2">Deskripsi</label><span>:</span>
                     <textarea id="deskripsi" name="deskripsi" rows="4" cols="50" class="border-slate-800 border-2 my-2 rounded-md w-3/6" required></textarea>
                         
-                    <button type="submit" name="submit" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl"><i class="bi bi-plus-lg"></i> Insert Data</button>
+                    <button type="submit" name="submit" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-plus-lg"></i> Insert Data</button>
                 </form>
             </div>
         </div>

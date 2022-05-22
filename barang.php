@@ -146,7 +146,7 @@ if( isset($_POST["editData"]) ) {
                     <label for="kedaluwarsa" class="float-left w-2/5 my-2">Kedaluwarsa</label><span>:</span>
                     <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="kedaluwarsa" id="kedaluwarsa"><br>
                         
-                    <button type="submit" name="submit" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl"><i class="bi bi-plus-lg"></i> Insert Data</button>
+                    <button type="submit" name="submit" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-plus-lg"></i> Insert Data</button>
                 </form>
             </div>
         </div>
@@ -180,7 +180,7 @@ if( isset($_POST["editData"]) ) {
                     <label for="kedaluwarsa" class="float-left w-2/5 my-2">Kedaluwarsa</label><span>:</span>
                     <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="kedaluwarsa" id="kedaluwarsa" value="<?= $row2["kedaluwarsa"] ?>"><br>
                         
-                    <button type="submit" name="editData" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl"><i class="bi bi-pencil-square"></i>  Edit Data</button>
+                    <button type="submit" name="editData" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-pencil-square"></i>Edit Data</button>
                 </form>
             </div>
         </div>
