@@ -6,51 +6,36 @@ $index = 0;
 
 // Insert Data
 if( isset($_POST["submit"]) ) {
-	if( insert($_POST) > 0 ) {
-		alert("tambah", true);
+	if( insertBarang($_POST) > 0 ) {
+		alert("tambah", true, 'barang.php');
     } else {
-        alert("tambah", false);
+        alert("tambah", false, 'barang.php');
     }
 }
 
 // Delete Data
 // if( isset($_POST["delete"]) ) {
-//     if( delete($_POST) > 0 ) {
-//         alert("hapus", true);
+//     if( deleteBarang($_POST) > 0 ) {
+//         alert("hapus", true, 'barang.php');
 //     } else {
-//         alert("hapus", false);
+//         alert("hapus", false, 'barang.php');
 //     }
 // }
 
-// Edit Data
-// if( isset($_POST["edit"]) ) { 
-//     $index =  $_POST["i"]; 
-// }
-if( isset($_POST["editData"]) ) {
-    if( edit($_POST) > 0 ) {
-        alert("edit", true);
-    } else {
-        alert("edit", false);
-    }
+function deleteData($id){
+    alert($id, true, 'barang.php');
+    // if( delete($id) > 0 ) {
+    //     alert("hapus", true, 'barang.php');
+    // } else {
+    //     alert("hapus", false, 'barang.php');
+    // }
 }
 
-// Fungsi Alert
-function alert($key, $bool){
-    if($bool){
-        echo "
-            <script>
-                alert('Data berhasil di$key!');
-                document.location.href = 'barang.php';
-            </script>
-        ";
-    }
-    else{
-        echo "
-            <script>
-                alert('Data gagal di$key!');
-                document.location.href = 'barang.php';
-            </script>
-        ";
+if( isset($_POST["editData"]) ) {
+    if( editBarang($_POST) > 0 ) {
+        alert("edit", true, 'barang.php');
+    } else {
+        alert("edit", false, 'barang.php');
     }
 }
 
@@ -99,7 +84,7 @@ function alert($key, $bool){
                             </tr>
                         </thead>
                         <tbody class="text-center ">
-                            <?php $i = 1; ?>
+                            <?php $i = 1;?>
                             <?php foreach( $barang as $row ) : ?>
                                 <tr>
                                     <td class="px-2"><?= $i?></td>
@@ -111,11 +96,11 @@ function alert($key, $bool){
                                     <td class="px-2"><?= $row["harga_jual"] + 0; ?></td>
                                     <td class="px-2"><?= $row["kedaluwarsa"]; ?></td>
                                     <td class="px-2">
-                                        <!-- <input class="hidden" type="text" name="i" id="i" value="<?= $i - 1; ?>"><br> -->
-                                        <button id="editBtn" name="edit" class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm">Edit</button>
-                                        <!-- <input class="hidden" type="text" name="id_barang" id="id_barang" value="<?= $row["id_barang"]; ?>"><br> -->
+                                        <button id="editBtn" name="edit" class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm">
+                                            <a onclick="<?php //$index = $i-1; ?> return editDataForm()">Edit
+                                        </button>
                                         <button name="delete" class="bg-red-400 rounded-md py-1 px-2 text-white text-sm">
-                                            <a onclick="return confirm('Sure?');">Delete</a>
+                                            <a onclick="<?php // deleteData($row["id_barang"]) ?> return confirm('Sure?');">Delete</a>
                                         </button>
                                     </td>
                                 </tr>
@@ -161,7 +146,7 @@ function alert($key, $bool){
                     <label for="kedaluwarsa" class="float-left w-2/5 my-2">Kedaluwarsa</label><span>:</span>
                     <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="kedaluwarsa" id="kedaluwarsa"><br>
                         
-                    <button type="submit" name="submit" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl"><i class="bi bi-plus-lg"></i> Tambah Data</button>
+                    <button type="submit" name="submit" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl"><i class="bi bi-plus-lg"></i> Insert Data</button>
                 </form>
             </div>
         </div>
@@ -173,6 +158,7 @@ function alert($key, $bool){
                 <span class="closeModal2 float-right hover:cursor-pointer font-bold text-3xl ">&times;</span>
                 <h1 class="text-3xl text-slate-700 font-bold py-4">Edit Data Barang</h1>
                 <form action="" method="post" enctype="multipart/form-data">
+                    <input class="hidden" type="text" name="id_barang" id="id_barang" value="<?= $row2["id_barang"]; ?>">
                     <label for="id_kategori" class="float-left w-2/5 my-2">Kategori</label><span>:</span>
                     <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="id_kategori" id="id_kategori" value="<?= $row2["id_kategori"]; ?>" required><br>
                         
@@ -194,7 +180,7 @@ function alert($key, $bool){
                     <label for="kedaluwarsa" class="float-left w-2/5 my-2">Kedaluwarsa</label><span>:</span>
                     <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="kedaluwarsa" id="kedaluwarsa" value="<?= $row2["kedaluwarsa"] ?>"><br>
                         
-                    <button type="submit" name="editData" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl"><i class="bi bi-plus-lg"></i> Edit Data</button>
+                    <button type="submit" name="editData" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl"><i class="bi bi-pencil-square"></i>  Edit Data</button>
                 </form>
             </div>
         </div>
@@ -221,20 +207,18 @@ function alert($key, $bool){
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+            if (event.target == modal2) {
+                modal2.style.display = "none";
+            }
         }
 
-        // btn2.onclick = function() {
-        //     
-        //     modal2.style.display = "block";
-        // }
-        // closeModal2.onclick = function() {
-        //     modal2.style.display = "none";
-        // }
-        // window.onclick = function(event) {
-        //     if (event.target == modal2) {
-        //         modal2.style.display = "none";
-        //     }
-        // }
+        function editDataForm(){
+            modal2.style.display = "block";
+        }
+
+        closeModal2.onclick = function() {
+            modal2.style.display = "none";
+        }
         
-        </script>
+    </script>
 </html>
