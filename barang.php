@@ -68,7 +68,7 @@ if( isset($_POST["editData"]) ) {
                         Insert Data
                     </button>
                 </div>
-                <div class="px-12 border-collapse ">
+                <div class="px-12 border-collapse mb-6">
                     <table class="min-w-full shadow-xl rounded-t-md overflow-hidden h-full">
                         <thead class="bg-teal-400 text-white">
                             <tr class="">
