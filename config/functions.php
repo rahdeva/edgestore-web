@@ -14,8 +14,28 @@ function query($query) {
 	return $rows;
 }
 
+// Fungsi Alert
+function alert($key, $bool, $loc){
+    if($bool){
+        echo "
+            <script>
+                alert('Data berhasil di$key!');
+                document.location.href = '$loc';
+            </script>
+        ";
+    }
+    else{
+        echo "
+            <script>
+                alert('Data gagal di$key!');
+                document.location.href = '$loc';
+            </script>
+        ";
+    }
+}
+
 // fungsi insert
-function insert($data) {
+function insertBarang($data) {
 	global $connect;
 
 	$kategori = htmlspecialchars($data["id_kategori"]);
@@ -36,7 +56,7 @@ function insert($data) {
 }
 
 // fungsi delete
-function delete($data) {
+function deleteBarang($data) {
 	global $connect;
 
     $id = htmlspecialchars($data["id_barang"]);
@@ -44,7 +64,7 @@ function delete($data) {
 	return mysqli_affected_rows($connect);
 }
 
-function edit($data) {
+function editBarang($data) {
 	global $connect;
 
     $id = htmlspecialchars($data["id_barang"]);
@@ -58,19 +78,34 @@ function edit($data) {
 	
 	$query ="   UPDATE tb_barang 
                 SET
-                    kategori = '$kategori',
-                    nama = '$nama',
+                    id_kategori = '$kategori',
+                    nama_barang = '$nama',
                     merk = '$merk',
                     stok = '$stok',
                     harga_beli = '$harga_beli',
                     harga_jual = '$harga_jual',
                     kedaluwarsa = '$kedaluwarsa'
-                WHERE id = $id
+                WHERE id_barang = $id
 			";
 
 	mysqli_query($connect, $query);
 
 	return mysqli_affected_rows($connect);	
+}
+
+function insertKategori($data) {
+	global $connect;
+
+	$nama = htmlspecialchars($data["nama_kategori"]);
+	$deskripsi = htmlspecialchars($data["deskripsi"]);
+
+	$query ="
+                INSERT INTO tb_kategori
+                VALUES ('', '$nama', '$deskripsi')
+			";
+	mysqli_query($connect, $query);
+
+	return mysqli_affected_rows($connect);
 }
 
 // function upload() {
