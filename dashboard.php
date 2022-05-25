@@ -1,3 +1,7 @@
+<?php
+    require 'config/counttable.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,7 +24,7 @@
                                 <p>Jumlah Barang</p>
                             </div>
                             <div class="tables-content-jumlah">
-                                <p>10</p>
+                                <?php echo "<p>{$totalbarang[0]}</p>"; ?>
                             </div>
                             <div class="tables-content-redirect">
                                 <a href="barang.php"><p>Selengkapnya >></p></a>
@@ -31,7 +35,7 @@
                                 <p>Jumlah Kategori</p>
                             </div>
                             <div class="tables-content-jumlah">
-                                <p>10</p>
+                                <?php echo "<p>{$totalkategori[0]}</p>"; ?>
                             </div>
                             <div class="tables-content-redirect">
                                 <a href="kategori.php"><p>Selengkapnya >></p></a>
@@ -42,7 +46,7 @@
                                 <p>Jumlah Transaksi</p>
                             </div>
                             <div class="tables-content-jumlah">
-                                <p>10</p>
+                                <?php echo "<p>{$totaltransaksi[0]}</p>"; ?>
                             </div>
                             <div class="tables-content-redirect">
                                 <a href="transaksi.php"><p>Selengkapnya >></p></a>
