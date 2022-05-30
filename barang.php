@@ -23,7 +23,7 @@ $total = query("
     FROM tb_barang;
 ");
 
-// $barang = query("SELECT * FROM tb_barang");
+$kategori = query("SELECT * FROM tb_kategori");
 
 // Insert Data
 if( isset($_POST["submit"]) ) {
@@ -31,6 +31,10 @@ if( isset($_POST["submit"]) ) {
 		alert("tambah", true, 'barang.php');
     else
         alert("tambah", false, 'barang.php');
+}
+
+if(isset($_POST["filter"])){
+    $barang = filter($_POST);
 }
 
 // Delete Data
@@ -64,19 +68,35 @@ if( isset($_POST["submit"]) ) {
         <?php include 'sidebar.php'; ?>
 
         <!-- Content -->
-        <div class="content flex basis-11/12 bg-indigo-200 h-screen duration-1000">
+        <div id="container" class="content flex basis-11/12 bg-indigo-200 h-screen duration-1000">
             <div class="bg-white min-w-full my-10 overflow-auto">
                 <div class="flex mx-12 mt-12">
                     <h1 class="grow text-4xl text-slate-700 font-bold ">Data Barang</h1>
                     <?php include 'config/username.php'; ?>
                 </div>
                 <div class="mr-12 mt-12 mb-6 flex justify-end gap-4">
-                    <button class="bg-green-400 rounded-md py-1 px-2 text-white text-sm"><i class="bi bi-arrow-clockwise"></i> 
+                    <!-- <button class="bg-green-400 rounded-md py-1 px-2 text-white text-sm"><i class="bi bi-arrow-clockwise"></i> 
                         Refresh Data
-                    </button>
-                    <button class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm"><i class="bi bi-filter"></i> 
+                    </button> -->
+                    <!-- <button class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm"><i class="bi bi-filter"></i> 
                         Sortir Stok Kurang
-                    </button>
+                    </button> -->
+                    <form action="" method="post">
+                        <select name="filter" onchange="this.form.submit()" class="border-2 border-slate-600 p-2 rounded-lg">
+                            <option value="0" selected disabled hidden>Filter Data Berdasarkan</option>
+                            <option value="1">Stok Tidak Habis</option>
+                            <option value="2">Nama Barang Ascending</option>
+                            <option value="3">Nama Barang Descending</option>
+                            <option value="4">Merk Ascending</option>
+                            <option value="5">Merk Descending</option>
+                            <option value="6">Stok Ascending</option>
+                            <option value="7">Stok Descending</option>
+                            <option value="8">Harga Beli Ascending</option>
+                            <option value="9">Harga Beli Descending</option>
+                            <option value="10">Harga Jual Ascending</option>
+                            <option value="11">Harga Jual Descending</option>
+                        </select>
+                    </form>
                     <button id="insertBtn" class="bg-blue-400 rounded-md py-1 px-2 text-white text-sm"><i class="bi bi-plus-lg"></i> 
                         Insert Data
                     </button>
@@ -139,9 +159,14 @@ if( isset($_POST["submit"]) ) {
                 <h1 class="text-3xl text-slate-700 font-bold py-4">Insert Data Barang</h1>
                 <form action="" method="post" enctype="multipart/form-data">
                     <label for="id_kategori" class="float-left w-2/5 my-2">Kategori</label><span>:</span>
-                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="id_kategori" id="id_kategori" required><br>
-                        
-                    <label for="nama_barang" class="float-left w-2/5 my-2">Nama Barang</label><span>:</span>
+                    <select name="id_kategori" id="id_kategori" class="border-slate-800 border-2 my-2 rounded-md w-3/6" required>
+                        <option value="0" selected disabled hidden>Pilih Kategori</option>
+                        <?php foreach( $kategori as $row ) : ?>
+                            <option value="<?= $row["id_kategori"]; ?>"><?= $row["nama_kategori"]; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <br><label for="nama_barang" class="float-left w-2/5 my-2">Nama Barang</label><span>:</span>
                     <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="nama_barang" id="nama_barang" required><br>
                         
                     <label for="merk" class="float-left w-2/5 my-2">Merk</label><span>:</span>

@@ -153,17 +153,62 @@ function insertKategori($data) {
 // 	return $namaFileBaru;
 // }
 
+function filter($data) {
+	global $connect;
 
-// function cari($keyword) {
-// 	$query = "SELECT * FROM mahasiswa
-// 				WHERE
-// 			  nama LIKE '%$keyword%' OR
-// 			  nrp LIKE '%$keyword%' OR
-// 			  email LIKE '%$keyword%' OR
-// 			  jurusan LIKE '%$keyword%'
-// 			";
-// 	return query($query);
-// }
+	$filter = htmlspecialchars($data["filter"]);
+	$defaultQuery = "
+		SELECT 
+			tb_barang.id_barang, 
+			tb_kategori.nama_kategori AS 'nama_kategori', 
+			tb_barang.nama_barang, 
+			tb_barang.merk, 
+			tb_barang.stok, 
+			tb_barang.harga_beli, 
+			tb_barang.harga_jual, 
+			tb_barang.kedaluwarsa 
+		FROM tb_barang 
+		INNER JOIN tb_kategori USING(id_kategori) 
+	";
+	
+	switch ($filter) {
+		case '1':
+			$filter = ($defaultQuery .= "WHERE NOT stok = 0");
+			break;
+		case '2':
+			$filter = ($defaultQuery .= "ORDER BY nama_barang");
+			break;
+		case '3':
+			$filter = ($defaultQuery .= "ORDER BY nama_barang DESC");
+			break;
+		case '4':
+			$filter = ($defaultQuery .= "ORDER BY merk");
+			break;
+		case '5':
+			$filter = ($defaultQuery .= "ORDER BY merk DESC");
+			break;
+		case '6':
+			$filter = ($defaultQuery .= "ORDER BY stok");
+			break;
+		case '7':
+			$filter = ($defaultQuery .= "ORDER BY stok DESC");
+			break;
+		case '8':
+			$filter = ($defaultQuery .= "ORDER BY harga_beli");
+			break;
+		case '9':
+			$filter = ($defaultQuery .= "ORDER BY harga_beli DESC");
+			break;
+		case '10':
+			$filter = ($defaultQuery .= "ORDER BY harga_jual");
+			break;
+		case '11':
+			$filter = ($defaultQuery .= "ORDER BY harga_jual DESC");
+			break;
+	}
+
+	return query($filter);
+}
 
 
 // function registrasi($data) {
