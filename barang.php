@@ -1,7 +1,27 @@
 <?php 
 require 'config/functions.php';
 
-$barang = query("SELECT tb_barang.id_barang, tb_kategori.nama_kategori AS 'nama_kategori', tb_barang.nama_barang, tb_barang.merk, tb_barang.stok, tb_barang.harga_beli, tb_barang.harga_jual, tb_barang.kedaluwarsa FROM tb_barang INNER JOIN tb_kategori USING(id_kategori)");
+$barang = query("
+    SELECT 
+        tb_barang.id_barang, 
+        tb_kategori.nama_kategori AS 'nama_kategori', 
+        tb_barang.nama_barang, 
+        tb_barang.merk, 
+        tb_barang.stok, 
+        tb_barang.harga_beli, 
+        tb_barang.harga_jual, 
+        tb_barang.kedaluwarsa 
+    FROM tb_barang 
+    INNER JOIN tb_kategori USING(id_kategori)
+");
+
+$total = query("
+    SELECT 
+        SUM(stok) AS total_stok, 
+        SUM(harga_beli) AS total_harga_beli, 
+        SUM(harga_jual) AS total_harga_jual 
+    FROM tb_barang;
+");
 
 // $barang = query("SELECT * FROM tb_barang");
 
@@ -80,15 +100,15 @@ if( isset($_POST["submit"]) ) {
                             <?php $i = 1;?>
                             <?php foreach( $barang as $row ) : ?>
                                 <tr>
-                                    <td class="px-2"><?= $i?></td>
-                                    <td class="px-2"><?= $row["nama_kategori"]; ?></td>
-                                    <td class="px-2"><?= $row["nama_barang"]; ?></td>
-                                    <td class="px-2"><?= $row["merk"]; ?></td>
-                                    <td class="px-2"><?= $row["stok"]; ?></td>
-                                    <td class="px-2"><?= $row["harga_beli"] + 0; ?></td>
-                                    <td class="px-2"><?= $row["harga_jual"] + 0; ?></td>
-                                    <td class="px-2"><?= $row["kedaluwarsa"]; ?></td>
-                                    <td class="px-2">
+                                    <td class="px-2 py-4"><?= $i?></td>
+                                    <td class="px-2 py-4"><?= $row["nama_kategori"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["nama_barang"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["merk"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["stok"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["harga_beli"] + 0; ?></td>
+                                    <td class="px-2 py-4"><?= $row["harga_jual"] + 0; ?></td>
+                                    <td class="px-2 py-4"><?= $row["kedaluwarsa"]; ?></td>
+                                    <td class="px-2 py-4">
                                         <button id="editBtn" name="edit" class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm">
                                             <a href="config/form-edit-barang.php?id=<?php echo $row['id_barang']; ?>">Edit</a>
                                         </button>
@@ -101,9 +121,9 @@ if( isset($_POST["submit"]) ) {
                             <?php endforeach; ?>
                             <tr class="font-bold">
                                 <td colspan="4">Total</td>
-                                <td class="px-2">211</td>
-                                <td class="px-2">Rp 4.800</td>
-                                <td class="px-2">Rp 8.000</td>
+                                <td class="px-2 py-4"><?= $total[0]["total_stok"] + 0; ?></td>
+                                <td class="px-2 py-4"><?= $total[0]["total_harga_beli"] + 0; ?></td>
+                                <td class="px-2 py-4"><?= $total[0]["total_harga_jual"] + 0; ?></td>
                                 <td colspan="2"></td>
                             </tr>
                         </tbody>
@@ -143,40 +163,6 @@ if( isset($_POST["submit"]) ) {
                 </form>
             </div>
         </div>
-
-        <!-- Modal Edit Data
-        <?php $row2 = $barang[$index]; ?>
-        <div id="modalEdit" class="hidden fixed pt-20 left-0 top-0 w-full h-full overflow-auto z-[1] " style="background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4);">
-            <div class="m-auto p-5 w-2/5 rounded-2xl " style="background-color: #fefefe; border: 1px solid #888;">
-                <span class="closeModal2 float-right hover:cursor-pointer font-bold text-3xl ">&times;</span>
-                <h1 class="text-3xl text-slate-700 font-bold py-4">Edit Data Barang</h1>
-                <form action="" method="post" enctype="multipart/form-data">
-                    <input class="hidden" type="text" name="id_barang" id="id_barang" value="<?= $row2["id_barang"]; ?>">
-                    <label for="id_kategori" class="float-left w-2/5 my-2">Kategori</label><span>:</span>
-                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="id_kategori" id="id_kategori" value="<?= $row2["id_kategori"]; ?>" required><br>
-                        
-                    <label for="nama_barang" class="float-left w-2/5 my-2">Nama Barang</label><span>:</span>
-                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="nama_barang" id="nama_barang" value="<?= $row2["nama_barang"]; ?>" required><br>
-                        
-                    <label for="merk" class="float-left w-2/5 my-2">Merk</label><span>:</span>
-                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="merk" id="merk" value="<?= $row2["merk"]; ?>" required><br>
-                            
-                    <label for="stok" class="float-left w-2/5 my-2">Stok</label><span>:</span>
-                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="stok" id="stok" value="<?= $row2["stok"]; ?>" required><br>
-
-                    <label for="harga_beli" class="float-left w-2/5 my-2">Harga Beli</label><span>:</span>
-                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="harga_beli" id="harga_beli" value="<?= $row2["harga_beli"]; ?>" required><br>
-
-                    <label for="harga_jual" class="float-left w-2/5 my-2">Harga Jual</label><span>:</span>
-                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="harga_jual" id="harga_jual" value="<?= $row2["harga_jual"]; ?>" required><br>
-
-                    <label for="kedaluwarsa" class="float-left w-2/5 my-2">Kedaluwarsa</label><span>:</span>
-                    <input class="border-slate-800 border-2 my-2 rounded-md w-3/6" type="text" name="kedaluwarsa" id="kedaluwarsa" value="<?= $row2["kedaluwarsa"] ?>"><br>
-                        
-                    <button type="submit" name="editData" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-pencil-square"></i>Edit Data</button>
-                </form>
-            </div>
-        </div> -->
         <?php include 'footer.php'; ?>
     </body>
 </html>
