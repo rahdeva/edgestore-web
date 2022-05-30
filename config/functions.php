@@ -154,8 +154,6 @@ function insertKategori($data) {
 // }
 
 function filter($data) {
-	global $connect;
-
 	$filter = htmlspecialchars($data["filter"]);
 	$defaultQuery = "
 		SELECT 
@@ -208,6 +206,56 @@ function filter($data) {
 	}
 
 	return query($filter);
+}
+
+function laporanBulanan($data) {
+	$tahun = htmlspecialchars($data["tahun"]); 
+	$bulan = htmlspecialchars($data["bulan"]);
+	$days = cal_days_in_month(CAL_GREGORIAN,$bulan,$tahun);
+	$defaultQuery = "
+		SELECT tb_transaksi.id_barang, 
+			tb_barang.nama_barang, 
+			tb_transaksi.jumlah, 
+			tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
+			tb_barang.harga_jual * tb_transaksi.jumlah AS 'total', 
+			tb_transaksi.kasir, 
+			tb_transaksi.waktu_input
+		FROM tb_transaksi 
+		INNER JOIN tb_barang USING(id_barang) 
+	";
+
+	$laporanBulan = (
+		$defaultQuery .= "
+			WHERE tb_transaksi.waktu_input BETWEEN '$tahun-$bulan-01 00:00:00' AND '$tahun-$bulan-$days 23.59.59'
+		"
+	);
+
+	return query($laporanBulan);
+}
+
+function laporanTanggal($data) {
+	$tahun = htmlspecialchars($data["tahun"]); 
+	$bulan = htmlspecialchars($data["bulan"]);
+	$tanggal = htmlspecialchars($data["tanggal"]);
+	$defaultQuery = "
+		SELECT tb_transaksi.id_barang, 
+			tb_barang.nama_barang, 
+			tb_transaksi.jumlah, 
+			tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
+			tb_barang.harga_jual * tb_transaksi.jumlah AS 'total', 
+			tb_transaksi.kasir, 
+			tb_transaksi.waktu_input
+		FROM tb_transaksi 
+		INNER JOIN tb_barang USING(id_barang) 
+	";
+
+	$laporanTanggal = (
+		$defaultQuery .= "
+			WHERE tb_transaksi.waktu_input BETWEEN '$tahun-$bulan-$tanggal 00:00:00' AND '$tahun-$bulan-$tanggal 23.59.59'
+		"
+	);
+
+	return query($laporanTanggal);
 }
 
 
