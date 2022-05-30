@@ -1,16 +1,16 @@
 <?php 
 require 'config/functions.php';
 
-$barang = query("SELECT * FROM tb_barang");
-$index = 0;
+$barang = query("SELECT tb_barang.id_barang, tb_kategori.nama_kategori AS 'nama_kategori', tb_barang.nama_barang, tb_barang.merk, tb_barang.stok, tb_barang.harga_beli, tb_barang.harga_jual, tb_barang.kedaluwarsa FROM tb_barang INNER JOIN tb_kategori USING(id_kategori)");
+
+// $barang = query("SELECT * FROM tb_barang");
 
 // Insert Data
 if( isset($_POST["submit"]) ) {
-	if( insertBarang($_POST) > 0 ) {
+	if( insertBarang($_POST) > 0 )
 		alert("tambah", true, 'barang.php');
-    } else {
+    else
         alert("tambah", false, 'barang.php');
-    }
 }
 
 // Delete Data
@@ -22,23 +22,14 @@ if( isset($_POST["submit"]) ) {
 //     }
 // }
 
-function deleteData($id){
-    alert($id, true, 'barang.php');
-    // if( delete($id) > 0 ) {
-    //     alert("hapus", true, 'barang.php');
-    // } else {
-    //     alert("hapus", false, 'barang.php');
-    // }
-}
-
-if( isset($_POST["editData"]) ) {
-    if( editBarang($_POST) > 0 ) {
-        alert("edit", true, 'barang.php');
-    } else {
-        alert("edit", false, 'barang.php');
-    }
-}
-
+// function deleteData($id){
+//     alert($id, true, 'barang.php');
+//     // if( delete($id) > 0 ) {
+//     //     alert("hapus", true, 'barang.php');
+//     // } else {
+//     //     alert("hapus", false, 'barang.php');
+//     // }
+// }
 ?>
 
 <!DOCTYPE html>
@@ -48,8 +39,10 @@ if( isset($_POST["editData"]) ) {
         <title>EdgeStore - Barang</title>
     </head>
     <body class="font-[Inter] flex">
+        
         <!-- Sidebar -->
         <?php include 'sidebar.php'; ?>
+
         <!-- Content -->
         <div class="content flex basis-11/12 bg-indigo-200 h-screen duration-1000">
             <div class="bg-white min-w-full my-10 overflow-auto">
@@ -73,7 +66,7 @@ if( isset($_POST["editData"]) ) {
                         <thead class="bg-teal-400 text-white">
                             <tr class="">
                                 <th class="py-4">No</th>
-                                <th class="py-4">ID Kategori</th>
+                                <th class="py-4">Kategori</th>
                                 <th class="py-4">Nama Barang</th>
                                 <th class="py-4">Merk</th>
                                 <th class="py-4">Stok</th>
@@ -88,7 +81,7 @@ if( isset($_POST["editData"]) ) {
                             <?php foreach( $barang as $row ) : ?>
                                 <tr>
                                     <td class="px-2"><?= $i?></td>
-                                    <td class="px-2"><?= $row["id_kategori"]; ?></td>
+                                    <td class="px-2"><?= $row["nama_kategori"]; ?></td>
                                     <td class="px-2"><?= $row["nama_barang"]; ?></td>
                                     <td class="px-2"><?= $row["merk"]; ?></td>
                                     <td class="px-2"><?= $row["stok"]; ?></td>
@@ -97,10 +90,10 @@ if( isset($_POST["editData"]) ) {
                                     <td class="px-2"><?= $row["kedaluwarsa"]; ?></td>
                                     <td class="px-2">
                                         <button id="editBtn" name="edit" class="bg-yellow-400 rounded-md py-1 px-2 text-white text-sm">
-                                            <a onclick="<?php //$index = $i-1; ?> return editDataForm()">Edit
+                                            <a href="config/form-edit-barang.php?id=<?php echo $row['id_barang']; ?>">Edit</a>
                                         </button>
                                         <button name="delete" class="bg-red-400 rounded-md py-1 px-2 text-white text-sm">
-                                            <a onclick="<?php // deleteData($row["id_barang"]) ?> return confirm('Sure?');">Delete</a>
+                                            <a href="config/form-hapus-barang.php?id=<?php echo $row['id_barang']; ?>" onclick="return confirm('Konfirmasi Penghapusan Data')">Delete</a>
                                         </button>
                                     </td>
                                 </tr>
@@ -151,7 +144,7 @@ if( isset($_POST["editData"]) ) {
             </div>
         </div>
 
-        <!-- Modal Edit Data -->
+        <!-- Modal Edit Data
         <?php $row2 = $barang[$index]; ?>
         <div id="modalEdit" class="hidden fixed pt-20 left-0 top-0 w-full h-full overflow-auto z-[1] " style="background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4);">
             <div class="m-auto p-5 w-2/5 rounded-2xl " style="background-color: #fefefe; border: 1px solid #888;">
@@ -183,42 +176,7 @@ if( isset($_POST["editData"]) ) {
                     <button type="submit" name="editData" class="text-center w-11/12 p-2 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-pencil-square"></i>Edit Data</button>
                 </form>
             </div>
-        </div>
+        </div> -->
         <?php include 'footer.php'; ?>
     </body>
-
-    <script>
-        var modal = document.getElementById("modalInsert");
-        var btn = document.getElementById("insertBtn");
-        var closeModal = document.getElementsByClassName("closeModal")[0];
-        var modal2 = document.getElementById("modalEdit");
-        var btn2 = document.getElementById("editBtn");
-        var closeModal2 = document.getElementsByClassName("closeModal2")[0];
-        
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-        
-        closeModal.onclick = function() {
-            modal.style.display = "none";
-        }
-        
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-            if (event.target == modal2) {
-                modal2.style.display = "none";
-            }
-        }
-
-        function editDataForm(){
-            modal2.style.display = "block";
-        }
-
-        closeModal2.onclick = function() {
-            modal2.style.display = "none";
-        }
-        
-    </script>
 </html>
