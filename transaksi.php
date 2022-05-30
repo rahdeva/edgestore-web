@@ -29,6 +29,14 @@ $total = query("
 
 $keuntungan = $total[0]["total_total"] - $total[0]["total_modal"];
 
+if(isset($_POST["laporBulanan"])){
+    $transaksi = laporanBulanan($_POST);
+}
+
+if(isset($_POST["laporTanggal"])){
+    $transaksi = laporanTanggal($_POST);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -47,47 +55,49 @@ $keuntungan = $total[0]["total_total"] - $total[0]["total_modal"];
                     <h1 class="grow text-4xl text-slate-700 font-bold ">Data Transaksi</h1>
                     <?php include 'config/username.php'; ?>
                 </div>
-                <h1 class="text-xl text-slate-700 font-semibold px-12 mt-8 mb-6">Cari Laporan</h1>
                 <div class="flex mb-4 px-12 flex-row ">
                     <div class="float-left mr-20">
+                        <h1 class="text-xl text-slate-700 font-semibold mt-8 mb-4">Cari Laporan Per Bulan</h1>
                         <table class="rounded-md overflow-hidden shadow-xl">
                             <thead class="bg-emerald-400 text-white px-4 ">
                                 <tr class="text-left">
-                                    <th class="p-4">Bulan</th>
                                     <th class="p-4">Tahun</th>
+                                    <th class="p-4">Bulan</th>
                                     <th class="p-4">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="text-left ">
                                 <tr>
-                                    <form action="">
-                                        <td class="p-4">
-                                            <select name="bulan" id="bulan" class="border-2 border-slate-600 p-2 rounded-lg">
-                                                <option value="" selected disabled hidden>Pilih Bulan</option>
-                                                <option value="januari">Januari</option>
-                                                <option value="februari">Februari</option>
-                                                <option value="maret">Maret</option>
-                                                <option value="april">April</option>
-                                                <option value="mei">Mei</option>
-                                                <option value="juni">Juni</option>
-                                                <option value="juli">Juli</option>
-                                                <option value="agustus">Agustus</option>
-                                                <option value="september">September</option>
-                                                <option value="oktober">Oktober</option>
-                                                <option value="november">November</option>
-                                                <option value="desember">Desember</option>
-                                            </select>
-                                        </td>
+                                    <form action="" method="post">
                                         <td class="p-4">
                                             <select name="tahun" id="tahun" class="border-2 border-slate-600 p-2 rounded-lg">
                                                 <option value="" selected disabled hidden>Pilih Tahun</option>
-                                                <option value="<2022">&lt; 2022</option>
+                                                <option value="2020">2020</option>
+                                                <option value="2021">2021</option>
                                                 <option value="2022">2022</option>
-                                                <option value=">2022">&gt; 2022</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2024">2024</option>
+                                            </select>
+                                        </td>
+                                        <td class="p-4">
+                                            <select name="bulan" id="bulan" class="border-2 border-slate-600 p-2 rounded-lg">
+                                                <option value="" selected disabled hidden>Pilih Bulan</option>
+                                                <option value="01">Januari</option>
+                                                <option value="02">Februari</option>
+                                                <option value="03">Maret</option>
+                                                <option value="04">April</option>
+                                                <option value="05">Mei</option>
+                                                <option value="06">Juni</option>
+                                                <option value="07">Juli</option>
+                                                <option value="08">Agustus</option>
+                                                <option value="09">September</option>
+                                                <option value="10">Oktober</option>
+                                                <option value="11">November</option>
+                                                <option value="12">Desember</option>
                                             </select>
                                         </td>
                                         <td colspan="3" class="p-4">
-                                            <button type="submit" name="submit" class="py-2 px-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-search"></i> Cari </button>
+                                            <button type="laporBulanan" name="laporBulanan" class="py-2 px-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-search"></i> Cari </button>
                                         </td>
                                     </form>
                                 </tr>
@@ -95,30 +105,56 @@ $keuntungan = $total[0]["total_total"] - $total[0]["total_modal"];
                         </table>
                     </div>
                     <div class="float-right">
+                        <h1 class="text-xl text-slate-700 font-semibold mt-8 mb-4">Cari Laporan Per Tanggal</h1>
                         <table class="rounded-md overflow-hidden shadow-xl">
-                            <thead class="bg-emerald-400 text-white px-4  ">
+                            <thead class="bg-emerald-400 text-white px-4 ">
                                 <tr class="text-left">
-                                    <th class="p-4">Hari</th>
+                                    <th class="p-4">Tahun</th>
+                                    <th class="p-4">Bulan</th>
+                                    <th class="p-4">Tanggal</th>
                                     <th class="p-4">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="text-left ">
                                 <tr>
-                                    <form action="">
+                                    <form action="" method="post">
                                         <td class="p-4">
-                                            <select name="hari" id="hari" class="border-2 border-slate-600 p-2 rounded-lg">
-                                                <option value="" selected disabled hidden>Pilih Hari</option>
-                                                <option value="senin">Senin</option>
-                                                <option value="selasa">Selasa</option>
-                                                <option value="rabu">Rabu</option>
-                                                <option value="kamis">Kamis</option>
-                                                <option value="jumat">Jumat</option>
-                                                <option value="sabtu">Sabtu</option>
-                                                <option value="minggu">Minggu</option>
+                                            <select name="tahun" id="tahun" class="border-2 border-slate-600 p-2 rounded-lg">
+                                                <option value="" selected disabled hidden>Pilih Tahun</option>
+                                                <option value="2020">2020</option>
+                                                <option value="2021">2021</option>
+                                                <option value="2022">2022</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2024">2024</option>
+                                            </select>
+                                        </td>
+                                        <td class="p-4">
+                                            <select name="bulan" id="bulan" class="border-2 border-slate-600 p-2 rounded-lg">
+                                                <option value="" selected disabled hidden>Pilih Bulan</option>
+                                                <option value="01">Januari</option>
+                                                <option value="02">Februari</option>
+                                                <option value="03">Maret</option>
+                                                <option value="04">April</option>
+                                                <option value="05">Mei</option>
+                                                <option value="06">Juni</option>
+                                                <option value="07">Juli</option>
+                                                <option value="08">Agustus</option>
+                                                <option value="09">September</option>
+                                                <option value="10">Oktober</option>
+                                                <option value="11">November</option>
+                                                <option value="12">Desember</option>
+                                            </select>
+                                        </td>
+                                        <td class="p-4">
+                                            <select name="tanggal" id="tanggal" class="border-2 border-slate-600 p-2 rounded-lg">
+                                                <option value="" selected disabled hidden>Pilih Tanggal</option>
+                                                <?php for($i = 1; $i < 32; $i++){?>
+                                                    <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                <?php } ?>
                                             </select>
                                         </td>
                                         <td colspan="3" class="p-4">
-                                            <button type="submit" name="submit" class="py-2 px-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-search"></i> Cari </button>
+                                            <button type="laporTanggal" name="laporTanggal" class="py-2 px-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-search"></i> Cari </button>
                                         </td>
                                     </form>
                                 </tr>
@@ -127,6 +163,7 @@ $keuntungan = $total[0]["total_total"] - $total[0]["total_modal"];
                     </div>
                 </div>
                 <div class="px-12 border-collapse mt-12 mb-6">
+                    <h1 class="text-xl text-slate-700 font-semibold mt-8 mb-4">Data Transaksi</h1>
                     <table class="min-w-full shadow-xl rounded-t-md overflow-hidden h-full">
                         <thead class="bg-emerald-400 text-white">
                             <tr class="">
