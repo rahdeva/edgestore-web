@@ -1,7 +1,33 @@
 <?php
 require 'config/functions.php';
 
-$transaksi = query("SELECT * FROM tb_transaksi"); 
+$transaksi = query("
+    SELECT tb_transaksi.id_barang, 
+        tb_barang.nama_barang, 
+        tb_transaksi.jumlah, 
+        tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
+        tb_barang.harga_jual * tb_transaksi.jumlah AS 'total', 
+        tb_transaksi.kasir, 
+        tb_transaksi.waktu_input
+    FROM tb_transaksi 
+    INNER JOIN tb_barang USING(id_barang);     
+");
+
+$total = query("
+    SELECT 
+        SUM(jumlah) AS total_jumlah,
+        SUM(modal) AS total_modal, 
+        SUM(total) AS total_total
+    FROM (
+        SELECT tb_transaksi.jumlah, 
+            tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
+            tb_barang.harga_jual * tb_transaksi.jumlah AS 'total' 
+        FROM tb_transaksi 
+        INNER JOIN tb_barang USING(id_barang)
+    ) as tb_transaksibarang;
+");
+
+$keuntungan = $total[0]["total_total"] - $total[0]["total_modal"];
 
 ?>
 
@@ -118,24 +144,24 @@ $transaksi = query("SELECT * FROM tb_transaksi");
                             <?php $i = 1;?>
                             <?php foreach( $transaksi as $row ) : ?>
                                 <tr>
-                                    <td class="px-2"><?= $i?></td>
-                                    <td class="px-2"><?= $row["id_barang"]; ?></td>
-                                    <td class="px-2"><?= $row["nama_barang"]; ?></td>
-                                    <td class="px-2"><?= $row["jumlah"]; ?></td>
-                                    <td class="px-2"><?= $row["modal"] + 0; ?></td>
-                                    <td class="px-2"><?= $row["total"] + 0; ?></td>
-                                    <td class="px-2"><?= $row["kasir"]; ?></td>
-                                    <td class="px-2"><?= $row["waktu_input"]; ?></td>
+                                    <td class="px-2 py-4"><?= $i?></td>
+                                    <td class="px-2 py-4"><?= $row["id_barang"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["nama_barang"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["jumlah"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["modal"] + 0; ?></td>
+                                    <td class="px-2 py-4"><?= $row["total"] + 0; ?></td>
+                                    <td class="px-2 py-4"><?= $row["kasir"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["waktu_input"]; ?></td>
                                 </tr>
                             <?php $i++; ?>
                             <?php endforeach; ?>
                             <tr class="font-bold">
                                 <td colspan="3">Total Terjual</td>
-                                <td class="px-2">211</td>
-                                <td class="px-2">Rp 4.800</td>
-                                <td class="px-2">Rp 8.000</td>
-                                <td class="px-2 bg-green-400">Keuntungan</td>
-                                <td class="px-2 bg-green-400">Rp 4.000</td>
+                                <td class="px-2 py-4"><?= $total[0]["total_jumlah"] + 0; ?></td>
+                                <td class="px-2 py-4"><?= $total[0]["total_modal"] + 0; ?></td>
+                                <td class="px-2 py-4"><?= $total[0]["total_total"] + 0; ?></td>
+                                <td class="px-2 py-4 bg-emerald-400">Keuntungan</td>
+                                <td class="px-2 py-4 bg-emerald-400"><?= $keuntungan; ?></td>
                             </tr>
                         </tbody>
                     </table>
