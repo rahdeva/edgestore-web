@@ -1,0 +1,82 @@
+.body-content {
+    display: flex;
+    padding-top: 2em;
+    text-align: center;
+    color: white;
+}
+
+/* TABLES IN DASHBOARD */
+
+.tables-content {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1em;
+    width: 70%;
+}
+
+.tables-content > div {
+    margin-left: 10px;
+    width: 30%;
+    border-radius: 2em;
+}
+
+.tables-content-judul {
+    height: 5em;
+    line-height: 5em;
+}
+
+.tables-content-jumlah {
+    font-size: 5em;
+}
+
+.tables-content-redirect {
+    height: 5em;
+    line-height: 5em;
+}
+
+/* TABLES IN DASHBOARD */
+
+/* CALENDAR IN DASHBOARD */
+
+.calendar {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+#month-and-year {
+    height: 2em;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#printed-date {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: rgb(13 148 136);
+}
+
+.column {
+    flex-basis: 14%;
+    border: 1px solid rgb(96 165 250);
+    box-sizing: border-box;
+    font-size: 0.8em;
+    height: 2.5;
+    line-height: 2.5em;
+    background-color: rgb(59 130 246);
+}
+
+.today {
+    background-color: rgb(30 64 175);
+}
+
+/* CALENDAR IN DASHBOARD */
