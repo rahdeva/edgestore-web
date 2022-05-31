@@ -21,7 +21,8 @@
             $row = mysqli_fetch_assoc($result);
             if($pass == $row['password']){
                 $_SESSION["login"] = true;
-                header("Location: index.php");
+                $_SESSION["username"] = $username;
+                header("Location: dashboard.php");
                 exit;
             }
         }
@@ -40,7 +41,7 @@
         <section class="mt-24">
             <div class=" items-center justify-center flex flex-col">
                 <img src="assets/images/profil.svg" class="w-32 "/>
-                <h2 class=" my-2 font-bold text-1xl">Welcome to you</h2>
+                <h2 class=" my-2 font-bold text-1xl">Welcome to Edge Store</h2>
             </div>
             <div class="max-w-xl bg-green-300 h-12 mx-auto mt-3 shadow-2xl shadow-teal-300 opacity-75">
                 <h1 class="text-4xl text-center font-bold">Edge-Store</h1>

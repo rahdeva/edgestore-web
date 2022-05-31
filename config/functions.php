@@ -132,14 +132,13 @@ function regis($data){
     $pass = mysqli_real_escape_string($connect, $data['pass']);
 
     //cek username sudah ada tau belum
-    /*$result=mysqli_query($connect,"SELECT username FROM register_user WHERE username='$username'");
+    $result = mysqli_query($connect, "SELECT username FROM tb_user WHERE username = '$username'");
     if(mysqli_fetch_assoc($result)){
         echo "<script>
-                alert('username sudah terdaftar');
-        </script>";
-
+                alert('Username sudah terdaftar');
+        	</script>";
         return false;
-    }*/
+    }
 
     //ekripsi pass
 
@@ -149,6 +148,14 @@ function regis($data){
 	$queryUser = "INSERT INTO tb_user VALUES('', '$username', '$pass')";
 	mysqli_query($connect, $queryUser);
     return mysqli_affected_rows($connect);
+}
+
+function get_username($username){
+	global $connect;
+	$query_username = "SELECT CONCAT(nama_depan, ' ', nama_belakang) FROM tb_profil INNER JOIN tb_user ON tb_profil.id_profil = tb_user.id WHERE username = '$username';";
+	$row = mysqli_query($connect, $query_username);
+	$result = mysqli_fetch_array($row);
+	echo $result[0];
 }
 
 // function upload() {

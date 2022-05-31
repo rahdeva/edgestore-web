@@ -5,6 +5,11 @@
         header("Location: login.php");
         exit;
     }
+
+    if( isset($_SESSION["username"]) ) {
+        $loggedInUusername = $_SESSION["username"];
+    }
+
     require 'config/functions.php';
 ?>
 
@@ -21,7 +26,10 @@
             <div class="bg-white min-w-full my-10 overflow-auto">
                 <div class="head-content flex mx-12 mt-12">
                     <h1 class="grow text-4xl text-slate-700 font-bold ">Dashboard</h1>
-                    <?php include 'config/username.php'; ?>
+                    <a href="profile.php" class="flex items-center">
+                        <img src="https://source.unsplash.com/1080x1080?profile" alt="Profile" width="36" class="rounded-full">
+                        <span class="ml-4 font-bold underline"><?php get_username($loggedInUusername); ?></span>
+                    </a>
                 </div>
                 <div class="body-content">
                     <div class="tables-content">

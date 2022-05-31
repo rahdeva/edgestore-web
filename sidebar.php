@@ -13,6 +13,6 @@
                 <li class="custom-nav p-1 my-1.5"><a href="profile.php">Profile</a></li>
             </ul>
         </div>
-        <button class="bg-white mb-6 p-1.5 mx-4 rounded-full font-semibold text-indigo-800">Logout</button>
+        <button class="bg-white mb-6 p-1.5 mx-4 rounded-full font-semibold text-indigo-800"><a href="logout.php">Logout</a></button>
     </div>
 </div>
