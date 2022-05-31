@@ -35,8 +35,8 @@
                 <div class="flex mx-12 mt-12">
                     <h1 class="grow text-4xl text-slate-700 font-bold ">Data Kategori</h1>
                     <a href="profile.php" class="flex items-center">
-                        <img src="https://source.unsplash.com/1080x1080?profile" alt="Profile" width="36" class="rounded-full">
-                        <span class="ml-4 font-bold underline"><?php get_username($_SESSION["username"]); ?></span>
+                        <img src="<?php echo get_photos($_SESSION["username"]); ?>" alt="Profile" width="50" class="rounded-full">
+                        <span class="ml-2 font-bold underline"><?php echo get_username($_SESSION["username"]); ?></span>
                     </a>
                 </div>
                 <div class="mr-12 mt-12 mb-6 flex justify-end gap-4">

@@ -22,6 +22,8 @@
             if($pass == $row['password']){
                 $_SESSION["login"] = true;
                 $_SESSION["username"] = $username;
+                $_SESSION["password"] = $row['password'];
+                $_SESSION["id_user"] = $row['id'];
                 header("Location: dashboard.php");
                 exit;
             }
@@ -54,7 +56,7 @@
                     </div>
                     <div class=" mt-2 w-full text-center ">
                         <i class="fa fa-lock absolute text-primary text-xl"></i>
-                        <input type="text" name="pass" id="pass"placeholder=" Password" class="rounded-sm focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2  focus:outline-none focus:border-primarycolor transition-all duration-500 required" />         
+                        <input type="password" name="pass" id="pass"placeholder=" Password" class="rounded-sm focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2  focus:outline-none focus:border-primarycolor transition-all duration-500 required" />         
                     </div>
                     <div class="w-full">
                         <button type="submit" name="login"class="block mx-auto mt-8 hover:bg-blue-300 py-3 px-16 bg-violet-400 rounded-full text_whi text-white">Login</button>
