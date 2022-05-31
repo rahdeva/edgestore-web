@@ -153,17 +153,110 @@ function insertKategori($data) {
 // 	return $namaFileBaru;
 // }
 
+function filter($data) {
+	$filter = htmlspecialchars($data["filter"]);
+	$defaultQuery = "
+		SELECT 
+			tb_barang.id_barang, 
+			tb_kategori.nama_kategori AS 'nama_kategori', 
+			tb_barang.nama_barang, 
+			tb_barang.merk, 
+			tb_barang.stok, 
+			tb_barang.harga_beli, 
+			tb_barang.harga_jual, 
+			tb_barang.kedaluwarsa 
+		FROM tb_barang 
+		INNER JOIN tb_kategori USING(id_kategori) 
+	";
+	
+	switch ($filter) {
+		case '1':
+			$filter = ($defaultQuery .= "WHERE NOT stok = 0");
+			break;
+		case '2':
+			$filter = ($defaultQuery .= "ORDER BY nama_barang");
+			break;
+		case '3':
+			$filter = ($defaultQuery .= "ORDER BY nama_barang DESC");
+			break;
+		case '4':
+			$filter = ($defaultQuery .= "ORDER BY merk");
+			break;
+		case '5':
+			$filter = ($defaultQuery .= "ORDER BY merk DESC");
+			break;
+		case '6':
+			$filter = ($defaultQuery .= "ORDER BY stok");
+			break;
+		case '7':
+			$filter = ($defaultQuery .= "ORDER BY stok DESC");
+			break;
+		case '8':
+			$filter = ($defaultQuery .= "ORDER BY harga_beli");
+			break;
+		case '9':
+			$filter = ($defaultQuery .= "ORDER BY harga_beli DESC");
+			break;
+		case '10':
+			$filter = ($defaultQuery .= "ORDER BY harga_jual");
+			break;
+		case '11':
+			$filter = ($defaultQuery .= "ORDER BY harga_jual DESC");
+			break;
+	}
 
-// function cari($keyword) {
-// 	$query = "SELECT * FROM mahasiswa
-// 				WHERE
-// 			  nama LIKE '%$keyword%' OR
-// 			  nrp LIKE '%$keyword%' OR
-// 			  email LIKE '%$keyword%' OR
-// 			  jurusan LIKE '%$keyword%'
-// 			";
-// 	return query($query);
-// }
+	return query($filter);
+}
+
+function laporanBulanan($data) {
+	$tahun = htmlspecialchars($data["tahun"]); 
+	$bulan = htmlspecialchars($data["bulan"]);
+	$days = cal_days_in_month(CAL_GREGORIAN,$bulan,$tahun);
+	$defaultQuery = "
+		SELECT tb_transaksi.id_barang, 
+			tb_barang.nama_barang, 
+			tb_transaksi.jumlah, 
+			tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
+			tb_barang.harga_jual * tb_transaksi.jumlah AS 'total', 
+			tb_transaksi.kasir, 
+			tb_transaksi.waktu_input
+		FROM tb_transaksi 
+		INNER JOIN tb_barang USING(id_barang) 
+	";
+
+	$laporanBulan = (
+		$defaultQuery .= "
+			WHERE tb_transaksi.waktu_input BETWEEN '$tahun-$bulan-01 00:00:00' AND '$tahun-$bulan-$days 23.59.59'
+		"
+	);
+
+	return query($laporanBulan);
+}
+
+function laporanTanggal($data) {
+	$tahun = htmlspecialchars($data["tahun"]); 
+	$bulan = htmlspecialchars($data["bulan"]);
+	$tanggal = htmlspecialchars($data["tanggal"]);
+	$defaultQuery = "
+		SELECT tb_transaksi.id_barang, 
+			tb_barang.nama_barang, 
+			tb_transaksi.jumlah, 
+			tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
+			tb_barang.harga_jual * tb_transaksi.jumlah AS 'total', 
+			tb_transaksi.kasir, 
+			tb_transaksi.waktu_input
+		FROM tb_transaksi 
+		INNER JOIN tb_barang USING(id_barang) 
+	";
+
+	$laporanTanggal = (
+		$defaultQuery .= "
+			WHERE tb_transaksi.waktu_input BETWEEN '$tahun-$bulan-$tanggal 00:00:00' AND '$tahun-$bulan-$tanggal 23.59.59'
+		"
+	);
+
+	return query($laporanTanggal);
+}
 
 
 // function registrasi($data) {
