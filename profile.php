@@ -12,11 +12,33 @@ $username = get_username($_SESSION["username"]);
 
 $id_user = $_SESSION["id_user"];
 
+$queryUser = query("
+    SELECT * 
+    FROM tb_user 
+    WHERE id = '$id_user'; 
+");
+
+$id_user = $queryUser[0]["id"];
+
 $profile = query("
     SELECT * 
     FROM tb_profil 
     WHERE id_profil = '$id_user'; 
 ");
+
+if(isset($_POST["editProfile"])){
+    if(editProfile($_POST) > 0)
+        alert("edit", true, 'profile.php');
+    else
+        alert("edit", false, 'profile.php');
+}
+
+if(isset($_POST["editPassword"])){
+    if(editPassword($_POST) > 0)
+        alert("ganti", true, 'profile.php');
+    else
+        alert("ganti", false, 'profile.php');
+}
 
 ?>
 
@@ -46,6 +68,7 @@ $profile = query("
                     <div class="flex basis-1/3 bg-white-200 flex-col m-4 p-4 rounded-2xl border-4 border-indigo-400">
                         <h1 class="text-2xl text-slate-700 font-bold mt-2 mb-4"><i class="bi bi-person-fill"></i> Kelola Pengguna</h1>
                         <form action="" method="post">
+                            <input class="hidden" type="text" name="id_profil" id="id_profil" value="<?= $profile[0]["id_profil"]; ?>">
                             
                             <label for="nama_depan">Nama Depan</label>
                             <input class="w-full px-3 py-2 rounded-lg border-slate-800 border-2"  type="text" id="nama_depan" name="nama_depan" value="<?= $profile[0]["nama_depan"]; ?>">
@@ -63,22 +86,24 @@ $profile = query("
                             <input class="w-full px-3 py-2 rounded-lg border-slate-800 border-2"  type="text" id="no_telepon" name="no_telepon" value="<?= $profile[0]["no_telepon"]; ?>">
 
                             <label for="alamat">Alamat</label>
-                            <input class="w-full px-3 py-2  rounded-lg border-slate-800 border-2" name="alamat" id="alamat" cols="30" rows="2" value="<?= $profile[0]["alamat"]; ?>" ></input>
+                            <input class="w-full px-3 py-2 rounded-lg border-slate-800 border-2"  type="text" id="alamat" name="alamat" value="<?= $profile[0]["alamat"]; ?>">
 
-                            <button type="submit" name="submit" class="float-right py-2 px-4 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-pencil-square"></i> Edit Profil</button>
+                            <button type="submit" name="editProfile" class="float-right py-2 px-4 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-pencil-square"></i> Edit Profil</button>
                             
                         </form>
                     </div>
                     <div class="flex basis-1/3 bg-white-200 flex-col m-4 p-4 rounded-2xl border-4 border-indigo-400 h-1/2">
                         <h1 class="text-2xl text-slate-700 font-bold mt-2 mb-4"><i class="bi bi-lock-fill"></i> Ganti Password</h1>
                         <form action="" method="post">
-                            <label for="nama_depan">Username</label>
-                            <input disabled class="w-full px-3 py-2 rounded-lg border-slate-800 border-2"  type="text" id="nama_depan" name="nama_depan" value="">
+                            <input class="hidden" type="text" name="id_user" id="id_user" value="<?= $id_user; ?>">
 
-                            <label for="nama_belakang">Password Baru</label>
-                            <input class="w-full px-3 py-2 rounded-lg border-slate-800 border-2"  type="password" id="nama_belakang" name="nama_belakang" value="">
+                            <label for="usernameEdit">Username</label>
+                            <input disabled class="w-full px-3 py-2 rounded-lg border-slate-800 border-2 bg-slate-300"  type="text" id="usernameEdit" name="usernameEdit" value="<?= $queryUser[0]["username"]; ?>">
 
-                            <button type="submit" name="submit" class="float-right py-2 px-4 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-pencil-square"></i> Change Password</button>
+                            <label for="password">Password Baru</label>
+                            <input class="w-full px-3 py-2 rounded-lg border-slate-800 border-2"  type="password" id="password" name="password" value="">
+
+                            <button type="submit" name="editPassword" class="float-right py-2 px-4 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-pencil-square"></i> Change Password</button>
                         </form>
                     </div>
                 </div>
