@@ -124,12 +124,12 @@ function regis($data){
 
     $nama_depan = strtolower(stripslashes($data['nama_depan']));
     $nama_belakang = strtolower(stripslashes($data['nama_belakang']));
-    $asal = strtolower(stripslashes($data['asal']));
+    $alamat = strtolower(stripslashes($data['alamat']));
     $tanggal_lahir = $data['tanggal_lahir'];
     $telepon = $data['telepon'];
     $email = strtolower(stripslashes($data['email']));
     $username = strtolower(stripslashes($data['username']));
-    $pass = mysqli_real_escape_string($connect,$data['pass']);
+    $pass = mysqli_real_escape_string($connect, $data['pass']);
 
     //cek username sudah ada tau belum
     /*$result=mysqli_query($connect,"SELECT username FROM register_user WHERE username='$username'");
@@ -142,12 +142,12 @@ function regis($data){
     }*/
 
     //ekripsi pass
-   
 
     //tambahakan user baru ke database
-    $query="INSERT INTO register_user 
-    VALUES('','$nama_depan','$nama_belakang','$asal','$tanggal_lahir','$telepon','$email','$username','$pass')";
-    mysqli_query($connect,$query);
+    $queryProfil = "INSERT INTO tb_profil VALUES('', '$nama_depan', '$nama_belakang', '$alamat', '$tanggal_lahir', '$email', '$telepon')";
+    mysqli_query($connect, $queryProfil);
+	$queryUser = "INSERT INTO tb_user VALUES('', '$username', '$pass')";
+	mysqli_query($connect, $queryUser);
     return mysqli_affected_rows($connect);
 }
 
