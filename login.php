@@ -43,26 +43,28 @@
                 <img src="assets/images/profil.svg" class="w-32 "/>
                 <h2 class=" my-2 font-bold text-1xl">Welcome to Edge Store</h2>
             </div>
-            <div class="max-w-xl bg-green-300 h-12 mx-auto mt-3 shadow-2xl shadow-teal-300 opacity-75">
-                <h1 class="text-4xl text-center font-bold">Edge-Store</h1>
+            <div class="max-w-xl bg-green-300 h-16 mx-auto mt-3 shadow-2xl shadow-teal-300 opacity-75 rounded-2xl">
+                <h1 class="text-4xl text-center font-bold pt-2">Edge-Store</h1>
             </div>
             <div class="bg-white mx-auto h-64 max-w-xl rounded-2xl">
                 <form action=""method="post">
-                    <div class="p-8 pb-2 relative mt-8"> 
+                    <div class="p-8 pb-2  mt-8 w-full text-center"> 
                         <i class="fa fa-user absolute text-primary text-xl"></i>
-                        <input type="text" name="username" id="username" placeholder=" Masukan username" class="focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2 focus:outline-none focus:border-primarycolor transition-all duration-500 invalid:text-red-500 required"  />    
-                   </div>
-                    <div class="p-8 pt-0 relative mt-2">
-                        <i class="fa fa-lock absolute text-primary text-xl"></i>
-                        <input type="text" name="pass" id="pass"placeholder=" Password" class="focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2  focus:outline-none focus:border-primarycolor transition-all duration-500 required" />         
+                        <input type="text" name="username" id="username" placeholder=" Masukan username" class=" rounded-sm focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2 focus:outline-none focus:border-primarycolor transition-all duration-500 invalid:text-red-500 required"  />    
                     </div>
-                    <button class="block mx-auto">
-                        <a href="register.php" class=" hover:bg-blue-300 py-3 px-16 bg-violet-400 rounded-full text_whi text-white">Sign Up</a>
+                    <div class=" mt-2 w-full text-center ">
+                        <i class="fa fa-lock absolute text-primary text-xl"></i>
+                        <input type="text" name="pass" id="pass"placeholder=" Password" class="rounded-sm focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2  focus:outline-none focus:border-primarycolor transition-all duration-500 required" />         
+                    </div>
+                    <div class="w-full">
+                        <button type="submit" name="login"class="block mx-auto mt-8 hover:bg-blue-300 py-3 px-16 bg-violet-400 rounded-full text_whi text-white">Login</button>
+                    </div>
+                    <button class="mt-6 block mx-auto">
+                        <a href="register.php" class=" hover:bg-blue-300 py-3 px-14 bg-rose-400 rounded-full text_whi text-white">Register</a>
                     </button>
-                    <button type="submit" name="login"class="block mx-auto mt-8 hover:bg-blue-300 py-3 px-16 bg-violet-400 rounded-full text_whi text-white">Sign In</button>
                 </form>    
             </div>
         </section>
-        <img src="assets/images/wave.png" class="h-screen">
+        <!-- <img src="assets/images/wave.png" class="h-screen"> -->
     </body>
 </html>
