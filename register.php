@@ -6,6 +6,8 @@ if(isset($_POST["submit"])) {
         echo"<script>
         alert('user baru berhasil ditambahkan');
         </script>";
+        header("Location: profile.php");
+            exit;
     }else{
         echo mysqli_error($koneksi);
     }
