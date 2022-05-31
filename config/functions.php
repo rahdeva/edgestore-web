@@ -119,6 +119,38 @@ $totalbarang = count_table("SELECT COUNT(id_barang) AS 'Jumlah Barang' FROM tb_b
 $totalkategori = count_table("SELECT COUNT(id_kategori) 'Jumlah Kategori' FROM tb_kategori");
 $totaltransaksi = count_table("SELECT COUNT(id_transaksi) 'Jumlah Transaksi' FROM tb_transaksi");
 
+function regis($data){
+    global $connect;
+
+    $nama_depan = strtolower(stripslashes($data['nama_depan']));
+    $nama_belakang = strtolower(stripslashes($data['nama_belakang']));
+    $asal = strtolower(stripslashes($data['asal']));
+    $tanggal_lahir = $data['tanggal_lahir'];
+    $telepon = $data['telepon'];
+    $email = strtolower(stripslashes($data['email']));
+    $username = strtolower(stripslashes($data['username']));
+    $pass = mysqli_real_escape_string($connect,$data['pass']);
+
+    //cek username sudah ada tau belum
+    /*$result=mysqli_query($connect,"SELECT username FROM register_user WHERE username='$username'");
+    if(mysqli_fetch_assoc($result)){
+        echo "<script>
+                alert('username sudah terdaftar');
+        </script>";
+
+        return false;
+    }*/
+
+    //ekripsi pass
+   
+
+    //tambahakan user baru ke database
+    $query="INSERT INTO register_user 
+    VALUES('','$nama_depan','$nama_belakang','$asal','$tanggal_lahir','$telepon','$email','$username','$pass')";
+    mysqli_query($connect,$query);
+    return mysqli_affected_rows($connect);
+}
+
 // function upload() {
 
 // 	$namaFile = $_FILES['gambar']['name'];
