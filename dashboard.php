@@ -1,5 +1,5 @@
 <?php
-    require 'config/count-table.php';
+    require 'config/functions.php';
 ?>
 
 <!DOCTYPE html>
