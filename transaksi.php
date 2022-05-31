@@ -1,42 +1,48 @@
 <?php
-require 'config/functions.php';
+    session_start();
 
-$transaksi = query("
-    SELECT tb_transaksi.id_barang, 
-        tb_barang.nama_barang, 
-        tb_transaksi.jumlah, 
-        tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
-        tb_barang.harga_jual * tb_transaksi.jumlah AS 'total', 
-        tb_transaksi.kasir, 
-        tb_transaksi.waktu_input
-    FROM tb_transaksi 
-    INNER JOIN tb_barang USING(id_barang);     
-");
+    if( !isset($_SESSION["login"]) ) {
+        header("Location: login.php");
+        exit;
+    }
 
-$total = query("
-    SELECT 
-        SUM(jumlah) AS total_jumlah,
-        SUM(modal) AS total_modal, 
-        SUM(total) AS total_total
-    FROM (
-        SELECT tb_transaksi.jumlah, 
+    require 'config/functions.php';
+
+    $transaksi = query("
+        SELECT tb_transaksi.id_barang, 
+            tb_barang.nama_barang, 
+            tb_transaksi.jumlah, 
             tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
-            tb_barang.harga_jual * tb_transaksi.jumlah AS 'total' 
+            tb_barang.harga_jual * tb_transaksi.jumlah AS 'total', 
+            tb_transaksi.kasir, 
+            tb_transaksi.waktu_input
         FROM tb_transaksi 
-        INNER JOIN tb_barang USING(id_barang)
-    ) as tb_transaksibarang;
-");
+        INNER JOIN tb_barang USING(id_barang);     
+    ");
 
-$keuntungan = $total[0]["total_total"] - $total[0]["total_modal"];
+    $total = query("
+        SELECT 
+            SUM(jumlah) AS total_jumlah,
+            SUM(modal) AS total_modal, 
+            SUM(total) AS total_total
+        FROM (
+            SELECT tb_transaksi.jumlah, 
+                tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
+                tb_barang.harga_jual * tb_transaksi.jumlah AS 'total' 
+            FROM tb_transaksi 
+            INNER JOIN tb_barang USING(id_barang)
+        ) as tb_transaksibarang;
+    ");
 
-if(isset($_POST["laporBulanan"])){
-    $transaksi = laporanBulanan($_POST);
-}
+    $keuntungan = $total[0]["total_total"] - $total[0]["total_modal"];
 
-if(isset($_POST["laporTanggal"])){
-    $transaksi = laporanTanggal($_POST);
-}
+    if(isset($_POST["laporBulanan"])){
+        $transaksi = laporanBulanan($_POST);
+    }
 
+    if(isset($_POST["laporTanggal"])){
+        $transaksi = laporanTanggal($_POST);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +59,10 @@ if(isset($_POST["laporTanggal"])){
             <div class="bg-white min-w-full my-10 overflow-auto">
                 <div class="flex mx-12 mt-12">
                     <h1 class="grow text-4xl text-slate-700 font-bold ">Data Transaksi</h1>
-                    <?php include 'config/username.php'; ?>
+                    <a href="profile.php" class="flex items-center">
+                        <img src="https://source.unsplash.com/1080x1080?profile" alt="Profile" width="36" class="rounded-full">
+                        <span class="ml-4 font-bold underline"><?php get_username($_SESSION["username"]); ?></span>
+                    </a>
                 </div>
                 <div class="flex mb-4 px-12 flex-row ">
                     <div class="float-left mr-20">

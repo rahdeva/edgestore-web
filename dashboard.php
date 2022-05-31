@@ -6,10 +6,6 @@
         exit;
     }
 
-    if( isset($_SESSION["username"]) ) {
-        $loggedInUusername = $_SESSION["username"];
-    }
-
     require 'config/functions.php';
 ?>
 
@@ -28,7 +24,7 @@
                     <h1 class="grow text-4xl text-slate-700 font-bold ">Dashboard</h1>
                     <a href="profile.php" class="flex items-center">
                         <img src="https://source.unsplash.com/1080x1080?profile" alt="Profile" width="36" class="rounded-full">
-                        <span class="ml-4 font-bold underline"><?php get_username($loggedInUusername); ?></span>
+                        <span class="ml-4 font-bold underline"><?php get_username($_SESSION["username"]); ?></span>
                     </a>
                 </div>
                 <div class="body-content">
