@@ -1,4 +1,11 @@
 <?php
+    session_start();
+
+    if( isset($_SESSION["login"]) ) {
+        header("Location: dashboard.php");
+        exit;
+    }
+
     require 'config/functions.php';
 
     if(isset($_POST["login"])){
@@ -13,6 +20,7 @@
             //cek password
             $row = mysqli_fetch_assoc($result);
             if($pass == $row['password']){
+                $_SESSION["login"] = true;
                 header("Location: index.php");
                 exit;
             }
