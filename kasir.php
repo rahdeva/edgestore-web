@@ -32,7 +32,7 @@ $date = date('j F Y');
                     <div class="flex basis-2/3 bg-white-200 flex-col m-4 p-4 rounded-2xl border-4 border-indigo-400 h-auto">
                         <h1 class="text-2xl text-slate-700 font-bold mt-2 mb-4"><i class="bi bi-list"></i> Hasil Pencarian</h1>
                         <div id="containerSearched">
-                            
+                            <h1 class="text-center w-full mt-2">Silahkan Lakukan Pencarian!</h1>
                         </div>
                     </div>
                 </div>
@@ -48,6 +48,10 @@ $date = date('j F Y');
                                 <td><input disabled class="w-full px-3 py-2 rounded-lg border-slate-800 border-2 bg-slate-300"  type="text" id="tanggal" name="tanggal" value="<?= $date ?>"></td>
                             </tr>
                         </table>
+                        <hr class="my-4 w-full", size="3", color=black>  
+                        <div id="containerKasir">
+                            <h1 class="text-center w-full mt-2">Anda belum menambahkan barang apapun.</h1>
+                        </div>
                         <form action="" method="post">
                             <hr class="my-4 w-full", size="3", color=black>  
                             <label for="total" class="mr-4">Total Semua</label>

@@ -23,7 +23,7 @@ $barang = query($query);
 
 ?>
 <table class="w-full text-center" cellpadding="10" cellspacing="0">
-    <tr>
+    <tr class="border-b-2 border-slate-400">
         <th>No</th>
         <th>Kategori</th>
         <th>Nama Barang</th>
@@ -31,7 +31,7 @@ $barang = query($query);
         <th>Harga</th>
         <th>Aksi</th>
     </tr>
-
+    
     <?php $i = 1; ?>
     <?php foreach( $barang as $row ) : ?>
     <tr>
