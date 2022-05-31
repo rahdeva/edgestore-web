@@ -1,3 +1,35 @@
+<?php
+$koneksi=mysqli_connect("localhost","root","","register");
+
+
+
+if(isset($_POST["login"])){
+    $username=$_POST['username'];
+    $pass=$_POST['pass'];
+
+    $hasil="SELECT * FROM register_user WHERE username ='$username'";
+    $result=mysqli_query($koneksi,$hasil);
+    var_dump($result);
+
+    //cek username
+    if(mysqli_num_rows($result)===1){
+        //cek password
+        $row=mysqli_fetch_assoc($result);
+        
+        if($pass==$row['pass']){
+            
+            header("Location: profile.php");
+            exit;
+
+        }
+    
+    }
+        echo("username/password salah");
+    
+    
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,30 +45,35 @@
             <div class="max-w-xl bg-green-300 h-12 mx-auto mt-3 shadow-2xl shadow-teal-300 opacity-75">
                 <h1 class="text-4xl text-center font-bold">Edge Store</h1>
             </div>
-            <div class="bg-white mx-auto h-64 max-w-xl rounded-2xl">
-                <div class="p-8 pb-2 relative mt-8">
-                    <form>
-                        <i class="fa fa-user absolute text-primary text-xl"></i>
-                        <input type="text" id="email"placeholder=" Masukan username" class="focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2 focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg invalid:text-red-500" />
-                    </form>
-                </div>
+                <div class="bg-white mx-auto h-64 max-w-xl rounded-2xl">
+                    <form action=""method="post">
+                    <div class="p-8 pb-2 relative mt-8">
+                            
+                            <i class="fa fa-user absolute text-primary text-xl"></i>
+                           <input type="text" name="username" id="username" placeholder=" Masukan username" class="focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2 focus:outline-none focus:border-primarycolor transition-all duration-500 invalid:text-red-500 required"  />
+               
+                      
+                          
+                   </div>
                 <div class="p-8 pt-0 relative mt-2">
-                    <form>
-                        <i class="fa fa-lock absolute text-primary text-xl"></i>
-                        <input type="password" placeholder=" Password" class="focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2  focus:outline-none focus:border-primarycolor transition-all duration-500 capitalize text-lg" />
-                        
+                       
+                           <i class="fa fa-lock absolute text-primary text-xl"></i>
+                           <input type="text" name="pass" id="pass"placeholder=" Password" class="focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2  focus:outline-none focus:border-primarycolor transition-all duration-500 required" />
+                   
+                       
+                   </div>
+                   <button class="block mx-auto">
+                       <a href="register.php" class=" hover:bg-blue-300 py-3 px-16 bg-violet-400 rounded-full text_whi text-white">Sign Up</a>
+               
+                   </button>
+                   
+                    <button type="submit" name="login"class="block mx-auto mt-8 hover:bg-blue-300 py-3 px-16 bg-violet-400 rounded-full text_whi text-white">Sign In</button>
+                   
                     </form>
-                </div>
-                <button class="block mx-auto">
-                    <a href="profil.html" class=" hover:bg-blue-300 py-3 px-16 bg-violet-400 rounded-full text_whi text-white">Sign Up</a>
-                    
-                </button>
-                <button class="block mx-auto mt-8">
-                    
-                    <a href="#" class="hover:bg-blue-300 py-3 px-16 bg-violet-400 rounded-full text_whi text-white">Sign In</a>
-                </button>
-            </div>
+                     
+                       
+                    </div>
         </section>
-        <img src="assets/images/wave.png"/ class="h-screen">
+        <img src="assets/images/wave.png" class="h-screen">
     </body>
 </html>
