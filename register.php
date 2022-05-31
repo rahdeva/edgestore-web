@@ -1,15 +1,15 @@
 <?php
-require 'registerfunction.php';
+require 'config/functions.php';
 
 if(isset($_POST["submit"])) {
-    if(regis($_POST) >0){
+    if(regis($_POST) > 0){
         echo"<script>
         alert('user baru berhasil ditambahkan');
         </script>";
-        header("Location: profile.php");
+        header("Location: login.php");
             exit;
     }else{
-        echo mysqli_error($koneksi);
+        echo mysqli_error($connect);
     }
 }
 ?>
@@ -36,13 +36,13 @@ if(isset($_POST["submit"])) {
                     <span class="block font-semibold mb-1 text-slate-700 after:content-['*'] after:text-pink-500 after:ml-1 mt-3">Nama Belakang</span>
                     <input type="text"required name="nama_belakang"placeholder="masukkan nama..." class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 "/>   
                 </label>
-                <label for="asal">
-                    <span class="block font-semibold mb-1 text-slate-700 after:content-['*'] after:text-pink-500 after:ml-1 mt-3">Asal</span>
-                    <input type="text" required name="asal" placeholder="masukan asal..."class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 "/>   
+                <label for="alamat">
+                    <span class="block font-semibold mb-1 text-slate-700 after:content-['*'] after:text-pink-500 after:ml-1 mt-3">Alamat</span>
+                    <input type="text" required name="alamat" placeholder="masukan alamat..."class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 "/>   
                 </label>
                 <label for="date">
                     <span class="block font-semibold mb-1 text-slate-700 after:content-['*'] after:text-pink-500 after:ml-1 mt-3">Tanggal Lahir</span>
-                    <input type="date" required name="tanggal_lahir" placeholder="kota asal..." class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 "/>   
+                    <input type="date" required name="tanggal_lahir" placeholder="..." class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 "/>   
                 </label>
                 <label for="telepon">
                     <span class="block font-semibold mb-1 text-slate-700 after:content-['*'] after:text-pink-500 after:ml-1 mt-3">Telepon</span>
@@ -62,10 +62,9 @@ if(isset($_POST["submit"])) {
                     <input type="password" required name="pass"id="pwd" placeholder="masukkan password..." class="px-3 py-2 border shadow rounded w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 "/>   
                 </label>
                 <button type="submit" name="submit" class=" hover:bg-blue-300 bg-fuchsia-600 px-5 py-4 rounded-full text-white font-semibold block mx-auto mt-10">
-                 <a href="login.php" >Simpan Data</a> 
+                Simpan Data
                 </button>
             </form>
-            
         </div>
     </div>
 </body>
