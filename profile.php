@@ -40,6 +40,13 @@ if(isset($_POST["editPassword"])){
         alert("ganti", false, 'profile.php');
 }
 
+if(isset($_POST["editPhoto"])){
+    if(editPhoto($_POST) > 0)
+        alert("ganti", true, 'profile.php');
+    else
+        alert("ganti", false, 'profile.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -58,11 +65,12 @@ if(isset($_POST["editPassword"])){
                 <div class="flex flex-row mx-12 my-4">
                     <div class="flex basis-1/3 bg-white-200 flex-col m-4 p-4 rounded-2xl border-4 border-indigo-400 h-4/5">
                         <img src="<?php echo get_photos($_SESSION["username"]); ?>" alt="Profile" class="rounded-full w-full h-full mt-2 mb-4 ">
-                        <form action="" method="post">
-                            <label for="nama_depan">Choose Files</label>
-                            <input class="w-full px-3 py-2 rounded-lg border-slate-800 border-2"  type="file" id="nama_depan" name="nama_depan" value="">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <input class="hidden" type="text" name="id_profil" id="id_profil" value="<?= $profile[0]["id_profil"]; ?>">
+                            <label for="gambar">Choose Files</label>
+                            <input class="w-full px-3 py-2 rounded-lg border-slate-800 border-2"  type="file" id="gambar" name="gambar" value="">
 
-                            <button type="submit" name="submit" class="float-right py-2 px-4 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-pencil-square"></i> Change Profil Picture</button>
+                            <button type="submit" name="editPhoto" class="float-right py-2 px-4 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-pencil-square"></i> Change Profil Picture</button>
                         </form>
                     </div>
                     <div class="flex basis-1/3 bg-white-200 flex-col m-4 p-4 rounded-2xl border-4 border-indigo-400">

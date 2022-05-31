@@ -199,13 +199,13 @@ function editProfile($data) {
 function editPassword($data) {
 	global $connect;
 
-    $id_user = htmlspecialchars($data["id_user"]);
+	$id_user = htmlspecialchars($data["id_user"]);
 	$password = htmlspecialchars($data["password"]);
 	
-	$query ="   UPDATE tb_user
-                SET 
-					password = '$password'
-                WHERE id = $id_user
+	$query ="   UPDATE tb_user 
+				SET
+					password = '$password',
+				WHERE id = $id_user
 			";
 
 	mysqli_query($connect, $query);
@@ -213,50 +213,79 @@ function editPassword($data) {
 	return mysqli_affected_rows($connect);	
 }
 
-// function upload() {
+function editPhoto($data) {
+	global $connect;
 
-// 	$namaFile = $_FILES['gambar']['name'];
-// 	$ukuranFile = $_FILES['gambar']['size'];
-// 	$error = $_FILES['gambar']['error'];
-// 	$tmpName = $_FILES['gambar']['tmp_name'];
+    $id = htmlspecialchars($data["id_profil"]);
 
-// 	// cek apakah tidak ada gambar yang diupload
-// 	if( $error === 4 ) {
-// 		echo "<script>
-// 				alert('pilih gambar terlebih dahulu!');
-// 			  </script>";
-// 		return false;
-// 	}
+	// upload gambar
+	$gambar = upload();
+	if( !$gambar ) {
+		return false;
+	}
+	
+	$query ="   UPDATE tb_profil
+                SET 
+					gambar = '$gambar'
+                WHERE id_profil = $id
+			";
 
-// 	// cek apakah yang diupload adalah gambar
-// 	$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
-// 	$ekstensiGambar = explode('.', $namaFile);
-// 	$ekstensiGambar = strtolower(end($ekstensiGambar));
-// 	if( !in_array($ekstensiGambar, $ekstensiGambarValid) ) {
-// 		echo "<script>
-// 				alert('yang anda upload bukan gambar!');
-// 			  </script>";
-// 		return false;
-// 	}
+	mysqli_query($connect, $query);
 
-// 	// cek jika ukurannya terlalu besar
-// 	if( $ukuranFile > 1000000 ) {
-// 		echo "<script>
-// 				alert('ukuran gambar terlalu besar!');
-// 			  </script>";
-// 		return false;
-// 	}
+	return mysqli_affected_rows($connect);	
+}
 
-// 	// lolos pengecekan, gambar siap diupload
-// 	// generate nama gambar baru
-// 	$namaFileBaru = uniqid();
-// 	$namaFileBaru .= '.';
-// 	$namaFileBaru .= $ekstensiGambar;
+function upload() {
 
-// 	move_uploaded_file($tmpName, 'img/' . $namaFileBaru);
+	$namaFile = $_FILES['gambar']['name'];
+	$ukuranFile = $_FILES['gambar']['size'];
+	$error = $_FILES['gambar']['error'];
+	$tmpName = $_FILES['gambar']['tmp_name'];
 
-// 	return $namaFileBaru;
-// }
+	// cek apakah tidak ada gambar yang diupload
+	if( $error === 4 ) {
+		echo "
+			<script>
+				alert('pilih gambar terlebih dahulu!');
+			</script>
+		";
+		return false;
+	}
+
+	// cek apakah yang diupload adalah gambar
+	$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+	$ekstensiGambar = explode('.', $namaFile);
+	$ekstensiGambar = strtolower(end($ekstensiGambar));
+	if( !in_array($ekstensiGambar, $ekstensiGambarValid) ) {
+		echo "
+			<script>
+				alert('yang anda upload bukan gambar!');
+			</script>
+		";
+		return false;
+	}
+
+	// cek jika ukurannya terlalu besar
+	if( $ukuranFile > 1000000 ) {
+		echo "
+			<script>
+				alert('ukuran gambar terlalu besar!');
+			</script>";
+		return false;
+	}
+
+	// lolos pengecekan, gambar siap diupload
+	// generate nama gambar baru
+	$namaFileBaru = uniqid();
+	$namaFileBaru .= '.';
+	$namaFileBaru .= $ekstensiGambar;
+
+	move_uploaded_file($tmpName, 'assets/images/user-images/' . $namaFileBaru);
+
+	$namaFileFix = 'assets/images/user-images/' . $namaFileBaru;
+
+	return $namaFileFix;
+}
 
 
 function filter($data) {
