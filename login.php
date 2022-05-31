@@ -15,7 +15,7 @@ if(isset($_POST["login"])){
     if(mysqli_num_rows($result)===1){
         //cek password
         $row=mysqli_fetch_assoc($result);
-        $a= $row['pass'];
+        
         if($pass==$row['pass']){
             
             header("Location: profile.php");
