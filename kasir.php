@@ -1,9 +1,15 @@
 <?php
 
+session_start();
+
+    if( !isset($_SESSION["login"]) ) {
+        header("Location: login.php");
+        exit;
+    }
+
 require 'config/functions.php';
 
 $date = date('j F Y');
-
 
 ?>
 
@@ -20,7 +26,10 @@ $date = date('j F Y');
             <div class="bg-white min-w-full my-10 overflow-auto">
                 <div class="flex mx-12 mt-12">
                     <h1 class="grow text-4xl text-slate-700 font-bold ">Kasir</h1>
-                    <?php include 'config/username.php'; ?>
+                    <a href="profile.php" class="flex items-center">
+                        <img src="https://source.unsplash.com/1080x1080?profile" alt="Profile" width="36" class="rounded-full">
+                        <span class="ml-4 font-bold underline"><?php get_username($_SESSION["username"]); ?></span>
+                    </a>
                 </div>
                 <div class="flex flex-row mx-12 my-4">
                     <div class="flex basis-1/3 bg-white-200 flex-col m-4 p-4 rounded-2xl border-4 border-indigo-400 h-40">

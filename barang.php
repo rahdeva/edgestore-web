@@ -1,59 +1,66 @@
 <?php 
-require 'config/functions.php';
+    session_start();
 
-$barang = query("
-    SELECT 
-        tb_barang.id_barang, 
-        tb_kategori.nama_kategori AS 'nama_kategori', 
-        tb_barang.nama_barang, 
-        tb_barang.merk, 
-        tb_barang.stok, 
-        tb_barang.harga_beli, 
-        tb_barang.harga_jual, 
-        tb_barang.kedaluwarsa 
-    FROM tb_barang 
-    INNER JOIN tb_kategori USING(id_kategori)
-");
+    if( !isset($_SESSION["login"]) ) {
+        header("Location: login.php");
+        exit;
+    }
 
-$total = query("
-    SELECT 
-        SUM(stok) AS total_stok, 
-        SUM(harga_beli) AS total_harga_beli, 
-        SUM(harga_jual) AS total_harga_jual 
-    FROM tb_barang;
-");
+    require 'config/functions.php';
 
-$kategori = query("SELECT * FROM tb_kategori");
+    $barang = query("
+        SELECT 
+            tb_barang.id_barang, 
+            tb_kategori.nama_kategori AS 'nama_kategori', 
+            tb_barang.nama_barang, 
+            tb_barang.merk, 
+            tb_barang.stok, 
+            tb_barang.harga_beli, 
+            tb_barang.harga_jual, 
+            tb_barang.kedaluwarsa 
+        FROM tb_barang 
+        INNER JOIN tb_kategori USING(id_kategori)
+    ");
 
-// Insert Data
-if( isset($_POST["submit"]) ) {
-	if( insertBarang($_POST) > 0 )
-		alert("tambah", true, 'barang.php');
-    else
-        alert("tambah", false, 'barang.php');
-}
+    $total = query("
+        SELECT 
+            SUM(stok) AS total_stok, 
+            SUM(harga_beli) AS total_harga_beli, 
+            SUM(harga_jual) AS total_harga_jual 
+        FROM tb_barang;
+    ");
 
-if(isset($_POST["filter"])){
-    $barang = filter($_POST);
-}
+    $kategori = query("SELECT * FROM tb_kategori");
 
-// Delete Data
-// if( isset($_POST["delete"]) ) {
-//     if( deleteBarang($_POST) > 0 ) {
-//         alert("hapus", true, 'barang.php');
-//     } else {
-//         alert("hapus", false, 'barang.php');
-//     }
-// }
+    // Insert Data
+    if( isset($_POST["submit"]) ) {
+        if( insertBarang($_POST) > 0 )
+            alert("tambah", true, 'barang.php');
+        else
+            alert("tambah", false, 'barang.php');
+    }
 
-// function deleteData($id){
-//     alert($id, true, 'barang.php');
-//     // if( delete($id) > 0 ) {
-//     //     alert("hapus", true, 'barang.php');
-//     // } else {
-//     //     alert("hapus", false, 'barang.php');
-//     // }
-// }
+    if(isset($_POST["filter"])){
+        $barang = filter($_POST);
+    }
+
+    // Delete Data
+    // if( isset($_POST["delete"]) ) {
+    //     if( deleteBarang($_POST) > 0 ) {
+    //         alert("hapus", true, 'barang.php');
+    //     } else {
+    //         alert("hapus", false, 'barang.php');
+    //     }
+    // }
+
+    // function deleteData($id){
+    //     alert($id, true, 'barang.php');
+    //     // if( delete($id) > 0 ) {
+    //     //     alert("hapus", true, 'barang.php');
+    //     // } else {
+    //     //     alert("hapus", false, 'barang.php');
+    //     // }
+    // }
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +79,10 @@ if(isset($_POST["filter"])){
             <div class="bg-white min-w-full my-10 overflow-auto">
                 <div class="flex mx-12 mt-12">
                     <h1 class="grow text-4xl text-slate-700 font-bold ">Data Barang</h1>
-                    <?php include 'config/username.php'; ?>
+                    <a href="profile.php" class="flex items-center">
+                        <img src="https://source.unsplash.com/1080x1080?profile" alt="Profile" width="36" class="rounded-full">
+                        <span class="ml-4 font-bold underline"><?php get_username($_SESSION["username"]); ?></span>
+                    </a>
                 </div>
                 <div class="mr-12 mt-12 mb-6 flex justify-end gap-4">
                     <!-- <button class="bg-green-400 rounded-md py-1 px-2 text-white text-sm"><i class="bi bi-arrow-clockwise"></i> 

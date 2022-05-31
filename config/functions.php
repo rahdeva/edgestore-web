@@ -108,6 +108,102 @@ function insertKategori($data) {
 	return mysqli_affected_rows($connect);
 }
 
+function count_table($query){
+	global $connect;
+	$row = mysqli_query($connect, $query);
+	$result = mysqli_fetch_array($row);
+	return $result;
+}
+
+$totalbarang = count_table("SELECT COUNT(id_barang) AS 'Jumlah Barang' FROM tb_barang");
+$totalkategori = count_table("SELECT COUNT(id_kategori) 'Jumlah Kategori' FROM tb_kategori");
+$totaltransaksi = count_table("SELECT COUNT(id_transaksi) 'Jumlah Transaksi' FROM tb_transaksi");
+
+function regis($data){
+    global $connect;
+
+    $nama_depan = strtolower(stripslashes($data['nama_depan']));
+    $nama_belakang = strtolower(stripslashes($data['nama_belakang']));
+    $alamat = strtolower(stripslashes($data['alamat']));
+    $tanggal_lahir = $data['tanggal_lahir'];
+    $telepon = $data['telepon'];
+    $email = strtolower(stripslashes($data['email']));
+    $username = strtolower(stripslashes($data['username']));
+    $pass = mysqli_real_escape_string($connect, $data['pass']);
+
+    //cek username sudah ada tau belum
+    $result = mysqli_query($connect, "SELECT username FROM tb_user WHERE username = '$username'");
+    if(mysqli_fetch_assoc($result)){
+        echo "<script>
+                alert('Username sudah terdaftar');
+        	</script>";
+        return false;
+    }
+
+    //ekripsi pass
+
+    //tambahakan user baru ke database
+    $queryProfil = "INSERT INTO tb_profil VALUES('', '$nama_depan', '$nama_belakang', '$alamat', '$tanggal_lahir', '$email', '$telepon')";
+    mysqli_query($connect, $queryProfil);
+	$queryUser = "INSERT INTO tb_user VALUES('', '$username', '$pass')";
+	mysqli_query($connect, $queryUser);
+    return mysqli_affected_rows($connect);
+}
+
+function get_username($username){
+	global $connect;
+	$query_username = "SELECT CONCAT(nama_depan, ' ', nama_belakang) FROM tb_profil INNER JOIN tb_user ON tb_profil.id_profil = tb_user.id WHERE username = '$username';";
+	$row = mysqli_query($connect, $query_username);
+	$result = mysqli_fetch_array($row);
+	echo $result[0];
+}
+
+// function upload() {
+
+// 	$namaFile = $_FILES['gambar']['name'];
+// 	$ukuranFile = $_FILES['gambar']['size'];
+// 	$error = $_FILES['gambar']['error'];
+// 	$tmpName = $_FILES['gambar']['tmp_name'];
+
+// 	// cek apakah tidak ada gambar yang diupload
+// 	if( $error === 4 ) {
+// 		echo "<script>
+// 				alert('pilih gambar terlebih dahulu!');
+// 			  </script>";
+// 		return false;
+// 	}
+
+// 	// cek apakah yang diupload adalah gambar
+// 	$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+// 	$ekstensiGambar = explode('.', $namaFile);
+// 	$ekstensiGambar = strtolower(end($ekstensiGambar));
+// 	if( !in_array($ekstensiGambar, $ekstensiGambarValid) ) {
+// 		echo "<script>
+// 				alert('yang anda upload bukan gambar!');
+// 			  </script>";
+// 		return false;
+// 	}
+
+// 	// cek jika ukurannya terlalu besar
+// 	if( $ukuranFile > 1000000 ) {
+// 		echo "<script>
+// 				alert('ukuran gambar terlalu besar!');
+// 			  </script>";
+// 		return false;
+// 	}
+
+// 	// lolos pengecekan, gambar siap diupload
+// 	// generate nama gambar baru
+// 	$namaFileBaru = uniqid();
+// 	$namaFileBaru .= '.';
+// 	$namaFileBaru .= $ekstensiGambar;
+
+// 	move_uploaded_file($tmpName, 'img/' . $namaFileBaru);
+
+// 	return $namaFileBaru;
+// }
+
+
 function filter($data) {
 	$filter = htmlspecialchars($data["filter"]);
 	$defaultQuery = "

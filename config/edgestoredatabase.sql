@@ -59,6 +59,16 @@ CREATE TABLE `tb_profil` (
     `alamat` VARCHAR(500) NOT NULL , 
     `tgl_lahir` VARCHAR(30) NOT NULL , 
     `email` VARCHAR(50) NOT NULL , 
-    `no_telepon` VARCHAR(20) NOT NULL , 
+    `no_telepon` VARCHAR(20) NOT NULL ,
+    `gambar` VARCHAR(100) DEFAULT 'assets/images/user-images/default.png' ,
     PRIMARY KEY (`id_profil`)
 ) ENGINE = InnoDB;
+
+DELIMITER $$
+CREATE TRIGGER PenguranganStok
+AFTER INSERT ON `tb_transaksi`
+FOR EACH ROW BEGIN
+    UPDATE tb_barang SET stok = stok - NEW.jumlah
+    WHERE id_barang= NEW.id_barang;
+END $$
+DELIMITER ;
