@@ -46,7 +46,7 @@
                 <h2 class=" my-2 font-bold text-1xl">Welcome to Edge Store</h2>
             </div>
             <div class="max-w-xl bg-green-300 h-16 mx-auto mt-3 shadow-2xl shadow-teal-300 opacity-75 rounded-2xl">
-                <h1 class="text-4xl text-center font-bold pt-2">Edge-Store</h1>
+                <h1 class="text-4xl text-center font-bold pt-2" id="hello">Edge-Store</h1>
             </div>
             <div class="bg-white mx-auto h-64 max-w-xl rounded-2xl">
                 <form action=""method="post">
@@ -68,5 +68,6 @@
             </div>
         </section>
         <!-- <img src="assets/images/wave.png" class="h-screen"> -->
+        <script src="assets/js/login-script.js"></script>
     </body>
 </html>

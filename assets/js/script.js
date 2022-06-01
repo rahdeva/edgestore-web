@@ -148,3 +148,5 @@ window.onclick = function(event) {
 // closeModal2.onclick = function() {
 //     modal2.style.display = "none";
 // }
+
+// FOR barang.php //
