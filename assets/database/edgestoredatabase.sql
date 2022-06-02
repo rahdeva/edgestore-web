@@ -80,6 +80,17 @@ CREATE TABLE `tb_admin` (
     PRIMARY KEY (`id_admin`)
 ) ENGINE = InnoDB;
 
+INSERT INTO tb_user(id, username, password) 
+VALUES 	('99','adminsatu','adminsatu'),
+        ('98','admindua','admindua'),
+        ('97','admintiga','admintiga');
+
+INSERT INTO tb_admin(id_admin, nama_depan, nama_belakang, alamat, tgl_lahir, email, no_telepon, gambar) 
+VALUES 	('99','Admin','Satu','Tokyo','2022-05-31','adminsatu@gmail.com','081904055609','assets/images/user-images/default.png'),
+        ('98','Admin','Dua','Wakanda','2022-05-31','admindua@gmail.com','085739850813','assets/images/user-images/default.png'),
+        ('97','Admin','Tiga','Zimbabwe','2022-05-31','admintiga@gmail.com','087816983826','assets/images/user-images/default.png');
+
+
 DELIMITER $$
 CREATE TRIGGER PenguranganStok
 AFTER INSERT ON `tb_transaksi`
