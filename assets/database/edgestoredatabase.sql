@@ -57,7 +57,7 @@ CREATE TABLE `tb_user` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE `tb_profil` ( 
-    `id_profil` INT(10) NOT NULL AUTO_INCREMENT , 
+    `id_profil` INT(10) NOT NULL AUTO_INCREMENT, 
     `nama_depan` VARCHAR(30) NOT NULL , 
     `nama_belakang` VARCHAR(30) NOT NULL , 
     `alamat` VARCHAR(500) NOT NULL , 
@@ -67,6 +67,8 @@ CREATE TABLE `tb_profil` (
     `gambar` VARCHAR(100) DEFAULT 'assets/images/user-images/default.png' ,
     PRIMARY KEY (`id_profil`)
 ) ENGINE = InnoDB;
+
+ALTER TABLE `tb_profil` AUTO_INCREMENT = 4;
 
 CREATE TABLE `tb_admin` ( 
     `id_admin` INT(10) NOT NULL AUTO_INCREMENT , 
@@ -81,14 +83,14 @@ CREATE TABLE `tb_admin` (
 ) ENGINE = InnoDB;
 
 INSERT INTO tb_user(id, username, password) 
-VALUES 	('99','adminsatu','adminsatu'),
-        ('98','admindua','admindua'),
-        ('97','admintiga','admintiga');
+VALUES 	('1','adminsatu','adminsatu'),
+        ('2','admindua','admindua'),
+        ('3','admintiga','admintiga');
 
 INSERT INTO tb_admin(id_admin, nama_depan, nama_belakang, alamat, tgl_lahir, email, no_telepon, gambar) 
-VALUES 	('99','Admin','Satu','Tokyo','2022-05-31','adminsatu@gmail.com','081904055609','assets/images/user-images/default.png'),
-        ('98','Admin','Dua','Wakanda','2022-05-31','admindua@gmail.com','085739850813','assets/images/user-images/default.png'),
-        ('97','Admin','Tiga','Zimbabwe','2022-05-31','admintiga@gmail.com','087816983826','assets/images/user-images/default.png');
+VALUES 	('1','Admin','Satu','Tokyo','2022-05-31','adminsatu@gmail.com','081904055609','assets/images/user-images/default.png'),
+        ('2','Admin','Dua','Wakanda','2022-05-31','admindua@gmail.com','085739850813','assets/images/user-images/default.png'),
+        ('3','Admin','Tiga','Zimbabwe','2022-05-31','admintiga@gmail.com','087816983826','assets/images/user-images/default.png');
 
 
 DELIMITER $$

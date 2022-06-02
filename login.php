@@ -48,7 +48,7 @@
             <div class="max-w-xl bg-green-300 h-12 mx-auto mt-3 shadow-2xl shadow-teal-300 opacity-75 rounded-2xl">
                 <h1 class="text-2xl text-center font-bold pt-2" id="hello">Edge-Store</h1>
             </div>
-            <div class="bg-white mx-auto  max-w-xl rounded-2xl shadow-lg shadow-white">
+            <div class="bg-white mx-auto h-80 max-w-xl rounded-2xl shadow-lg shadow-white mb-8">
                 <form action=""method="post">
                     <div class="p-8 pb-2  mt-8 w-full text-center"> 
                         <i class="fa fa-user absolute text-primary text-xl"></i>
