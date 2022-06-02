@@ -8,7 +8,6 @@
 
     require 'config/functions.php';
 
-    
     // $barang = query("CALL TabelPageBarang();");
 
     $barang = query("

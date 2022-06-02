@@ -155,7 +155,12 @@ function regis($data){
 
 function get_username($username){
 	global $connect;
-	$query_username = "SELECT CONCAT(nama_depan, ' ', nama_belakang) FROM tb_profil INNER JOIN tb_user ON tb_profil.id_profil = tb_user.id WHERE username = '$username';";
+	if($_SESSION["status"] == 'user'){
+		$query_username = "SELECT CONCAT(nama_depan, ' ', nama_belakang) FROM tb_profil INNER JOIN tb_user ON tb_profil.id_profil = tb_user.id WHERE username = '$username';";
+	}
+	else if($_SESSION["status"] == 'admin'){
+		$query_username = "SELECT CONCAT(nama_depan, ' ', nama_belakang) FROM tb_admin INNER JOIN tb_user ON tb_admin.id_admin = tb_user.id WHERE username = '$username';";
+	}
 	$row = mysqli_query($connect, $query_username);
 	$result = mysqli_fetch_array($row);
 	return $result[0];
@@ -163,7 +168,12 @@ function get_username($username){
 
 function get_photos($username){
 	global $connect;
-	$query_username = "SELECT gambar FROM tb_profil INNER JOIN tb_user ON tb_profil.id_profil = tb_user.id WHERE username = '$username';";
+	if($_SESSION["status"] == 'user'){
+		$query_username = "SELECT gambar FROM tb_profil INNER JOIN tb_user ON tb_profil.id_profil = tb_user.id WHERE username = '$username';";
+	}
+	else if($_SESSION["status"] == 'admin'){
+		$query_username = "SELECT gambar FROM tb_admin INNER JOIN tb_user ON tb_admin.id_admin = tb_user.id WHERE username = '$username';";
+	}
 	$row = mysqli_query($connect, $query_username);
 	$result = mysqli_fetch_array($row);
 	return $result[0];
