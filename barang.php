@@ -10,8 +10,25 @@
 
     // $barang = query("CALL TabelPageBarang();");
 
-    $queryBarang = filter($_POST);
-
+    if( isset($_POST["filter"]) ) {
+        $queryBarang = filter($_POST);
+    }
+    else{
+        $queryBarang = "
+            SELECT 
+                tb_barang.id_barang, 
+                tb_kategori.nama_kategori AS 'nama_kategori', 
+                tb_barang.nama_barang, 
+                tb_barang.merk, 
+                tb_barang.stok, 
+                tb_barang.harga_beli, 
+                tb_barang.harga_jual, 
+                tb_barang.kedaluwarsa 
+            FROM tb_barang 
+            INNER JOIN tb_kategori USING(id_kategori) 
+        ";
+    }
+    
     $barang = query($queryBarang);
 
     $queryTotal = "

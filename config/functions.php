@@ -334,10 +334,7 @@ function upload() {
 
 
 function filter($data) {
-	$filter = -1;
-	if($data["filter"] != null){
-		$filter = htmlspecialchars($data["filter"]);
-	}
+	$filter = htmlspecialchars($data["filter"]);
 	$defaultQuery = "
 		SELECT 
 			tb_barang.id_barang, 
@@ -353,6 +350,9 @@ function filter($data) {
 	";
 	
 	switch ($filter) {
+		case '0':
+			$filter = $defaultQuery;
+			break;
 		case '1':
 			$filter = ($defaultQuery .= "WHERE NOT stok = 0");
 			break;
@@ -388,10 +388,10 @@ function filter($data) {
 			break;
 		case '12':
 			$filter = ($defaultQuery .= "WHERE tb_kategori.nama_kategori IN('Makanan Ringan','Minuman')");
-				break;
+			break;
 		case '13':
 			$filter = ($defaultQuery .= "WHERE tb_barang.stok IN ((select min(tb_barang.stok) from tb_barang),(select max(tb_barang.stok) from tb_barang)) ");
-				break;
+			break;
 		default:
 			$filter = $defaultQuery;
 	}
