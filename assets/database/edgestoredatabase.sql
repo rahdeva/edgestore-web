@@ -1,3 +1,5 @@
+CREATE DATABASE PROJECT;
+USE PROJECT;
 CREATE TABLE `tb_barang` ( 
     `id_barang` INT(10) NOT NULL AUTO_INCREMENT , 
     `id_kategori` INT(10) NOT NULL , 
@@ -21,7 +23,7 @@ INSERT INTO `tb_barang` (`id_kategori`, `nama_barang`, `merk`, `stok`, `harga_be
     (4, 'Alkohol', 'Bintang', 10, 15000, 17500, '2022-12-12'),
     (2, 'Shampoo', 'Lifeboy', 20, 23000, 25000, '2022-11-12'),
     (2, 'Pasta Gigi', 'Pepsodent', 25, 12000, 15000, '2023-06-18');
-
+SELECT * FROM tb_barang;
 CREATE TABLE `tb_kategori` ( 
     `id_kategori` INT(10) NOT NULL AUTO_INCREMENT , 
     `nama_kategori` VARCHAR(30) NOT NULL , 
@@ -34,6 +36,7 @@ INSERT INTO `tb_kategori` (`nama_kategori`, `deskripsi`) VALUES
     ('MCK', 'Barang yang berhubungan dengan keperluan mandi, cuci dan buang air'),
     ('Makanan Ringan', 'Berbagai makanan ringan seperti biskuit, snack dan jajanan lainnya'),
     ('Minuman', 'Minuman dalam botol atau kemasan lainnya, jenisnya bisa susu, kopi atau lainnya');
+SELECT * FROM tb_kategori;
 
 CREATE TABLE `tb_transaksi` ( 
     `id_transaksi` INT(10) NOT NULL AUTO_INCREMENT , 
@@ -41,9 +44,10 @@ CREATE TABLE `tb_transaksi` (
     `jumlah` INT(10) NOT NULL , 
     `total` DECIMAL(20,4) NOT NULL , 
     `kasir` VARCHAR(100) NOT NULL , 
-    `waktu_input` VARCHAR(30) NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+    `waktu_input` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     PRIMARY KEY (`id_transaksi`)
 ) ENGINE = InnoDB;
+
 
 CREATE TABLE `tb_user` ( 
     `id` INT(10) NOT NULL AUTO_INCREMENT , 
@@ -51,6 +55,13 @@ CREATE TABLE `tb_user` (
     `password` VARCHAR(200) NOT NULL , 
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
+
+ALTER TABLE tb_user
+ADD COLUMN id_profil INT(10) NOT NULL,
+ADD FOREIGN KEY (id_profil) REFERENCES tb_profil(id_profil);
+
+#Cek the relasi antara sebuah tb_user dengan tb_profil
+SELECT * FROM tb_user INNER JOIN tb_profil ON tb_user.id_profil=tb_profil.id_profil;
 
 CREATE TABLE `tb_profil` ( 
     `id_profil` INT(10) NOT NULL AUTO_INCREMENT , 
@@ -72,3 +83,10 @@ FOR EACH ROW BEGIN
     WHERE id_barang= NEW.id_barang;
 END $$
 DELIMITER ;
+
+# View yang digunakan untuk konfirmasi sebuah username dengan tanggal lahir
+CREATE VIEW Validasi_Password AS
+	SELECT tb_user.username,tb_profil.no_telepon,tb_user.password FROM tb_user
+    INNER JOIN tb_profil ON tb_user.id_profil = tb_profil.id_profil;
+#DROP VIEW Validasi_Password; 
+SELECT * FROM Validasi_Password WHERE Validasi_Password.username = '082147379372';
