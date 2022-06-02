@@ -49,16 +49,12 @@ CREATE TABLE `tb_transaksi` (
     PRIMARY KEY (`id_transaksi`)
 ) ENGINE = InnoDB;
 
-
 CREATE TABLE `tb_user` ( 
     `id` INT(10) NOT NULL AUTO_INCREMENT , 
     `username` VARCHAR(30) NOT NULL , 
     `password` VARCHAR(200) NOT NULL , 
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
-
-#Cek the relasi antara sebuah tb_user dengan tb_profil
--- SELECT * FROM tb_user INNER JOIN tb_profil ON tb_user.id_profil=tb_profil.id_profil;
 
 CREATE TABLE `tb_profil` ( 
     `id_profil` INT(10) NOT NULL AUTO_INCREMENT , 
@@ -70,6 +66,18 @@ CREATE TABLE `tb_profil` (
     `no_telepon` VARCHAR(20) NOT NULL ,
     `gambar` VARCHAR(100) DEFAULT 'assets/images/user-images/default.png' ,
     PRIMARY KEY (`id_profil`)
+) ENGINE = InnoDB;
+
+CREATE TABLE `tb_admin` ( 
+    `id_admin` INT(10) NOT NULL AUTO_INCREMENT , 
+    `nama_depan` VARCHAR(30) NOT NULL , 
+    `nama_belakang` VARCHAR(30) NOT NULL , 
+    `alamat` VARCHAR(500) NOT NULL , 
+    `tgl_lahir` VARCHAR(30) NOT NULL , 
+    `email` VARCHAR(50) NOT NULL , 
+    `no_telepon` VARCHAR(20) NOT NULL ,
+    `gambar` VARCHAR(100) DEFAULT 'assets/images/user-images/default.png' ,
+    PRIMARY KEY (`id_admin`)
 ) ENGINE = InnoDB;
 
 DELIMITER $$
