@@ -140,9 +140,10 @@ DELIMITER $$
     END $$
 DELIMITER ;
 
--- View yang digunakan untuk konfirmasi sebuah username dengan tanggal lahir
--- CREATE VIEW Validasi_Password AS
--- SELECT tb_user.username,tb_profil.no_telepon,tb_user.password FROM tb_user
--- INNER JOIN tb_profil ON tb_user.id_profil = tb_profil.id_profil;
+CREATE VIEW validasi_lupa_password AS
+SELECT tb_user.username, tb_profil.no_telepon, tb_profil.email
+FROM tb_user
+INNER JOIN tb_profil 
+ON tb_user.id = tb_profil.id_profil;
 
--- SELECT * FROM Validasi_Password WHERE Validasi_Password.username = '082147379372';
+-- SELECT * FROM validasi_lupa_password WHERE username = 'suarno';
