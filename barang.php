@@ -105,6 +105,8 @@
                             <option value="9">Harga Beli Descending</option>
                             <option value="10">Harga Jual Ascending</option>
                             <option value="11">Harga Jual Descending</option>
+                            <option value="12">Makanan Ringan & Minuman</option>
+                            <option value="13">Stok Terkecil & Terbesar</option>
                         </select>
                     </form>
                     <button id="insertBtn" class="bg-blue-400 rounded-md py-1 px-2 text-white text-sm"><i class="bi bi-plus-lg"></i> 

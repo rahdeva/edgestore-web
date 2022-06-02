@@ -2,7 +2,7 @@
 require 'config/functions.php';
 
 if(isset($_POST["submit"])) {
-    if(regis($_POST) > 0){
+    if(regis($_POST) >= 0){
         echo"<script>
         alert('user baru berhasil ditambahkan');
         </script>";
