@@ -82,5 +82,6 @@
             </div>
         </div>
         <?php include 'footer.php'; ?>
+        <script src="assets/js/dashboard-script.js"></script>
     </body>
 </html>

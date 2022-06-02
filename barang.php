@@ -199,5 +199,6 @@
             </div>
         </div>
         <?php include 'footer.php'; ?>
+        <script src="../assets/js/barang-script.js"></script>
     </body>
 </html>

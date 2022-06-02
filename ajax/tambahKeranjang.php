@@ -1,26 +1,22 @@
-<?php 
-require '../config/functions.php';
+<?php
+    require '../config/functions.php';
 
-$keyword = $_GET["keyword"];
+    $keyword = $_GET["keyword"];
 
-$query = "
+    $query = "
     SELECT 
         tb_barang.id_barang, 
         tb_kategori.nama_kategori AS 'nama_kategori', 
         tb_barang.nama_barang, 
         tb_barang.merk, 
-        tb_barang.stok, 
         tb_barang.harga_jual
     FROM tb_barang 
     INNER JOIN tb_kategori USING(id_kategori)
     WHERE
-        tb_barang.nama_barang LIKE '%$keyword%' OR
-        tb_barang.merk LIKE '%$keyword%' OR
-        tb_kategori.nama_kategori LIKE '%$keyword%';
+        tb_barang.id_barang = $keyword;
     ";
 
-$barang = query($query);
-
+    $barang = query($query);
 ?>
 <table class="w-full text-center" cellpadding="10" cellspacing="0">
     <tr class="border-b-2 border-slate-400">
