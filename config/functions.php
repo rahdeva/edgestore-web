@@ -182,7 +182,6 @@ function get_photos($username){
 function editProfile($data) {
 	global $connect;
 
-    $id = htmlspecialchars($data["id_profil"]);
 	$nama_depan = htmlspecialchars($data["nama_depan"]);
 	$nama_belakang = htmlspecialchars($data["nama_belakang"]);
 	$tgl_lahir = htmlspecialchars($data["tgl_lahir"]);
@@ -190,16 +189,32 @@ function editProfile($data) {
 	$no_telepon = htmlspecialchars($data["no_telepon"]);
 	$alamat = htmlspecialchars($data["alamat"]);
 	
-	$query ="   UPDATE tb_profil 
-                SET
-                    nama_depan = '$nama_depan',
-                    nama_belakang = '$nama_belakang',
-                    tgl_lahir = '$tgl_lahir',
-                    email = '$email',
-                    no_telepon = '$no_telepon',
-                    alamat = '$alamat'
-                WHERE id_profil = $id
-			";
+	if( $_SESSION["status"] == 'user') {
+		$id = htmlspecialchars($data["id_profil"]);
+		$query ="   UPDATE tb_profil 
+					SET
+						nama_depan = '$nama_depan',
+						nama_belakang = '$nama_belakang',
+						tgl_lahir = '$tgl_lahir',
+						email = '$email',
+						no_telepon = '$no_telepon',
+						alamat = '$alamat'
+					WHERE id_profil = $id
+				";
+	}
+	else if( $_SESSION["status"] == 'admin' ) {
+		$id = htmlspecialchars($data["id_admin"]);
+		$query ="   UPDATE tb_admin
+					SET
+						nama_depan = '$nama_depan',
+						nama_belakang = '$nama_belakang',
+						tgl_lahir = '$tgl_lahir',
+						email = '$email',
+						no_telepon = '$no_telepon',
+						alamat = '$alamat'
+					WHERE id_admin = $id
+				";
+	}
 
 	mysqli_query($connect, $query);
 
@@ -209,14 +224,25 @@ function editProfile($data) {
 function editPassword($data) {
 	global $connect;
 
-	$id_user = htmlspecialchars($data["id_user"]);
 	$password = htmlspecialchars($data["password"]);
+
+	if( $_SESSION["status"] == 'user') {
+		$id_user = htmlspecialchars($data["id_user"]);
+		$query ="   UPDATE tb_user 
+					SET
+						password = '$password'
+					WHERE id = $id_user
+				";
+	}
+	else if( $_SESSION["status"] == 'admin' ) {
+		$id_admin = htmlspecialchars($data["id_admin"]);
+		$query ="   UPDATE tb_user 
+					SET
+						password = '$password'
+					WHERE id = $id_admin
+				";
+	}
 	
-	$query ="   UPDATE tb_user 
-				SET
-					password = '$password',
-				WHERE id = $id_user
-			";
 
 	mysqli_query($connect, $query);
 
@@ -226,19 +252,28 @@ function editPassword($data) {
 function editPhoto($data) {
 	global $connect;
 
-    $id = htmlspecialchars($data["id_profil"]);
-
 	// upload gambar
 	$gambar = upload();
 	if( !$gambar ) {
 		return false;
 	}
-	
-	$query ="   UPDATE tb_profil
-                SET 
-					gambar = '$gambar'
-                WHERE id_profil = $id
-			";
+
+	if( $_SESSION["status"] == 'user') {
+		$id = htmlspecialchars($data["id_profil"]);
+		$query ="   UPDATE tb_profil
+					SET 
+						gambar = '$gambar'
+					WHERE id_profil = $id
+				";
+	}
+	else if( $_SESSION["status"] == 'admin' ) {
+		$id = htmlspecialchars($data["id_admin"]);
+		$query ="   UPDATE tb_admin
+					SET 
+						gambar = '$gambar'
+					WHERE id_admin = $id
+				";
+	}
 
 	mysqli_query($connect, $query);
 
