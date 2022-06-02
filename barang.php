@@ -10,27 +10,19 @@
 
     // $barang = query("CALL TabelPageBarang();");
 
-    $barang = query("
-        SELECT 
-            tb_barang.id_barang, 
-            tb_kategori.nama_kategori AS 'nama_kategori', 
-            tb_barang.nama_barang, 
-            tb_barang.merk, 
-            tb_barang.stok, 
-            tb_barang.harga_beli, 
-            tb_barang.harga_jual, 
-            tb_barang.kedaluwarsa 
-        FROM tb_barang 
-        INNER JOIN tb_kategori USING(id_kategori)
-    ");
+    $queryBarang = filter($_POST);
 
-    $total = query("
+    $barang = query($queryBarang);
+
+    $queryTotal = "
         SELECT 
             SUM(stok) AS total_stok, 
             SUM(harga_beli) AS total_harga_beli, 
-            SUM(harga_jual) AS total_harga_jual 
-        FROM tb_barang;
-    ");
+            SUM(harga_jual) AS total_harga_jual
+        FROM ($queryBarang) as barang;
+    ";
+
+    $total = query($queryTotal);
 
     $kategori = query("SELECT * FROM tb_kategori");
 
@@ -43,7 +35,7 @@
     }
 
     if(isset($_POST["filter"])){
-        $barang = filter($_POST);
+        $queryBarang = filter($_POST);
     }
 
     // Delete Data

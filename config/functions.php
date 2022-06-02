@@ -334,7 +334,10 @@ function upload() {
 
 
 function filter($data) {
-	$filter = htmlspecialchars($data["filter"]);
+	$filter = -1;
+	if($data["filter"] != null){
+		$filter = htmlspecialchars($data["filter"]);
+	}
 	$defaultQuery = "
 		SELECT 
 			tb_barang.id_barang, 
@@ -389,9 +392,11 @@ function filter($data) {
 		case '13':
 			$filter = ($defaultQuery .= "WHERE tb_barang.stok IN ((select min(tb_barang.stok) from tb_barang),(select max(tb_barang.stok) from tb_barang)) ");
 				break;
+		default:
+			$filter = $defaultQuery;
 	}
 
-	return query($filter);
+	return $filter;
 }
 
 function laporanBulanan($data) {
