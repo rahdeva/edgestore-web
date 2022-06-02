@@ -40,15 +40,14 @@
         <title>EdgeStore - Login</title>
     </head>
     <body class= " bg-indigo-400">
-        <section class="mt-24">
+        <section class="mt-6">
             <div class=" items-center justify-center flex flex-col">
-                <img src="assets/images/profil.svg" class="w-32 "/>
-                <h2 class=" my-2 font-bold text-1xl">Welcome to Edge Store</h2>
+                <img src="assets/images/logo.png" class="w-32 mb-2"/>
             </div>
             <div class="max-w-xl bg-green-300 h-16 mx-auto mt-3 shadow-2xl shadow-teal-300 opacity-75 rounded-2xl">
                 <h1 class="text-4xl text-center font-bold pt-2" id="hello">Edge-Store</h1>
             </div>
-            <div class="bg-white mx-auto h-64 max-w-xl rounded-2xl">
+            <div class="bg-white mx-auto h-72 max-w-xl rounded-2xl shadow-lg shadow-white">
                 <form action=""method="post">
                     <div class="p-8 pb-2  mt-8 w-full text-center"> 
                         <i class="fa fa-user absolute text-primary text-xl"></i>
@@ -58,8 +57,11 @@
                         <i class="fa fa-lock absolute text-primary text-xl"></i>
                         <input type="password" name="pass" id="pass"placeholder=" Password" class="rounded-sm focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2  focus:outline-none focus:border-primarycolor transition-all duration-500 required" />         
                     </div>
-                    <div class="w-full">
-                        <button type="submit" name="login"class="block mx-auto mt-8 hover:bg-blue-300 py-3 px-16 bg-violet-400 rounded-full text_whi text-white">Login</button>
+                    <div class="mt-4 w-full text-center underline text-sm pl-24 text-blue-400">
+                        <a href="config/forgot-password.php">Forgot Password?</a>
+                    </div>
+                    <div class="w-full mt-4">
+                        <button type="submit" name="login"class="block mx-auto hover:bg-blue-300 py-3 px-16 bg-violet-400 rounded-full text_whi text-white">Login</button>
                     </div>
                     <button class="mt-6 block mx-auto">
                         <a href="register.php" class=" hover:bg-blue-300 py-3 px-14 bg-rose-400 rounded-full text_whi text-white">Register</a>

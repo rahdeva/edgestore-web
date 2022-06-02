@@ -338,6 +338,12 @@ function filter($data) {
 		case '11':
 			$filter = ($defaultQuery .= "ORDER BY harga_jual DESC");
 			break;
+		case '12':
+			$filter = ($defaultQuery .= "WHERE tb_kategori.nama_kategori IN('Makanan Ringan','Minuman')");
+				break;
+		case '13':
+			$filter = ($defaultQuery .= "WHERE tb_barang.stok IN ((select min(tb_barang.stok) from tb_barang),(select max(tb_barang.stok) from tb_barang)) ");
+				break;
 	}
 
 	return query($filter);

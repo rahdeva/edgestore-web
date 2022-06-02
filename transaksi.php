@@ -172,8 +172,13 @@
                     </div>
                 </div>
                 <div class="px-12 border-collapse mt-12 mb-6">
-                    <h1 class="text-xl text-slate-700 font-semibold mt-8 mb-4">Data Transaksi</h1>
-                    <table class="min-w-full shadow-xl rounded-t-md overflow-hidden h-full">
+                    <div class="flex">
+                        <h1 class="text-xl text-slate-700 font-semibold float-left grow">Data Transaksi</h1>
+                        <button class="bg-emerald-400 rounded-md py-1 px-2 text-white text-sm float-left"> 
+                            <a href="transaksi-kasir.php">Tampilkan Transaksi Berdasarkan Kasir</a>
+                        </button>
+                    </div>  
+                    <table class="min-w-full shadow-xl rounded-t-md overflow-hidden h-full mt-4">
                         <thead class="bg-emerald-400 text-white">
                             <tr class="">
                                 <th class="py-4">No</th>
