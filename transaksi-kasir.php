@@ -8,23 +8,30 @@
 
     require 'config/functions.php';
 
-    $kasir = query("
-        SELECT 
-            CONCAT(tb_profil.nama_depan, ' ', tb_profil.nama_belakang) AS nama_kasir,
-            tb_profil.alamat,
-            tb_profil.tgl_lahir,	
-            tb_profil.email,
-            tb_profil.no_telepon
-        FROM tb_profil
-        UNION
-        SELECT
-            CONCAT(tb_admin.nama_depan, ' ', tb_admin.nama_belakang) AS nama_kasir,
-            tb_admin.alamat,
-            tb_admin.tgl_lahir,	
-            tb_admin.email,
-            tb_admin.no_telepon
-        FROM tb_admin;     
-    ");
+    // $kasir = query("
+    //     SELECT 
+    //         CONCAT(tb_profil.nama_depan, ' ', tb_profil.nama_belakang) AS nama_kasir,
+    //         tb_profil.alamat,
+    //         tb_profil.tgl_lahir,	
+    //         tb_profil.email,
+    //         tb_profil.no_telepon
+    //     FROM tb_profil
+    //     UNION
+    //     SELECT
+    //         CONCAT(tb_admin.nama_depan, ' ', tb_admin.nama_belakang) AS nama_kasir,
+    //         tb_admin.alamat,
+    //         tb_admin.tgl_lahir,	
+    //         tb_admin.email,
+    //         tb_admin.no_telepon
+    //     FROM tb_admin;     
+    // ");
+
+    $result = mysqli_query($connect, "CALL DaftarKasir();");
+
+	$rows = [];
+	while( $row = mysqli_fetch_array($result) ) {
+		$rows[] = $row;
+	}
 
 ?>
 
@@ -77,7 +84,7 @@
                         </thead>
                         <tbody class="text-center ">
                             <?php $i = 1;?>
-                            <?php foreach( $kasir as $row ) : ?>
+                            <?php foreach( $rows as $row ) : ?>
                                 <tr>
                                     <td class="px-2 py-4"><?= $i?></td>
                                     <td class="px-2 py-4"><?= $row["nama_kasir"]; ?></td>

@@ -102,20 +102,41 @@ FOR EACH ROW BEGIN
 END $$
 DELIMITER ;
 
+-- DELIMITER $$
+--     CREATE PROCEDURE TabelPageBarang()
+--     BEGIN
+--         SELECT 
+--             tb_barang.id_barang, 
+--             tb_kategori.nama_kategori AS 'nama_kategori', 
+--             tb_barang.nama_barang, 
+--             tb_barang.merk, 
+--             tb_barang.stok, 
+--             tb_barang.harga_beli, 
+--             tb_barang.harga_jual, 
+--             tb_barang.kedaluwarsa 
+--         FROM tb_barang 
+--         INNER JOIN tb_kategori USING(id_kategori);
+--     END $$
+-- DELIMITER ;
+
 DELIMITER $$
-    CREATE PROCEDURE TabelPageBarang()
+    CREATE PROCEDURE DaftarKasir()
     BEGIN
         SELECT 
-            tb_barang.id_barang, 
-            tb_kategori.nama_kategori AS 'nama_kategori', 
-            tb_barang.nama_barang, 
-            tb_barang.merk, 
-            tb_barang.stok, 
-            tb_barang.harga_beli, 
-            tb_barang.harga_jual, 
-            tb_barang.kedaluwarsa 
-        FROM tb_barang 
-        INNER JOIN tb_kategori USING(id_kategori);
+            CONCAT(tb_profil.nama_depan, ' ', tb_profil.nama_belakang) AS nama_kasir,
+            tb_profil.alamat,
+            tb_profil.tgl_lahir,	
+            tb_profil.email,
+            tb_profil.no_telepon
+        FROM tb_profil
+        UNION
+        SELECT
+            CONCAT(tb_admin.nama_depan, ' ', tb_admin.nama_belakang) AS nama_kasir,
+            tb_admin.alamat,
+            tb_admin.tgl_lahir,	
+            tb_admin.email,
+            tb_admin.no_telepon
+        FROM tb_admin; 
     END $$
 DELIMITER ;
 
