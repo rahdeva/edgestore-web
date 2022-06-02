@@ -44,8 +44,8 @@
             <div class=" items-center justify-center flex flex-col">
                 <img src="assets/images/logo.png" class="w-32 mb-2"/>
             </div>
-            <div class="max-w-xl bg-green-300 h-14 mx-auto mt-3 shadow-2xl shadow-teal-300 opacity-75 rounded-2xl">
-                <h1 class="text-4xl text-center font-bold pt-2">Edge-Store</h1>
+            <div class="max-w-xl bg-green-300 h-16 mx-auto mt-3 shadow-2xl shadow-teal-300 opacity-75 rounded-2xl">
+                <h1 class="text-4xl text-center font-bold pt-2" id="hello">Edge-Store</h1>
             </div>
             <div class="bg-white mx-auto h-72 max-w-xl rounded-2xl shadow-lg shadow-white">
                 <form action=""method="post">
@@ -70,5 +70,6 @@
             </div>
         </section>
         <!-- <img src="assets/images/wave.png" class="h-screen"> -->
+        <script src="assets/js/login-script.js"></script>
     </body>
 </html>

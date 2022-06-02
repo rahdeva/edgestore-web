@@ -40,8 +40,10 @@ $barang = query($query);
         <td><?= $row["nama_barang"]; ?></td>
         <td><?= $row["merk"]; ?></td>
         <td><?= $row["harga_jual"] + 0; ?></td>
-        <td>
-            <a href="" onclick="return confirm('yakin?');"><i class="bi bi-cart-plus bg-green-500 p-2 text-white rounded-md font-bold"></i></a>
+        <td class="tambah-item">
+            <button onclick="addKeranjang(<?= $row['id_barang']; ?>);">
+                <i class="bi bi-cart-plus bg-green-500 p-2 text-white rounded-md font-bold"></i>
+            </button>
         </td>
     </tr>
     <?php $i++; ?>

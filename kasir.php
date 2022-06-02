@@ -81,6 +81,7 @@ $date = date('j F Y');
             </div>
         </div>
         <script src="assets/js/search.js"></script>
+        <script src="assets/js/keranjang.js"></script>
         <?php include 'footer.php'; ?>
     </body>
 </html>
