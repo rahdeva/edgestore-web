@@ -34,18 +34,18 @@ $barang = query($query);
     
     <?php $i = 1; ?>
     <?php foreach( $barang as $row ) : ?>
-    <tr id="<<?= $row["id_barang"]; ?>">
+    <tr>
         <td><?= $i; ?></td>
-        <td hidden><?= $row["id_barang"]; ?></td>
         <td><?= $row["nama_kategori"]; ?></td>
         <td><?= $row["nama_barang"]; ?></td>
         <td><?= $row["merk"]; ?></td>
         <td><?= $row["harga_jual"] + 0; ?></td>
         <td class="tambah-item">
-            <i class="bi bi-cart-plus bg-green-500 p-2 text-white rounded-md font-bold"></i>
+            <button onclick="addKeranjang(<?= $row['id_barang']; ?>);">
+                <i class="bi bi-cart-plus bg-green-500 p-2 text-white rounded-md font-bold"></i>
+            </button>
         </td>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>
 </table>
-<script src="../assets/js/search.js"></script>
