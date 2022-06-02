@@ -175,7 +175,7 @@
                     <div class="flex">
                         <h1 class="text-xl text-slate-700 font-semibold float-left grow">Data Transaksi</h1>
                         <button class="bg-emerald-400 rounded-md py-1 px-2 text-white text-sm float-left"> 
-                            <a href="transaksi-kasir.php">Tampilkan Transaksi Berdasarkan Kasir</a>
+                            <a href="transaksi-kasir.php">Lihat Daftar Kasir</a>
                         </button>
                     </div>  
                     <table class="min-w-full shadow-xl rounded-t-md overflow-hidden h-full mt-4">

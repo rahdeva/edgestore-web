@@ -8,41 +8,24 @@
 
     require 'config/functions.php';
 
-    $transaksi = query("
-        SELECT tb_transaksi.id_barang, 
-            tb_barang.nama_barang, 
-            tb_transaksi.jumlah, 
-            tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
-            tb_barang.harga_jual * tb_transaksi.jumlah AS 'total', 
-            tb_transaksi.kasir, 
-            tb_transaksi.waktu_input
-        FROM tb_transaksi 
-        INNER JOIN tb_barang USING(id_barang);     
-    ");
-
-    $total = query("
+    $kasir = query("
         SELECT 
-            SUM(jumlah) AS total_jumlah,
-            SUM(modal) AS total_modal, 
-            SUM(total) AS total_total
-        FROM (
-            SELECT tb_transaksi.jumlah, 
-                tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
-                tb_barang.harga_jual * tb_transaksi.jumlah AS 'total' 
-            FROM tb_transaksi 
-            INNER JOIN tb_barang USING(id_barang)
-        ) as tb_transaksibarang;
+            CONCAT(tb_profil.nama_depan, ' ', tb_profil.nama_belakang) AS nama_kasir,
+            tb_profil.alamat,
+            tb_profil.tgl_lahir,	
+            tb_profil.email,
+            tb_profil.no_telepon
+        FROM tb_profil
+        UNION
+        SELECT
+            CONCAT(tb_admin.nama_depan, ' ', tb_admin.nama_belakang) AS nama_kasir,
+            tb_admin.alamat,
+            tb_admin.tgl_lahir,	
+            tb_admin.email,
+            tb_admin.no_telepon
+        FROM tb_admin;     
     ");
 
-    $keuntungan = $total[0]["total_total"] - $total[0]["total_modal"];
-
-    if(isset($_POST["laporBulanan"])){
-        $transaksi = laporanBulanan($_POST);
-    }
-
-    if(isset($_POST["laporTanggal"])){
-        $transaksi = laporanTanggal($_POST);
-    }
 ?>
 
 <!DOCTYPE html>
@@ -58,9 +41,9 @@
         <div class="content flex basis-11/12 bg-indigo-200 h-screen duration-1000">
             <div class="bg-white min-w-full my-10 overflow-auto">
                 <div class="flex mx-12 mt-12">
-                    <h1 class="grow text-4xl text-slate-700 font-bold ">Transaksi Berdasarkan Kasir</h1>
+                    <h1 class="grow text-4xl text-slate-700 font-bold ">Daftar Kasir</h1>
                 </div>
-                <div class="flex mx-12 mt-8">
+                <!-- <div class="flex mx-12 mt-8">
                     <form action="" method="post">
                         <select name="filter" onchange="this.form.submit()" class="border-2 border-slate-600 p-2 rounded-lg">
                             <option value="0" selected disabled hidden>Pilih Kasir</option>
@@ -79,34 +62,29 @@
                             <option value="13">Stok Terkecil & Terbesar</option>
                         </select>
                     </form>
-                </div>
+                </div> -->
                 <div class="px-12 border-collapse mt-6 mb-6">
-                    <h1 class="text-xl text-slate-700 font-semibold mb-4">Data Transaksi</h1>
                     <table class="min-w-full shadow-xl rounded-t-md overflow-hidden h-full mt-4">
                         <thead class="bg-emerald-400 text-white">
                             <tr class="">
                                 <th class="py-4">No</th>
-                                <th class="py-4">ID Barang</th>
-                                <th class="py-4">Nama Barang</th>
-                                <th class="py-4">Jumlah</th>
-                                <th class="py-4">Modal</th>
-                                <th class="py-4">Total</th>
-                                <th class="py-4">Kasir</th>
-                                <th class="py-4">Waktu Input</th>
+                                <th class="py-4">Nama Kasir</th>
+                                <th class="py-4">Alamat</th>
+                                <th class="py-4">Tanggal Lahir</th>
+                                <th class="py-4">Email</th>
+                                <th class="py-4">No Telepon</th>
                             </tr>
                         </thead>
                         <tbody class="text-center ">
                             <?php $i = 1;?>
-                            <?php foreach( $transaksi as $row ) : ?>
+                            <?php foreach( $kasir as $row ) : ?>
                                 <tr>
                                     <td class="px-2 py-4"><?= $i?></td>
-                                    <td class="px-2 py-4"><?= $row["id_barang"]; ?></td>
-                                    <td class="px-2 py-4"><?= $row["nama_barang"]; ?></td>
-                                    <td class="px-2 py-4"><?= $row["jumlah"]; ?></td>
-                                    <td class="px-2 py-4"><?= $row["modal"] + 0; ?></td>
-                                    <td class="px-2 py-4"><?= $row["total"] + 0; ?></td>
-                                    <td class="px-2 py-4"><?= $row["kasir"]; ?></td>
-                                    <td class="px-2 py-4"><?= $row["waktu_input"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["nama_kasir"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["alamat"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["tgl_lahir"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["email"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["no_telepon"]; ?></td>
                                 </tr>
                             <?php $i++; ?>
                             <?php endforeach; ?>
