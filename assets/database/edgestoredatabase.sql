@@ -54,10 +54,7 @@ CREATE TABLE `tb_user` (
     `id` INT(10) NOT NULL AUTO_INCREMENT , 
     `username` VARCHAR(30) NOT NULL , 
     `password` VARCHAR(200) NOT NULL , 
-    id_profil INT(10) NOT NULL,
-    PRIMARY KEY (`id`),
-    CONSTRAINT FG_tb_user
-    FOREIGN KEY (id_profil) REFERENCES tb_profil(id_profil)
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
 #Cek the relasi antara sebuah tb_user dengan tb_profil
@@ -101,10 +98,9 @@ DELIMITER $$
     END $$
 DELIMITER ;
 
-# View yang digunakan untuk konfirmasi sebuah username dengan tanggal lahir
-CREATE VIEW Validasi_Password AS
-	SELECT tb_user.username,tb_profil.no_telepon,tb_user.password FROM tb_user
-    INNER JOIN tb_profil ON tb_user.id_profil = tb_profil.id_profil;
+-- View yang digunakan untuk konfirmasi sebuah username dengan tanggal lahir
+-- CREATE VIEW Validasi_Password AS
+-- SELECT tb_user.username,tb_profil.no_telepon,tb_user.password FROM tb_user
+-- INNER JOIN tb_profil ON tb_user.id_profil = tb_profil.id_profil;
 
-#DROP VIEW Validasi_Password; 
 -- SELECT * FROM Validasi_Password WHERE Validasi_Password.username = '082147379372';
