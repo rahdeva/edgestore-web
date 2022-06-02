@@ -24,6 +24,7 @@ INSERT INTO `tb_barang` (`id_kategori`, `nama_barang`, `merk`, `stok`, `harga_be
     (2, 'Shampoo', 'Lifeboy', 20, 23000, 25000, '2022-11-12'),
     (2, 'Pasta Gigi', 'Pepsodent', 25, 12000, 15000, '2023-06-18');
 -- SELECT * FROM tb_barang;
+
 CREATE TABLE `tb_kategori` ( 
     `id_kategori` INT(10) NOT NULL AUTO_INCREMENT , 
     `nama_kategori` VARCHAR(30) NOT NULL , 
@@ -53,12 +54,11 @@ CREATE TABLE `tb_user` (
     `id` INT(10) NOT NULL AUTO_INCREMENT , 
     `username` VARCHAR(30) NOT NULL , 
     `password` VARCHAR(200) NOT NULL , 
-    PRIMARY KEY (`id`)
+    id_profil INT(10) NOT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT FG_tb_user
+    FOREIGN KEY (id_profil) REFERENCES tb_profil(id_profil)
 ) ENGINE = InnoDB;
-
-ALTER TABLE tb_user
-ADD COLUMN id_profil INT(10) NOT NULL,
-ADD FOREIGN KEY (id_profil) REFERENCES tb_profil(id_profil);
 
 #Cek the relasi antara sebuah tb_user dengan tb_profil
 -- SELECT * FROM tb_user INNER JOIN tb_profil ON tb_user.id_profil=tb_profil.id_profil;
@@ -88,5 +88,6 @@ DELIMITER ;
 CREATE VIEW Validasi_Password AS
 	SELECT tb_user.username,tb_profil.no_telepon,tb_user.password FROM tb_user
     INNER JOIN tb_profil ON tb_user.id_profil = tb_profil.id_profil;
+
 #DROP VIEW Validasi_Password; 
-SELECT * FROM Validasi_Password WHERE Validasi_Password.username = '082147379372';
+-- SELECT * FROM Validasi_Password WHERE Validasi_Password.username = '082147379372';
