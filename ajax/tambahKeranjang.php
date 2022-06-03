@@ -60,24 +60,21 @@
         <th>Total</th>
     </tr>
     
-    <?php $i = 1; ?>
+    <?php $no = 1; ?>
     <?php foreach( $addKeranjang as $row ) : ?>
     <tr>
-        <td><?= $i; ?></td>
+        <td><?= $no; ?></td>
         <td><?= $row["nama_barang"]; ?></td>
         <td><?= $row["merk"]; ?></td>
         <td>
-            <form action="" method="post">
-                <?php $total = $row["harga_jual"] * 1; ?> 
-                <select name="total" onchange="this.form.submit()" class="border-2 border-slate-600 p-2 rounded-lg">
-                <?php for($i = 0; $i < $row["stok"]; $i++){ ?>
-                    <option value="<?= $i + 1 ?>"><?= $i + 1 ?></option>
-                <?php } ?>
-                </select>
-            </form>
+            <select id="<?= $no; ?>" name="total" onchange="changeTotal(<?= $no; ?>, <?= $row['harga_jual']; ?>)" class="border-2 border-slate-600 p-2 rounded-lg">
+            <?php for($i = 0; $i < $row["stok"]; $i++){ ?>
+                <option value="<?= $i + 1 ?>"><?= $i + 1 ?></option>
+            <?php } ?>
+            </select>
         </td>
-        <td><?= $total; ?></td>
+        <td id="total<?= $no; ?>"><?= $row["harga_jual"] + 0; ?></td>
     </tr>
-    <?php $i++; ?>
+    <?php $no++; ?>
     <?php endforeach; ?>
 </table>
