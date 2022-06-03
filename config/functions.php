@@ -155,7 +155,12 @@ function regis($data){
 
 function get_username($username){
 	global $connect;
-	$query_username = "SELECT CONCAT(nama_depan, ' ', nama_belakang) FROM tb_profil INNER JOIN tb_user ON tb_profil.id_profil = tb_user.id WHERE username = '$username';";
+	if($_SESSION["status"] == 'user'){
+		$query_username = "SELECT CONCAT(nama_depan, ' ', nama_belakang) FROM tb_profil INNER JOIN tb_user ON tb_profil.id_profil = tb_user.id WHERE username = '$username';";
+	}
+	else if($_SESSION["status"] == 'admin'){
+		$query_username = "SELECT CONCAT(nama_depan, ' ', nama_belakang) FROM tb_admin INNER JOIN tb_user ON tb_admin.id_admin = tb_user.id WHERE username = '$username';";
+	}
 	$row = mysqli_query($connect, $query_username);
 	$result = mysqli_fetch_array($row);
 	return $result[0];
@@ -163,7 +168,12 @@ function get_username($username){
 
 function get_photos($username){
 	global $connect;
-	$query_username = "SELECT gambar FROM tb_profil INNER JOIN tb_user ON tb_profil.id_profil = tb_user.id WHERE username = '$username';";
+	if($_SESSION["status"] == 'user'){
+		$query_username = "SELECT gambar FROM tb_profil INNER JOIN tb_user ON tb_profil.id_profil = tb_user.id WHERE username = '$username';";
+	}
+	else if($_SESSION["status"] == 'admin'){
+		$query_username = "SELECT gambar FROM tb_admin INNER JOIN tb_user ON tb_admin.id_admin = tb_user.id WHERE username = '$username';";
+	}
 	$row = mysqli_query($connect, $query_username);
 	$result = mysqli_fetch_array($row);
 	return $result[0];
@@ -172,7 +182,6 @@ function get_photos($username){
 function editProfile($data) {
 	global $connect;
 
-    $id = htmlspecialchars($data["id_profil"]);
 	$nama_depan = htmlspecialchars($data["nama_depan"]);
 	$nama_belakang = htmlspecialchars($data["nama_belakang"]);
 	$tgl_lahir = htmlspecialchars($data["tgl_lahir"]);
@@ -180,16 +189,32 @@ function editProfile($data) {
 	$no_telepon = htmlspecialchars($data["no_telepon"]);
 	$alamat = htmlspecialchars($data["alamat"]);
 	
-	$query ="   UPDATE tb_profil 
-                SET
-                    nama_depan = '$nama_depan',
-                    nama_belakang = '$nama_belakang',
-                    tgl_lahir = '$tgl_lahir',
-                    email = '$email',
-                    no_telepon = '$no_telepon',
-                    alamat = '$alamat'
-                WHERE id_profil = $id
-			";
+	if( $_SESSION["status"] == 'user') {
+		$id = htmlspecialchars($data["id_profil"]);
+		$query ="   UPDATE tb_profil 
+					SET
+						nama_depan = '$nama_depan',
+						nama_belakang = '$nama_belakang',
+						tgl_lahir = '$tgl_lahir',
+						email = '$email',
+						no_telepon = '$no_telepon',
+						alamat = '$alamat'
+					WHERE id_profil = $id
+				";
+	}
+	else if( $_SESSION["status"] == 'admin' ) {
+		$id = htmlspecialchars($data["id_admin"]);
+		$query ="   UPDATE tb_admin
+					SET
+						nama_depan = '$nama_depan',
+						nama_belakang = '$nama_belakang',
+						tgl_lahir = '$tgl_lahir',
+						email = '$email',
+						no_telepon = '$no_telepon',
+						alamat = '$alamat'
+					WHERE id_admin = $id
+				";
+	}
 
 	mysqli_query($connect, $query);
 
@@ -199,14 +224,25 @@ function editProfile($data) {
 function editPassword($data) {
 	global $connect;
 
-	$id_user = htmlspecialchars($data["id_user"]);
 	$password = htmlspecialchars($data["password"]);
+
+	if( $_SESSION["status"] == 'user') {
+		$id_user = htmlspecialchars($data["id_user"]);
+		$query ="   UPDATE tb_user 
+					SET
+						password = '$password'
+					WHERE id = $id_user
+				";
+	}
+	else if( $_SESSION["status"] == 'admin' ) {
+		$id_admin = htmlspecialchars($data["id_admin"]);
+		$query ="   UPDATE tb_user 
+					SET
+						password = '$password'
+					WHERE id = $id_admin
+				";
+	}
 	
-	$query ="   UPDATE tb_user 
-				SET
-					password = '$password',
-				WHERE id = $id_user
-			";
 
 	mysqli_query($connect, $query);
 
@@ -216,19 +252,28 @@ function editPassword($data) {
 function editPhoto($data) {
 	global $connect;
 
-    $id = htmlspecialchars($data["id_profil"]);
-
 	// upload gambar
 	$gambar = upload();
 	if( !$gambar ) {
 		return false;
 	}
-	
-	$query ="   UPDATE tb_profil
-                SET 
-					gambar = '$gambar'
-                WHERE id_profil = $id
-			";
+
+	if( $_SESSION["status"] == 'user') {
+		$id = htmlspecialchars($data["id_profil"]);
+		$query ="   UPDATE tb_profil
+					SET 
+						gambar = '$gambar'
+					WHERE id_profil = $id
+				";
+	}
+	else if( $_SESSION["status"] == 'admin' ) {
+		$id = htmlspecialchars($data["id_admin"]);
+		$query ="   UPDATE tb_admin
+					SET 
+						gambar = '$gambar'
+					WHERE id_admin = $id
+				";
+	}
 
 	mysqli_query($connect, $query);
 
@@ -305,6 +350,9 @@ function filter($data) {
 	";
 	
 	switch ($filter) {
+		case '0':
+			$filter = $defaultQuery;
+			break;
 		case '1':
 			$filter = ($defaultQuery .= "WHERE NOT stok = 0");
 			break;
@@ -340,13 +388,15 @@ function filter($data) {
 			break;
 		case '12':
 			$filter = ($defaultQuery .= "WHERE tb_kategori.nama_kategori IN('Makanan Ringan','Minuman')");
-				break;
+			break;
 		case '13':
 			$filter = ($defaultQuery .= "WHERE tb_barang.stok IN ((select min(tb_barang.stok) from tb_barang),(select max(tb_barang.stok) from tb_barang)) ");
-				break;
+			break;
+		default:
+			$filter = $defaultQuery;
 	}
 
-	return query($filter);
+	return $filter;
 }
 
 function laporanBulanan($data) {

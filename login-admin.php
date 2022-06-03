@@ -24,7 +24,7 @@
                 $_SESSION["username"] = $username;
                 $_SESSION["password"] = $row['password'];
                 $_SESSION["id_user"] = $row['id'];
-                $_SESSION["status"] = "user";
+                $_SESSION["status"] = "admin";
                 header("Location: dashboard.php");
                 exit;
             }
@@ -48,7 +48,7 @@
             <div class="max-w-xl bg-green-300 h-12 mx-auto mt-3 shadow-2xl shadow-teal-300 opacity-75 rounded-2xl">
                 <h1 class="text-2xl text-center font-bold pt-2" id="hello">Edge-Store</h1>
             </div>
-            <div class="bg-white mx-auto h-80 max-w-xl rounded-2xl shadow-lg shadow-white mb-8">
+            <div class="bg-white mx-auto h-56 max-w-xl rounded-2xl shadow-lg shadow-white">
                 <form action=""method="post">
                     <div class="p-8 pb-2  mt-8 w-full text-center"> 
                         <i class="fa fa-user absolute text-primary text-xl"></i>
@@ -58,17 +58,11 @@
                         <i class="fa fa-lock absolute text-primary text-xl"></i>
                         <input type="password" name="pass" id="pass"placeholder=" Password" class="rounded-sm focus:ring-purple-300 focus:border-purple-300 pl-8 border-b-2  focus:outline-none focus:border-primarycolor transition-all duration-500 required" />         
                     </div>
-                    <div class="mt-4 w-full text-center underline text-sm pl-24 text-blue-400">
-                        <a href="config/forgot-password.php">Forgot Password?</a>
-                    </div>
                     <div class="w-full mt-4">
                         <button type="submit" name="login"class="block mx-auto hover:bg-blue-300 py-3 px-16 bg-violet-400 rounded-full text-white">Login</button>
                     </div>
-                    <button class="mt-6 block mx-auto">
-                        <a href="register.php" class=" hover:bg-blue-300 py-3 px-14 bg-rose-400 rounded-full text_whi text-white">Register</a>
-                    </button>
-                    <div class="mt-6 mb-2 w-full text-center underline text-sm">
-                        <a href="login-admin.php">Login as Admin</a>
+                    <div class="mt-4 mb-2 w-full text-center underline text-sm">
+                        <a href="login.php">Login as User</a>
                     </div>
                 </form>    
             </div>

@@ -6,8 +6,8 @@ if( !isset($_SESSION["login"]) ) {
     exit;
 }
 
-if( $_SESSION["status"] == 'admin') {
-    header("Location: profile-admin.php");
+if( $_SESSION["status"] == 'user') {
+    header("Location: profile.php");
     exit;
 }
 
@@ -27,29 +27,29 @@ $id_user = $queryUser[0]["id"];
 
 $profile = query("
     SELECT * 
-    FROM tb_profil 
-    WHERE id_profil = '$id_user'; 
+    FROM tb_admin
+    WHERE id_admin = '$id_user'; 
 ");
 
 if(isset($_POST["editProfile"])){
     if(editProfile($_POST) > 0)
-        alert("edit", true, 'profile.php');
+        alert("edit", true, 'profile-admin.php');
     else
-        alert("edit", false, 'profile.php');
+        alert("edit", false, 'profile-admin.php');
 }
 
 if(isset($_POST["editPassword"])){
     if(editPassword($_POST) > 0)
-        alert("ganti", true, 'profile.php');
+        alert("ganti", true, 'profile-admin.php');
     else
-        alert("ganti", false, 'profile.php');
+        alert("ganti", false, 'profile-admin.php');
 }
 
 if(isset($_POST["editPhoto"])){
     if(editPhoto($_POST) > 0)
-        alert("ganti", true, 'profile.php');
+        alert("ganti", true, 'profile-admin.php');
     else
-        alert("ganti", false, 'profile.php');
+        alert("ganti", false, 'profile-admin.php');
 }
 
 ?>
@@ -71,7 +71,7 @@ if(isset($_POST["editPhoto"])){
                     <div class="flex basis-1/3 bg-white-200 flex-col m-4 p-4 rounded-2xl border-4 border-indigo-400 h-4/5">
                         <img src="<?php echo get_photos($_SESSION["username"]); ?>" alt="Profile" class="rounded-full w-full h-full mt-2 mb-4 ">
                         <form action="" method="post" enctype="multipart/form-data">
-                            <input class="hidden" type="text" name="id_profil" id="id_profil" value="<?= $profile[0]["id_profil"]; ?>">
+                            <input class="hidden" type="text" name="id_admin" id="id_admin" value="<?= $profile[0]["id_admin"]; ?>">
                             <label for="gambar">Choose Files</label>
                             <input class="w-full px-3 py-2 rounded-lg border-slate-800 border-2"  type="file" id="gambar" name="gambar" value="">
 
@@ -81,7 +81,7 @@ if(isset($_POST["editPhoto"])){
                     <div class="flex basis-1/3 bg-white-200 flex-col m-4 p-4 rounded-2xl border-4 border-indigo-400">
                         <h1 class="text-2xl text-slate-700 font-bold mt-2 mb-4"><i class="bi bi-person-fill"></i> Kelola Pengguna</h1>
                         <form action="" method="post">
-                            <input class="hidden" type="text" name="id_profil" id="id_profil" value="<?= $profile[0]["id_profil"]; ?>">
+                            <input class="hidden" type="text" name="id_admin" id="id_admin" value="<?= $profile[0]["id_admin"]; ?>">
                             
                             <label for="nama_depan">Nama Depan</label>
                             <input class="w-full px-3 py-2 rounded-lg border-slate-800 border-2"  type="text" id="nama_depan" name="nama_depan" value="<?= $profile[0]["nama_depan"]; ?>">
@@ -108,9 +108,9 @@ if(isset($_POST["editPhoto"])){
                     <div class="flex basis-1/3 bg-white-200 flex-col m-4 p-4 rounded-2xl border-4 border-indigo-400 h-1/2">
                         <h1 class="text-2xl text-slate-700 font-bold mt-2 mb-4"><i class="bi bi-lock-fill"></i> Ganti Password</h1>
                         <form action="" method="post">
-                            <input class="hidden" type="text" name="id_user" id="id_user" value="<?= $id_user; ?>">
+                            <input class="hidden" type="text" name="id_admin" id="id_admin" value="<?= $profile[0]["id_admin"]; ?>">
 
-                            <label for="usernameEdit">Username</label>
+                            <label for="usernameEdit">Username </label>
                             <input disabled class="w-full px-3 py-2 rounded-lg border-slate-800 border-2 bg-slate-300"  type="text" id="usernameEdit" name="usernameEdit" value="<?= $queryUser[0]["username"]; ?>">
 
                             <label for="password">Password Baru</label>

@@ -21,7 +21,8 @@
             //cek password
             $row = mysqli_fetch_assoc($result);
             $id_user = $row["id"];
-            $tb_profil = query("SELECT * FROM tb_profil WHERE id_profil = '$id_user'");
+            $tb_profil = query("SELECT * FROM validasi_lupa_password WHERE username = 'suarno'");
+            var_dump($tb_profil);
             if($email == $tb_profil[0]['email'] && $no_telp == $tb_profil[0]['no_telepon']){
                 header("Location: change-new-password.php?id=$id_user");
                 exit;

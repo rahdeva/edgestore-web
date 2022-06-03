@@ -49,22 +49,15 @@ CREATE TABLE `tb_transaksi` (
     PRIMARY KEY (`id_transaksi`)
 ) ENGINE = InnoDB;
 
-
 CREATE TABLE `tb_user` ( 
     `id` INT(10) NOT NULL AUTO_INCREMENT , 
     `username` VARCHAR(30) NOT NULL , 
     `password` VARCHAR(200) NOT NULL , 
-    id_profil INT(10) NOT NULL,
-    PRIMARY KEY (`id`),
-    CONSTRAINT FG_tb_user
-    FOREIGN KEY (id_profil) REFERENCES tb_profil(id_profil)
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
-#Cek the relasi antara sebuah tb_user dengan tb_profil
--- SELECT * FROM tb_user INNER JOIN tb_profil ON tb_user.id_profil=tb_profil.id_profil;
-
 CREATE TABLE `tb_profil` ( 
-    `id_profil` INT(10) NOT NULL AUTO_INCREMENT , 
+    `id_profil` INT(10) NOT NULL AUTO_INCREMENT, 
     `nama_depan` VARCHAR(30) NOT NULL , 
     `nama_belakang` VARCHAR(30) NOT NULL , 
     `alamat` VARCHAR(500) NOT NULL , 
@@ -75,6 +68,31 @@ CREATE TABLE `tb_profil` (
     PRIMARY KEY (`id_profil`)
 ) ENGINE = InnoDB;
 
+ALTER TABLE `tb_profil` AUTO_INCREMENT = 4;
+
+CREATE TABLE `tb_admin` ( 
+    `id_admin` INT(10) NOT NULL AUTO_INCREMENT , 
+    `nama_depan` VARCHAR(30) NOT NULL , 
+    `nama_belakang` VARCHAR(30) NOT NULL , 
+    `alamat` VARCHAR(500) NOT NULL , 
+    `tgl_lahir` VARCHAR(30) NOT NULL , 
+    `email` VARCHAR(50) NOT NULL , 
+    `no_telepon` VARCHAR(20) NOT NULL ,
+    `gambar` VARCHAR(100) DEFAULT 'assets/images/user-images/default.png' ,
+    PRIMARY KEY (`id_admin`)
+) ENGINE = InnoDB;
+
+INSERT INTO tb_user(id, username, password) 
+VALUES 	('1','adminsatu','adminsatu'),
+        ('2','admindua','admindua'),
+        ('3','admintiga','admintiga');
+
+INSERT INTO tb_admin(id_admin, nama_depan, nama_belakang, alamat, tgl_lahir, email, no_telepon, gambar) 
+VALUES 	('1','Admin','Satu','Tokyo','2022-05-31','adminsatu@gmail.com','081904055609','assets/images/user-images/default.png'),
+        ('2','Admin','Dua','Wakanda','2022-05-31','admindua@gmail.com','085739850813','assets/images/user-images/default.png'),
+        ('3','Admin','Tiga','Zimbabwe','2022-05-31','admintiga@gmail.com','087816983826','assets/images/user-images/default.png');
+
+
 DELIMITER $$
 CREATE TRIGGER PenguranganStok
 AFTER INSERT ON `tb_transaksi`
@@ -84,27 +102,48 @@ FOR EACH ROW BEGIN
 END $$
 DELIMITER ;
 
+-- DELIMITER $$
+--     CREATE PROCEDURE TabelPageBarang()
+--     BEGIN
+--         SELECT 
+--             tb_barang.id_barang, 
+--             tb_kategori.nama_kategori AS 'nama_kategori', 
+--             tb_barang.nama_barang, 
+--             tb_barang.merk, 
+--             tb_barang.stok, 
+--             tb_barang.harga_beli, 
+--             tb_barang.harga_jual, 
+--             tb_barang.kedaluwarsa 
+--         FROM tb_barang 
+--         INNER JOIN tb_kategori USING(id_kategori);
+--     END $$
+-- DELIMITER ;
+
 DELIMITER $$
-    CREATE PROCEDURE TabelPageBarang()
+    CREATE PROCEDURE DaftarKasir()
     BEGIN
         SELECT 
-            tb_barang.id_barang, 
-            tb_kategori.nama_kategori AS 'nama_kategori', 
-            tb_barang.nama_barang, 
-            tb_barang.merk, 
-            tb_barang.stok, 
-            tb_barang.harga_beli, 
-            tb_barang.harga_jual, 
-            tb_barang.kedaluwarsa 
-        FROM tb_barang 
-        INNER JOIN tb_kategori USING(id_kategori);
+            CONCAT(tb_profil.nama_depan, ' ', tb_profil.nama_belakang) AS nama_kasir,
+            tb_profil.alamat,
+            tb_profil.tgl_lahir,	
+            tb_profil.email,
+            tb_profil.no_telepon
+        FROM tb_profil
+        UNION
+        SELECT
+            CONCAT(tb_admin.nama_depan, ' ', tb_admin.nama_belakang) AS nama_kasir,
+            tb_admin.alamat,
+            tb_admin.tgl_lahir,	
+            tb_admin.email,
+            tb_admin.no_telepon
+        FROM tb_admin; 
     END $$
 DELIMITER ;
 
-# View yang digunakan untuk konfirmasi sebuah username dengan tanggal lahir
-CREATE VIEW Validasi_Password AS
-	SELECT tb_user.username,tb_profil.no_telepon,tb_user.password FROM tb_user
-    INNER JOIN tb_profil ON tb_user.id_profil = tb_profil.id_profil;
+CREATE VIEW validasi_lupa_password AS
+SELECT tb_user.username, tb_profil.no_telepon, tb_profil.email
+FROM tb_user
+INNER JOIN tb_profil 
+ON tb_user.id = tb_profil.id_profil;
 
-#DROP VIEW Validasi_Password; 
--- SELECT * FROM Validasi_Password WHERE Validasi_Password.username = '082147379372';
+-- SELECT * FROM validasi_lupa_password WHERE username = 'suarno';
