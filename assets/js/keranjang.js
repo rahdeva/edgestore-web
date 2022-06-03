@@ -1,7 +1,28 @@
+const keranjangList = [];
+
 function addKeranjang(id){
     const keranjang = document.getElementById("containerKasir");
-    console.log(id);
 
+    let flagFound = 0;
+
+    for (let i = 0; i < keranjangList.length; i++){
+        if(keranjangList[i] == id)
+            flagFound = 1;
+    }
+
+    if(flagFound == 0)
+        keranjangList.push(id);
+
+    for (let i = 0; i < keranjangList.length; i++)
+        console.log(keranjangList[i]);
+
+    let allId = " ";
+    for (let i = 0; i < keranjangList.length; i++)
+        allId = allId + keranjangList[i] + ",";
+    
+    console.log(allId);
+
+    console.log(keranjangList.length)
     var xhr2 = new XMLHttpRequest();
         
     // cek kesiapan ajax
@@ -12,6 +33,6 @@ function addKeranjang(id){
     }
         
     // eksekusi ajax
-    xhr2.open('GET', 'ajax/tambahKeranjang.php?item=' + id, true);
+    xhr2.open('GET', 'ajax/tambahKeranjang.php?items=' + allId + '&length=' + keranjangList.length, true);
     xhr2.send();
 }
