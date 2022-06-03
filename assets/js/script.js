@@ -28,3 +28,13 @@ function highlightPage(){
 }
 
 // HIGHLIGHT PAGE //
+
+// KASIR PAGE //
+
+function changeTotal(id, price){
+    const selected = document.getElementById(id);
+    let totalId = "total" + id;
+    const totalDiv = document.getElementById(totalId);
+    let total = selected.value * price;
+    totalDiv.innerHTML = total;
+}
