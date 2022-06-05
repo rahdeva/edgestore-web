@@ -41,7 +41,7 @@ $barang = query($query);
         <td><?= $row["merk"]; ?></td>
         <td><?= $row["harga_jual"] + 0; ?></td>
         <td class="tambah-item">
-            <button onclick="addKeranjang(<?= $row['id_barang']; ?>);">
+            <button onclick="addKeranjang(<?= $row['id_barang']; ?>, 1);">
                 <i class="bi bi-cart-plus bg-green-500 p-2 text-white rounded-md font-bold"></i>
             </button>
         </td>

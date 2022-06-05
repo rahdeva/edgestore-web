@@ -37,4 +37,56 @@ function changeTotal(id, price){
     const totalDiv = document.getElementById(totalId);
     let total = selected.value * price;
     totalDiv.innerHTML = total;
+    sumAllTotal();
+}
+
+function sumAllTotal(){
+    const allTotal = document.getElementsByClassName("total-per-barang");
+    let temp, result = 0;
+    for(let i = 0; i < allTotal.length; i++){
+        temp = parseInt(allTotal[i].innerHTML);
+        // alert(allTotal[i].innerHTML);
+        result = result + temp;
+    }
+    document.getElementById("total-belanja").value = result;
+    hitungKembalian();
+    // alert(result);
+}
+
+function hitungKembalian(){
+    const nominalBayar = document.getElementById("bayar").value;
+    const totalBelanja = document.getElementById("total-belanja").value;
+    const kembalianDiv = document.getElementById("kembali");
+    
+    let result;
+    result = nominalBayar - totalBelanja;
+    // alert(result);
+    if(result < 0)
+        kembalianDiv.classList.add("uang-kurang");
+    else if(result >= 0)
+        kembalianDiv.classList.remove("uang-kurang");
+    kembalianDiv.value = result;
+
+    if(result < 0)
+        enableDisableBayarButton(1);
+    else if(totalBelanja == 0)
+        enableDisableBayarButton(1);
+    else
+        enableDisableBayarButton(2);
+}
+
+function resetTotalBayarKembalian(){
+    document.getElementById("bayar").value = 0;
+    document.getElementById("total-belanja").value = 0;
+    document.getElementById("kembali").value = 0;
+    document.getElementById("kembali").classList.remove("uang-kurang");
+    hitungKembalian();
+}
+
+function enableDisableBayarButton(flag){
+    const bayarButton = document.getElementById("submit-pembayaran");
+    if(flag == 1)
+        bayarButton.classList.add("hidden");
+    else
+        bayarButton.classList.remove("hidden");
 }
