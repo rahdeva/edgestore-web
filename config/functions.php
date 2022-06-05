@@ -406,6 +406,7 @@ function laporanBulanan($data) {
 	$defaultQuery = "
 		SELECT tb_transaksi.id_barang, 
 			tb_barang.nama_barang, 
+			tb_barang.merk, 
 			tb_transaksi.jumlah, 
 			tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
 			tb_barang.harga_jual * tb_transaksi.jumlah AS 'total', 
@@ -421,7 +422,7 @@ function laporanBulanan($data) {
 		"
 	);
 
-	return query($laporanBulan);
+	return $laporanBulan;
 }
 
 function laporanTanggal($data) {
@@ -431,6 +432,7 @@ function laporanTanggal($data) {
 	$defaultQuery = "
 		SELECT tb_transaksi.id_barang, 
 			tb_barang.nama_barang, 
+			tb_barang.merk, 
 			tb_transaksi.jumlah, 
 			tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
 			tb_barang.harga_jual * tb_transaksi.jumlah AS 'total', 
@@ -446,7 +448,7 @@ function laporanTanggal($data) {
 		"
 	);
 
-	return query($laporanTanggal);
+	return $laporanTanggal;
 }
 
 

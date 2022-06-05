@@ -58,7 +58,7 @@
         <th>Merk</th>
         <th>Jumlah</th>
         <th>Total</th>
-        <th>Hapus</th>
+        <th>Aksi</th>
     </tr>
     <?php $no = 1; ?>
     <?php foreach( $addKeranjang as $row ) : ?>
