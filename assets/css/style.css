@@ -80,3 +80,15 @@
 }
 
 /* CALENDAR IN DASHBOARD */
+
+.pointer {
+    cursor: pointer;
+}
+
+.uang-kurang {
+    color: red;
+}
+
+.hidden {
+    display: none;
+}

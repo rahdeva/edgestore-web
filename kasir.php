@@ -49,7 +49,7 @@ $date = date('j F Y');
                     <div class="flex w-full bg-white-200 flex-col m-4 p-4 rounded-2xl border-4 border-indigo-400">
                         <div class="flex mt-2 mb-4">
                             <h1 class="grow text-2xl text-slate-700 font-bold "><i class="bi bi-cart-fill"></i> Kasir</h1>
-                            <button type="submit" name="submit" class="float-right py-2 px-4 bg-red-400 rounded-2xl text-white font-bold">RESET KERANJANG</button>
+                            <!-- <button type="submit" name="submit" class="float-right py-2 px-4 bg-blue-400 rounded-2xl text-white font-bold" id="konfirmasi-pembayaran">KONFIRMASI PEMBAYARAN</button> -->
                         </div>
                         <table>
                             <tr>
@@ -61,27 +61,30 @@ $date = date('j F Y');
                         <div id="containerKasir">
                             <h1 class="text-center w-full mt-2">Anda belum menambahkan barang apapun.</h1>
                         </div>
-                        <form action="" method="post">
+                        <!-- <form action="" method="post">
                             <hr class="my-4 w-full", size="3", color=black>  
                             <label for="total" class="mr-4">Total Semua</label>
-                            <input disabled class="w-1/3 px-3 py-2 rounded-lg border-slate-800 border-2 mr-4"  type="text" id="total" name="total" value="">
+                            <input disabled class="w-1/3 px-3 py-2 rounded-lg border-slate-800 border-2 mr-4"  type="text" name="total" value="0" id="total-belanja">
 
                             <label for="bayar" class="mr-4">Bayar</label>
-                            <input class="w-1/3 px-3 py-2 rounded-lg border-slate-800 border-2"  type="number" id="bayar" name="bayar" value=""><br>
-                            
+                            <input class="w-1/3 px-3 py-2 rounded-lg border-slate-800 border-2"  type="number" id="bayar" name="bayar" value="0" oninput="hitungKembalian();">
+
                             <hr class="my-4 w-full" size="3" color=black>  
-                            
+
                             <label for="kembali" class="mt-4 mr-12">Kembali</label>
-                            <input disabled class="w-1/3 px-3 py-2 rounded-lg border-slate-800 border-2"  type="text" id="kembali" name="kembali" value="">
+                            <input disabled class="w-1/3 px-3 py-2 rounded-lg border-slate-800 border-2"  type="number" id="kembali" name="kembali" value="0">
 
                             <button type="submit" name="submit" class="float-right py-2 px-4 mt-4 bg-indigo-400 rounded-2xl text-white"><i class="bi bi-pencil-square"></i> Bayar</button>
-                        </form>
+                        </form> -->
+                        <div id="coba" hidden>HALO</div>
                     </div>
                 </div>
             </div>
+            <!-- <p id="coba">HALO</p> -->
         </div>
         <script src="assets/js/search.js"></script>
         <script src="assets/js/keranjang.js"></script>
+        <script src="assets/js/transaksi.js"></script>
         <?php include 'footer.php'; ?>
     </body>
 </html>
