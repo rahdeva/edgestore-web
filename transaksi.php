@@ -81,7 +81,7 @@
                                         <td class="p-4">
                                             <select name="tahun" id="tahun" class="border-2 border-slate-600 p-2 rounded-lg">
                                                 <option value="" selected disabled hidden>Pilih Tahun</option>
-                                                <option value="2020">2020</option>
+                                                <option value="2020" selected="selected">2020</option>
                                                 <option value="2021">2021</option>
                                                 <option value="2022">2022</option>
                                                 <option value="2023">2023</option>
@@ -91,7 +91,7 @@
                                         <td class="p-4">
                                             <select name="bulan" id="bulan" class="border-2 border-slate-600 p-2 rounded-lg">
                                                 <option value="" selected disabled hidden>Pilih Bulan</option>
-                                                <option value="01">Januari</option>
+                                                <option value="01" selected="selected">Januari</option>
                                                 <option value="02">Februari</option>
                                                 <option value="03">Maret</option>
                                                 <option value="04">April</option>
@@ -130,7 +130,7 @@
                                         <td class="p-4">
                                             <select name="tahun" id="tahun" class="border-2 border-slate-600 p-2 rounded-lg">
                                                 <option value="" selected disabled hidden>Pilih Tahun</option>
-                                                <option value="2020">2020</option>
+                                                <option value="2020" selected="selected">2020</option>
                                                 <option value="2021">2021</option>
                                                 <option value="2022">2022</option>
                                                 <option value="2023">2023</option>
@@ -140,7 +140,7 @@
                                         <td class="p-4">
                                             <select name="bulan" id="bulan" class="border-2 border-slate-600 p-2 rounded-lg">
                                                 <option value="" selected disabled hidden>Pilih Bulan</option>
-                                                <option value="01">Januari</option>
+                                                <option value="01" selected="selected">Januari</option>
                                                 <option value="02">Februari</option>
                                                 <option value="03">Maret</option>
                                                 <option value="04">April</option>
@@ -157,7 +157,8 @@
                                         <td class="p-4">
                                             <select name="tanggal" id="tanggal" class="border-2 border-slate-600 p-2 rounded-lg">
                                                 <option value="" selected disabled hidden>Pilih Tanggal</option>
-                                                <?php for($i = 1; $i < 32; $i++){?>
+                                                <option value="1" selected="selected">1</option>
+                                                <?php for($i = 2; $i < 32; $i++){?>
                                                     <option value="<?= $i; ?>"><?= $i; ?></option>
                                                 <?php } ?>
                                             </select>
