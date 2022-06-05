@@ -8,40 +8,59 @@
 
     require 'config/functions.php';
 
-    $transaksi = query("
+    $queryTransaksi = "
         SELECT tb_transaksi.id_barang, 
             tb_barang.nama_barang, 
+            tb_barang.merk, 
             tb_transaksi.jumlah, 
             tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
             tb_barang.harga_jual * tb_transaksi.jumlah AS 'total', 
             tb_transaksi.kasir, 
             tb_transaksi.waktu_input
         FROM tb_transaksi 
-        INNER JOIN tb_barang USING(id_barang);     
-    ");
+        INNER JOIN tb_barang USING(id_barang)     
+    ";
 
-    $total = query("
+    $transaksi = query("$queryTransaksi");
+
+    $queryTotal = "
         SELECT 
             SUM(jumlah) AS total_jumlah,
             SUM(modal) AS total_modal, 
             SUM(total) AS total_total
-        FROM (
-            SELECT tb_transaksi.jumlah, 
-                tb_barang.harga_beli * tb_transaksi.jumlah AS 'modal', 
-                tb_barang.harga_jual * tb_transaksi.jumlah AS 'total' 
-            FROM tb_transaksi 
-            INNER JOIN tb_barang USING(id_barang)
-        ) as tb_transaksibarang;
-    ");
+        FROM ($queryTransaksi) as tb_transaksibarang;
+    ";
+
+    $total = query($queryTotal);
 
     $keuntungan = $total[0]["total_total"] - $total[0]["total_modal"];
 
     if(isset($_POST["laporBulanan"])){
-        $transaksi = laporanBulanan($_POST);
+        $queryTransaksi = laporanBulanan($_POST);
+        $transaksi = query("$queryTransaksi");
+        $queryTotal = "
+            SELECT 
+                SUM(jumlah) AS total_jumlah,
+                SUM(modal) AS total_modal, 
+                SUM(total) AS total_total
+            FROM ($queryTransaksi) as tb_transaksibarang;
+        ";
+        $total = query($queryTotal);
+        $keuntungan = $total[0]["total_total"] - $total[0]["total_modal"];
     }
 
     if(isset($_POST["laporTanggal"])){
-        $transaksi = laporanTanggal($_POST);
+        $queryTransaksi = laporanTanggal($_POST);
+        $transaksi = query("$queryTransaksi");
+        $queryTotal = "
+            SELECT 
+                SUM(jumlah) AS total_jumlah,
+                SUM(modal) AS total_modal, 
+                SUM(total) AS total_total
+            FROM ($queryTransaksi) as tb_transaksibarang;
+        ";
+        $total = query($queryTotal);
+        $keuntungan = $total[0]["total_total"] - $total[0]["total_modal"];
     }
 ?>
 
@@ -79,9 +98,9 @@
                                 <tr>
                                     <form action="" method="post">
                                         <td class="p-4">
-                                            <select name="tahun" id="tahun" class="border-2 border-slate-600 p-2 rounded-lg">
+                                            <select name="tahun" id="tahun" class="border-2 border-slate-600 p-2 rounded-lg" required>
                                                 <option value="" selected disabled hidden>Pilih Tahun</option>
-                                                <option value="2020" selected="selected">2020</option>
+                                                <option value="2020">2020</option>
                                                 <option value="2021">2021</option>
                                                 <option value="2022">2022</option>
                                                 <option value="2023">2023</option>
@@ -89,9 +108,9 @@
                                             </select>
                                         </td>
                                         <td class="p-4">
-                                            <select name="bulan" id="bulan" class="border-2 border-slate-600 p-2 rounded-lg">
+                                            <select name="bulan" id="bulan" class="border-2 border-slate-600 p-2 rounded-lg" required>
                                                 <option value="" selected disabled hidden>Pilih Bulan</option>
-                                                <option value="01" selected="selected">Januari</option>
+                                                <option value="01">Januari</option>
                                                 <option value="02">Februari</option>
                                                 <option value="03">Maret</option>
                                                 <option value="04">April</option>
@@ -128,9 +147,9 @@
                                 <tr>
                                     <form action="" method="post">
                                         <td class="p-4">
-                                            <select name="tahun" id="tahun" class="border-2 border-slate-600 p-2 rounded-lg">
+                                            <select name="tahun" id="tahun" class="border-2 border-slate-600 p-2 rounded-lg" required>
                                                 <option value="" selected disabled hidden>Pilih Tahun</option>
-                                                <option value="2020" selected="selected">2020</option>
+                                                <option value="2020">2020</option>
                                                 <option value="2021">2021</option>
                                                 <option value="2022">2022</option>
                                                 <option value="2023">2023</option>
@@ -138,9 +157,9 @@
                                             </select>
                                         </td>
                                         <td class="p-4">
-                                            <select name="bulan" id="bulan" class="border-2 border-slate-600 p-2 rounded-lg">
+                                            <select name="bulan" id="bulan" class="border-2 border-slate-600 p-2 rounded-lg" required>
                                                 <option value="" selected disabled hidden>Pilih Bulan</option>
-                                                <option value="01" selected="selected">Januari</option>
+                                                <option value="01">Januari</option>
                                                 <option value="02">Februari</option>
                                                 <option value="03">Maret</option>
                                                 <option value="04">April</option>
@@ -155,9 +174,9 @@
                                             </select>
                                         </td>
                                         <td class="p-4">
-                                            <select name="tanggal" id="tanggal" class="border-2 border-slate-600 p-2 rounded-lg">
+                                            <select name="tanggal" id="tanggal" class="border-2 border-slate-600 p-2 rounded-lg" required>
                                                 <option value="" selected disabled hidden>Pilih Tanggal</option>
-                                                <option value="1" selected="selected">1</option>
+                                                <option value="1">1</option>
                                                 <?php for($i = 2; $i < 32; $i++){?>
                                                     <option value="<?= $i; ?>"><?= $i; ?></option>
                                                 <?php } ?>
@@ -185,6 +204,7 @@
                                 <th class="py-4">No</th>
                                 <th class="py-4">ID Barang</th>
                                 <th class="py-4">Nama Barang</th>
+                                <th class="py-4">Merk</th>
                                 <th class="py-4">Jumlah</th>
                                 <th class="py-4">Modal</th>
                                 <th class="py-4">Total</th>
@@ -199,6 +219,7 @@
                                     <td class="px-2 py-4"><?= $i?></td>
                                     <td class="px-2 py-4"><?= $row["id_barang"]; ?></td>
                                     <td class="px-2 py-4"><?= $row["nama_barang"]; ?></td>
+                                    <td class="px-2 py-4"><?= $row["merk"]; ?></td>
                                     <td class="px-2 py-4"><?= $row["jumlah"]; ?></td>
                                     <td class="px-2 py-4"><?= $row["modal"] + 0; ?></td>
                                     <td class="px-2 py-4"><?= $row["total"] + 0; ?></td>
@@ -208,7 +229,7 @@
                             <?php $i++; ?>
                             <?php endforeach; ?>
                             <tr class="font-bold">
-                                <td colspan="3">Total Terjual</td>
+                                <td colspan="4">Total Terjual</td>
                                 <td class="px-2 py-4"><?= $total[0]["total_jumlah"] + 0; ?></td>
                                 <td class="px-2 py-4"><?= $total[0]["total_modal"] + 0; ?></td>
                                 <td class="px-2 py-4"><?= $total[0]["total_total"] + 0; ?></td>

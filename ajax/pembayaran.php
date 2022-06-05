@@ -42,7 +42,7 @@
         }
     }
 
-    $transkasi_query = "
+    $transaksi_query = "
     INSERT INTO tb_transaksi(id_barang, jumlah, total, kasir) VALUES ";
 
     $value_each_row = "";
@@ -53,9 +53,37 @@
             $value_each_row .= ",";
     }
 
-    $transkasi_query .= $value_each_row;
+    $transaksi_query .= $value_each_row;
 
-    mysqli_query($connect, $transkasi_query);
+    mysqli_query($connect, $transaksi_query);
+
+    // echo " 
+    //         <script>
+    //             console.log(0);
+    //             alert('Transaksi berhasil dilakukan!');
+    //             document.location.href = '../transaksi.php';
+    //         </script>
+    //     ";
+
+    // var_dump(mysqli_affected_rows($connect));
+
+    // if( mysqli_affected_rows($connect) > 0 ){
+    //     alert("tambah", true, 'barang.php');
+    //     echo "
+    //         <script>
+    //             alert('Transaksi berhasil dilakukan!');
+    //             document.location.href = '../transaksi.php';
+    //         </script>
+    //     ";
+    // }
+    // else{
+    //     echo "
+    //         <script>
+    //             alert('Transaksi gagal!');
+    //             document.location.href = '../transaksi.php';
+    //         </script>
+    //     ";
+    // }
 
 ?>
 
