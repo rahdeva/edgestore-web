@@ -1,4 +1,4 @@
-# edgestore-web
+# Edgestore Web
 Database Practicum Final Project
   
 # Tech Stack:
