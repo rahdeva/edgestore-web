@@ -1,5 +1,5 @@
 # edgestore-web
-Project Akhir Praktikum Basis Data
+Database Practicum Final Project
   
 # Tech Stack:
 Frontend:  
